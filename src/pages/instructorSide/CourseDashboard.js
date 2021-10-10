@@ -1,5 +1,5 @@
-import { Box, Card, CardContent, CardHeader, CardMedia, Container, Grid, IconButton, makeStyles, Typography } from '@material-ui/core'
-import { mergeClasses, ThemeProvider } from '@material-ui/styles'
+import { Box, Card, CardContent, CardHeader, Container, Grid, IconButton, makeStyles, Typography } from '@material-ui/core'
+import { ThemeProvider } from '@material-ui/styles'
 import React from 'react'
 import { createTheme, responsiveFontSizes } from '@material-ui/core/styles';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
@@ -18,7 +18,7 @@ const useStyles = makeStyles({
   
 })
 
-export default function Dashboard() {
+export default function CourseDashboard() {
     const classes = useStyles();
     let theme = createTheme();
     theme = responsiveFontSizes(theme);
@@ -32,18 +32,18 @@ export default function Dashboard() {
             </Typography>
              <Typography  component="h6" variant="body1" >
                 <Box color="text.secondary">
-                Here you can check your dash board
+                Course Content:
                 </Box>
             </Typography>
             </ThemeProvider>
-            <Container className={classes.card}>
+            <div className={classes.card}>
             <Grid container spacing={1} >
                 <Grid item xs={12} md={6} lg={4} key={1}>
                 <div>
                     <Card elevation={1} className={classes.cardbody}
                     >
                         <CardHeader
-                            title="COURSES"
+                            title="LECUTURES UPLOADED"
                             action={
                                 <IconButton>
                                 <MenuBookIcon/>
@@ -81,7 +81,7 @@ export default function Dashboard() {
                 <div>
                     <Card elevation={1} className={classes.cardbody}>
                         <CardHeader
-                            title="FINISHED CLASSES"
+                            title="COURSE PROGRESS"
                             action={
                                 <IconButton>
                                     <DoneAllIcon/>
@@ -97,7 +97,8 @@ export default function Dashboard() {
                 </div>
                 </Grid>
             </Grid>
-            </Container>
+            </div>
         </div>
     )
 }
+

@@ -1,7 +1,10 @@
-import { Box, Button, Card, CardContent, CardHeader, Container, createTheme, FormControl, Grid, InputLabel, makeStyles, NativeSelect, responsiveFontSizes, TextField, Typography } from '@material-ui/core'
+import { Box, Button, Card, CardContent, CardHeader, createTheme, FormControl, Grid, IconButton, InputLabel, makeStyles, NativeSelect, responsiveFontSizes, TextField, Typography } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/styles'
 import React, {useState} from 'react'
 import SendIcon from '@material-ui/icons/Send';
+import BackupOutlinedIcon from '@material-ui/icons/BackupOutlined';
+import { DataGrid } from '@material-ui/data-grid';
+import EditIcon from '@material-ui/icons/Edit';
 
 const useStyles = makeStyles((theme) => ({
     card:{
@@ -39,41 +42,73 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 
-export default function CreateCourse() {
-    const [courseName, setCourseName] = useState('');
-    const [nameError, setNameError] = useState(false);
-    const [CourseDescription, setCourseDescription] = useState('');
-    const [CourseDescriptionError, setCourseDescriptionError] = useState(false);
-    const [courseType, setCourseType] = React.useState({
-        type: ''
-      });
-      const [courseMajor, setCourseMajor] = React.useState({
-        major: ''
-      });
+const columns = [
+    {
+      field: 'Name',
+      headerName: 'Name',
+      width: 150,
+      editable: true,
+    },
+    {
+      field: 'Description',
+      headerName: 'Description',
+      width: 150,
+      editable: true,
+    },
+    {
+      field: 'Content',
+      headerName: 'Content',
+      width: 110,
+      editable: true,
+    },
+    {
+      field: 'Edit',
+      headerName: 'Edit',
+      width: 150,
+      editable: true,
+    },
+    {
+      field: 'Remove',
+      headerName: 'Remove',
+      width: 150,
+      editable: true,
+    },
+  ];
+  
+  const editIcon = (
+    <IconButton >
+      <EditIcon color="primary" />
+    </IconButton>
+  );
 
-    const handleChange = (e) => {
-        const name = e.target.name;
-        setCourseType({
-          ...courseType,
-          [name]: e.target.value,
-        });
-    };
+  const rows = [
+    { id: 1, Name: 'Snow', Description: 'Jon', Content: 35, Edit: {editIcon} },
+    { id: 2, Name: 'Lannister', Description: 'Cersei', Content: 42 },
+    { id: 3, Name: 'Lannister', Description: 'Jaime', Content: 45 },
+    { id: 4, Name: 'Stark', Description: 'Arya', Content: 16 },
+    { id: 5, Name: 'Targaryen', Description: 'Daenerys', Content: null },
+    { id: 6, Name: 'Melisandre', Description: null, Content: 150 },
+    { id: 7, Name: 'Clifford', Description: 'Ferrara', Content: 44 },
+    { id: 8, Name: 'Frances', Description: 'Rossini', Content: 36 },
+    { id: 9, Name: 'Roxie', Description: 'Harvey', Content: 65 },
+  ];
+  
 
-    const handleMajorChange = (e) => {
-        const name = e.target.name;
-        setCourseMajor({
-          ...courseMajor,
-          [name]: e.target.value,
-        });
-        };
+export default function UploadMaterial() {
+    const [chapterName,setChapterName] = useState('');
+    const [chapterDescription,setChapterDescription] = useState('');
+    const [nameError,setNameError] = useState(false);
+    const [chapterDescriptionError,setChapterDescriptionError] = useState(false);
+    const [rows2,setrow2] = useState(null);
     
-        const handleSubmit = () =>{
-            console.log(3);
-        }
-
     const classes = useStyles();
     let theme = createTheme();
     theme = responsiveFontSizes(theme);
+
+    const handleSubmit = () =>{
+        console.log(3);
+    }
+
     return (
         <div>
             <ThemeProvider theme={theme}>
@@ -84,38 +119,37 @@ export default function CreateCourse() {
             </Typography>
              <Typography  component="h6" variant="body1" >
                 <Box color="text.secondary">
-                Here you can Create a new class:
+                Upload Materials:
                 </Box>
             </Typography>
             </ThemeProvider>
-
-            <Container className={classes.card}>
+            <div className={classes.card}>
             <Grid container spacing={1} >
                 <Grid item xs={12} md={12} lg={12} key={1}>
                 <div>
                     <Card elevation={1} className={classes.cardbody}
                     >
                         <CardHeader
-                            title="Add Course info:"
+                            title="Add Chapter info:"
                             className={classes.cardHeader}
                         />
                         <CardContent>
 
                         <Grid container spacing={3}>
                             <Grid item xs={12} md={5} lg={3} key={2}>
-                                <InputLabel className={classes.label}>Course name:</InputLabel>
+                                <InputLabel className={classes.label}>Chapter name:</InputLabel>
                             </Grid>
                             <Grid item xs={12} md={6} lg={4} key={3}>
                                 <TextField
-                                    onChange={(e) => setCourseName(e.target.value)}
+                                    onChange={(e) => setChapterName(e.target.value)}
                                     className={classes.field}
-                                    label="Course Name"
+                                    label="Name"
                                     variant="outlined"
                                     color="primary"
                                     fullWidth
                                     required
                                     error={nameError}
-                                    placeholder="Machine learning"
+                                    placeholder="Chapter 1"
                                 />
                             </Grid>
                             <Grid item xs={12} md={1} lg={5} key={4}>
@@ -124,69 +158,44 @@ export default function CreateCourse() {
 
                         <Grid container spacing={3}>
                             <Grid item xs={12} md={5} lg={3} key={2}>
-                                <InputLabel  className={classes.label}>Course Description:</InputLabel>
+                                <InputLabel  className={classes.label}>Chapter Description:</InputLabel>
                             </Grid>
                             <Grid item xs={12} md={6} lg={4} key={3}>
                                 <TextField
-                                    onChange={(e) => setCourseDescription(e.target.value)}
+                                    onChange={(e) => setChapterDescription(e.target.value)}
                                     className={classes.field}
                                     label="Description"
                                     variant="outlined"
                                     color="primary"
                                     fullWidth
                                     required
-                                    error={CourseDescriptionError}
+                                    error={chapterDescriptionError}
                                     placeholder="Description"
                                 />
                             </Grid>
                             <Grid item xs={12} md={1} lg={5} key={4}>
                             </Grid>
                         </Grid>
+   
 
                         <Grid container spacing={3}>
                             <Grid item xs={12} md={5} lg={3} key={2}>
-                                <InputLabel>Course type:</InputLabel>
+                                <InputLabel>Upload File:</InputLabel>
                             </Grid>
                             <Grid item xs={12} md={6} lg={4} key={3}>
                                 <FormControl className={classes.formControl}>
-                                    <NativeSelect
-                                    value={courseType.type}
-                                    onChange={handleChange}
-                                    inputProps={{
-                                        name: 'type',
-                                        id: 'age-native-label-placeholder',
-                                    }}
+                                <Button
+                                    variant="contained"
+                                    component="label"
+                                    color="secondary" 
+                                    endIcon={<BackupOutlinedIcon/>}
                                     >
-                                    <option aria-label="qwe" value="" />
-                                    <option value={10}>Ten</option>
-                                    <option value={20}>Twenty</option>
-                                    <option value={30}>Thirty</option>
-                                    </NativeSelect>
-                                </FormControl>
-                            </Grid>
-                            <Grid item xs={12} md={1} lg={5} key={4}>
-                            </Grid>
-                        </Grid>
-
-                        <Grid container spacing={3}>
-                            <Grid item xs={12} md={5} lg={3} key={2}>
-                                <InputLabel>Course Major:</InputLabel>
-                            </Grid>
-                            <Grid item xs={12} md={6} lg={4} key={3}>
-                                <FormControl className={classes.formControl}>
-                                    <NativeSelect
-                                    value={courseMajor.major}
-                                    onChange={handleMajorChange}
-                                    inputProps={{
-                                        name: 'major',
-                                        id: 'type-native-helper',
-                                    }}
-                                    >
-                                    <option aria-label="qwee" value="" />
-                                    <option value={10}>Ten</option>
-                                    <option value={20}>Twenty</option>
-                                    <option value={30}>Thirty</option>
-                                    </NativeSelect>
+                                    Upload File
+                                    <input
+                                        type="file"
+                                        hidden
+                                    />
+                                </Button>
                                 </FormControl>
                             </Grid>
                             <Grid item xs={12} md={1} lg={5} key={4}>
@@ -195,12 +204,11 @@ export default function CreateCourse() {
 
                         <div className={classes.btn}>
                         <Button
-                            
                             color="secondary" 
                             variant="contained"
                             onClick={handleSubmit}
                             endIcon={<SendIcon />}>
-                            Create Course
+                            Add Chapter
                         </Button>
                         </div>
                         
@@ -209,7 +217,26 @@ export default function CreateCourse() {
                 </div>
                 </Grid>
             </Grid>
-            </Container>
+            </div>
+
+            {rows && <div className={classes.card}>
+                <Grid container spacing={1} >
+                    <Grid item xs={12} md={12} lg={12} key={1}>
+                    <div style={{ height: 400, width: '100%', backgroundColor:'#f8f9fc' }}>
+                        <DataGrid
+                            rows={rows}
+                            columns={columns}
+                            pContentSize={5}
+                            checkboxSelection
+                            disableSelectionOnClick
+                        />
+                    </div>
+                    </Grid>
+                </Grid>
+            </div>}
+
+
         </div>
     )
 }
+

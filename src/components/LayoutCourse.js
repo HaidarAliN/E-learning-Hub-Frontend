@@ -1,48 +1,41 @@
-import React, {useState} from 'react'
+import React from 'react'
 import Drawer from '@material-ui/core/Drawer'
 import Typography from '@material-ui/core/Typography'
 import { useHistory, useLocation } from 'react-router-dom'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
-import { AddCircleOutlineOutlined, SubjectOutlined } from '@material-ui/icons'
-import PropTypes from 'prop-types';
+import { ExpandLess, ExpandMore, StarBorder } from '@material-ui/icons'
 import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import { makeStyles, useTheme, alpha } from '@material-ui/core/styles';
-import MoodOutlinedIcon from '@material-ui/icons/MoodOutlined';
-import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import { Collapse } from '@material-ui/core'
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import SettingsIcon from '@material-ui/icons/Settings';
+import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
+import DashboardIcon from '@material-ui/icons/Dashboard';
 
 const drawerWidth = 240
 
 const useStyles = makeStyles((theme) => ({
   page: {
-    marginTop:"4%",
+    background: '#f9f9f9',
     width: '100%',
-    [theme.breakpoints.down('lg')]: {
-      marginTop:"6%",
-      },
-    [theme.breakpoints.down('md')]: {
-      marginTop:"10%",
-      },
+    padding: theme.spacing(3),
     [theme.breakpoints.down('xs')]: {
-    marginTop:"20%",
     marginLeft:"-60%"
+
     },
   },
   root: {
@@ -61,6 +54,8 @@ const useStyles = makeStyles((theme) => ({
     background: '#f3f3f33f'
   },
   appBar: {
+    background: '#ffff',
+
     [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
@@ -73,7 +68,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   // necessary for content to be below app bar
-  
   drawerPaper: {
     width: drawerWidth,
     background: '#5a5c69',
@@ -82,15 +76,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
-  // toolbar: {
-  //   display: 'flex',
-  //   align: 'center',
-  //   justifyContent: 'flex-end',
-  //   padding: '0 8px',
-  //   minHeight: '64px',
-  // }
   toolbar: theme.mixins.toolbar,
-
   //app bar
   grow: {
     flexGrow: 1,
@@ -160,9 +146,26 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
+  divider: {
+    // Theme Color, or use css color in quote
+    background: "#eaecf4",
+},
+nested: {
+  paddingLeft: theme.spacing(4),
+  background: '#f9f9f9',
+  borderRadius: 45,
+  marginBottom: "2%",
+  '&:hover': {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
+  },
+},
+toolbar: theme.mixins.toolbar,
+toolbar2: {
+  marginBottom: "2%",
+}
 }));
 
-export default function LayoutCourse({  items, children }, props) {
+export default function Layout2({ children }, props) {
   const history = useHistory()
   const location = useLocation()
   const { window } = props;
@@ -179,23 +182,7 @@ export default function LayoutCourse({  items, children }, props) {
     setMobileOpen(!mobileOpen);
   };
 
-  // const [menuItems, setmMnuItems] = useState({items});
-  // console.log(props.items);
-  const menuItems = [
-    { 
-      text: 'course', 
-      icon: <SubjectOutlined color="secondary" />, 
-      path: '/' 
-    },
-    { 
-      text: 'Create course', 
-      icon: <AddCircleOutlineOutlined color="secondary" />, 
-      path: '/create' 
-    },
-  ];
-
   const container = window !== undefined ? () => window().document.body : undefined;
-
   //appbar 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -263,7 +250,101 @@ export default function LayoutCourse({  items, children }, props) {
     </Menu>
   );
 
+  //list
+  const [openfirst, setOpenFirst] = React.useState(false);
+  const [opensecond, setOpenSecond] = React.useState(false);
+  const handleClickFirst = () => {
+    setOpenFirst(!openfirst);
+  };
+  const handleClickSecond = () => {
+    setOpenSecond(!opensecond);
+  };
 
+  const renderList = (
+    <div>
+      <List>
+        <ListItem 
+          button 
+          key="Dashboard"
+          onClick={() => history.push("/course/Dashboard")}
+          className={location.pathname == "/course/Dashboard" ? classes.active : null}
+        >
+          <ListItemIcon><DashboardIcon color="secondary" /></ListItemIcon>
+          <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Dashboard</Typography>}/>
+        </ListItem>
+      </List>
+      <Divider  variant="middle" />
+      <ListItem 
+        button 
+        onClick={handleClickFirst}
+        className={location.pathname != "/course/Dashboard" ? classes.active : null}
+      >
+        <ListItemIcon>
+          <SettingsIcon  color="secondary"/>
+        </ListItemIcon>
+        <ListItemText 
+          disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Course Content</Typography>} />
+          {openfirst ? <ExpandLess /> : <ExpandMore />}
+        </ListItem>
+      <Collapse in={openfirst} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItem 
+            button 
+            onClick={() => {
+              handleClickFirst();
+              history.push("/course/UploadMaterial");}}
+            className={classes.nested}
+          >
+            <ListItemIcon>
+              <StarBorder/>
+            </ListItemIcon>
+            <ListItemText primary="Upload Materials" />
+          </ListItem>
+
+          <ListItem 
+            button 
+            onClick={() => {
+              handleClickFirst();
+              history.push("/create");}}
+            className={classes.nested}
+          >
+            <ListItemIcon>
+              <StarBorder />
+            </ListItemIcon>
+            <ListItemText primary="Manage Quizzes" />
+          </ListItem>
+
+          <ListItem 
+            button 
+            onClick={() => {
+              handleClickFirst();
+              history.push("/create");}}
+            className={classes.nested}
+          >
+            <ListItemIcon>
+              <StarBorder />
+            </ListItemIcon>
+            <ListItemText primary="Manage Students" />
+          </ListItem>
+
+          <ListItem 
+            button 
+            onClick={() => {
+              handleClickFirst();
+              history.push("/create");}}
+            className={classes.nested}
+          >
+            <ListItemIcon>
+              <StarBorder />
+            </ListItemIcon>
+            <ListItemText primary="Edit Course Info" />
+          </ListItem>
+
+        </List>
+      </Collapse>
+     
+    </div>
+  );
 
   return (
     <div className={classes.root}>
@@ -272,6 +353,7 @@ export default function LayoutCourse({  items, children }, props) {
       <AppBar position="fixed"
       className={classes.appBar}
       color="secondary"
+      elevation={3}
       >
         <Toolbar>
         <IconButton
@@ -283,19 +365,9 @@ export default function LayoutCourse({  items, children }, props) {
           >
             <MenuIcon />
           </IconButton>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
+              <Typography  variant="h6">
+                E-Learning Hub
+              </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="show 17 new notifications" color="inherit">
@@ -331,78 +403,49 @@ export default function LayoutCourse({  items, children }, props) {
       {renderMenu}
     </div>
       {/* side drawer */}
-              <nav className={classes.drawer} aria-label="mailbox folders">
-                {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-                <Hidden smUp implementation="css">
-                  <Drawer
-                    container={container}
-                    variant="temporary"
-                    anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-                    open={mobileOpen}
-                    onClose={handleDrawerToggle}
-                    classes={{
-                      paper: classes.drawerPaper,
-                    }}
-                    ModalProps={{
-                      keepMounted: true, // Better open performance on mobile.
-                    }}
-                  >
+    <nav className={classes.drawer} aria-label="mailbox folders">
+      <Hidden smUp implementation="css">
+        <Drawer
+          container={container}
+          variant="temporary"
+          anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
+        >
+        {renderList}
+        </Drawer>
+      </Hidden>
+      <Hidden xsDown implementation="css">
+        <Drawer
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+          variant="permanent"
+          open
+        >
+          <div className={classes.toolbar}>
+              <Typography className={classes.title} variant="h6">
+                E-Learning Hub
+              </Typography>
+          </div>
+          <Divider  variant="middle" />
+          
+            {renderList}
 
-        
-
-                <List>
-                  {menuItems.map((item) => (
-                    <ListItem 
-                      button 
-                      key={item.text} 
-                      onClick={() => history.push(item.path)}
-                      className={location.pathname == item.path ? classes.active : null}
-                    >
-                      <ListItemIcon>{item.icon}</ListItemIcon>
-                      <ListItemText primary={item.text} 
-                      color="secondary"
-                      />
-                    </ListItem>
-                  ))}
-                </List>
-                </Drawer>
-                </Hidden>
-                <Hidden xsDown implementation="css">
-                  <Drawer
-                    classes={{
-                      paper: classes.drawerPaper,
-                    }}
-                    variant="permanent"
-                    open
-                  >
-        <div className={classes.toolbar}>
-        <Typography className={classes.title} variant="h6">
-            E-Learning Hub
-          </Typography>
-        </div>
-              <Divider />
-                <List>
-                  {menuItems.map((item) => (
-                    <ListItem 
-                      button 
-                      key={item.text} 
-                      onClick={() => history.push(item.path)}
-                      className={location.pathname == item.path ? classes.active : null}
-                    >
-                      <ListItemIcon>{item.icon}</ListItemIcon>
-                      <ListItemText primary={item.text} />
-                    </ListItem>
-                  ))}
-                </List>
-
-                </Drawer>
-                </Hidden>
-              </nav>
-
-      {/* main content */}
-      <div className={classes.page}>
-        { children }
-      </div>
+        </Drawer>
+      </Hidden>
+    </nav>
+    {/* main content */}
+    <div className={classes.page}>
+    <div className={classes.toolbar}></div>
+      { children }
     </div>
+  </div>
   )
 }

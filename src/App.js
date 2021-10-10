@@ -1,9 +1,10 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Notes from './pages/Notes'
-import Create from './pages/Create'
-import Dashboard from './pages/Dashboard'
-import CreatteCourse from './pages/CreateCourse'
-import Test from './pages/Test'
+import Create from './pages/instructorSide/Create'
+import Dashboard from './pages/instructorSide/Dashboard'
+import CreatteCourse from './pages/instructorSide/CreateCourse'
+import CourseDashboard from './pages/instructorSide/CourseDashboard'
+import UploadMaterial from './pages/instructorSide/UploadMaterial'
 import { createTheme, ThemeProvider } from '@material-ui/core'
 import Layout from './components/Layout'
 import LayoutCourse from './components/LayoutCourse'
@@ -68,7 +69,8 @@ function App() {
           <Switch>
           <AppRoute exact path='/' layout={Layout} component={Dashboard} />
           <AppRoute exact path='/create' layout={LayoutCourse} component={Create} />
-          <AppRoute exact path='/create/course' layout={Layout} component={Test} />
+          <AppRoute exact path='/course/Dashboard' layout={LayoutCourse} component={CourseDashboard} />
+          <AppRoute exact path='/course/UploadMaterial' layout={LayoutCourse} component={UploadMaterial} />
           <AppRoute exact path='/onGoing' layout={Layout} component={Notes} />
           <AppRoute exact path='/createCourse' layout={Layout} component={CreatteCourse} />
           </Switch>
