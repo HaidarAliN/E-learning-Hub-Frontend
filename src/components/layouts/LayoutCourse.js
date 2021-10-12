@@ -5,7 +5,6 @@ import { useHistory, useLocation } from 'react-router-dom'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
-import { ExpandLess, ExpandMore, StarBorder } from '@material-ui/icons'
 import AppBar from '@material-ui/core/AppBar';
 import Divider from '@material-ui/core/Divider';
 import Hidden from '@material-ui/core/Hidden';
@@ -20,11 +19,11 @@ import Menu from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import { Collapse } from '@material-ui/core'
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import SettingsIcon from '@material-ui/icons/Settings';
-import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import CloudUploadOutlinedIcon from '@material-ui/icons/CloudUploadOutlined';
+import SchoolOutlinedIcon from '@material-ui/icons/SchoolOutlined';
+import GroupOutlinedIcon from '@material-ui/icons/GroupOutlined';
+import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 
 const drawerWidth = 240
 
@@ -165,7 +164,7 @@ toolbar2: {
 }
 }));
 
-export default function Layout2({ children }, props) {
+export default function Layout2({ children, title }, props) {
   const history = useHistory()
   const location = useLocation()
   const { window } = props;
@@ -181,7 +180,7 @@ export default function Layout2({ children }, props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
+console.log(title);
   const container = window !== undefined ? () => window().document.body : undefined;
   //appbar 
   const handleProfileMenuOpen = (event) => {
@@ -266,81 +265,66 @@ export default function Layout2({ children }, props) {
         <ListItem 
           button 
           key="Dashboard"
-          onClick={() => history.push("/")}
-          className={location.pathname == "/" ? classes.active : null}
+          onClick={() => history.push("/course/Dashboard")}
+          className={location.pathname == "/course/Dashboard" ? classes.active : null}
         >
           <ListItemIcon><DashboardIcon color="secondary" /></ListItemIcon>
           <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Dashboard</Typography>}/>
         </ListItem>
       </List>
       <Divider  variant="middle" />
-      <ListItem 
-        button 
-        onClick={handleClickFirst}
-        className={location.pathname == "/onGoing" ? classes.active : null}
-      >
-        <ListItemIcon>
-          <LibraryBooksIcon  color="secondary"/>
-        </ListItemIcon>
-        <ListItemText 
-          disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>All Courses</Typography>} />
-          {openfirst ? <ExpandLess /> : <ExpandMore />}
+
+      <List>
+        <ListItem 
+          button 
+          key="Dashboard"
+          onClick={() => history.push("/course/UploadMaterial")}
+          className={location.pathname == "/course/UploadMaterial" ? classes.active : null}
+        >
+          <ListItemIcon><CloudUploadOutlinedIcon color="secondary" /></ListItemIcon>
+          <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Upload Material</Typography>}/>
         </ListItem>
-      <Collapse in={openfirst} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItem 
-            button 
-            onClick={() => {
-              handleClickFirst();
-              history.push("/onGoing");}}
-            className={classes.nested}
-          >
-            <ListItemIcon>
-              <StarBorder/>
-            </ListItemIcon>
-            <ListItemText primary="On going Courses" />
-          </ListItem>
-          <ListItem 
-            button 
-            onClick={() => {
-              handleClickFirst();
-              history.push("/create");}}
-            className={classes.nested}
-          >
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
-            <ListItemText primary="Finished Courses" />
-          </ListItem>
-        </List>
-      </Collapse>
+      </List>
       <Divider  variant="middle" />
-      <ListItem button onClick={handleClickSecond}
-        className={location.pathname == "/createCourse" ? classes.active : null}
-      >
-        <ListItemIcon>
-          <SettingsIcon color="secondary"/>
-        </ListItemIcon>
-        <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Utilities</Typography>} />
-        {opensecond ? <ExpandLess /> : <ExpandMore />}
-      </ListItem>
-      <Collapse in={opensecond} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItem 
-            button 
-            onClick={() => {
-              handleClickSecond();
-              history.push("/createCourse");
-            }}
-            className={classes.nested}
-          >
-            <ListItemIcon>
-              <AddCircleOutlineIcon />
-            </ListItemIcon>
-            <ListItemText primary="Create New Course" />
-          </ListItem>
-        </List>
-      </Collapse>
+
+      <List>
+        <ListItem 
+          button 
+          key="Dashboard"
+          onClick={() => history.push("/course/create")}
+          className={location.pathname == "/course/create" ? classes.active : null}
+        >
+          <ListItemIcon><SchoolOutlinedIcon color="secondary" /></ListItemIcon>
+          <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Manage Quizzes</Typography>}/>
+        </ListItem>
+      </List>
+      <Divider  variant="middle" />
+
+      <List>
+        <ListItem 
+          button 
+          key="Dashboard"
+          onClick={() => history.push("/course/create")}
+          className={location.pathname == "/course/create" ? classes.active : null}
+        >
+          <ListItemIcon><GroupOutlinedIcon color="secondary" /></ListItemIcon>
+          <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Manage Students</Typography>}/>
+        </ListItem>
+      </List>
+      <Divider  variant="middle" />
+
+      <List>
+        <ListItem 
+          button 
+          key="Dashboard"
+          onClick={() => history.push("/course/EditInfo")}
+          className={location.pathname == "/course/EditInfo" ? classes.active : null}
+        >
+          <ListItemIcon><LibraryBooksIcon color="secondary" /></ListItemIcon>
+          <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Edit Course Info</Typography>}/>
+        </ListItem>
+      </List>
+      <Divider  variant="middle" />
     </div>
   );
 
@@ -364,7 +348,7 @@ export default function Layout2({ children }, props) {
             <MenuIcon />
           </IconButton>
               <Typography  variant="h6">
-                E-Learning Hub
+              Welcom Haidar Ali
               </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>

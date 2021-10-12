@@ -1,8 +1,11 @@
-import { Box, Button, Card, CardContent, CardHeader, Container, createTheme, FormControl, Grid, InputLabel, makeStyles, NativeSelect, responsiveFontSizes, TextField, Typography } from '@material-ui/core'
+import { Box, Button, Card, CardContent, CardHeader, createTheme, FormControl, Grid,  IconButton,  InputLabel, makeStyles, NativeSelect, responsiveFontSizes, TextField, Typography } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/styles'
 import React, {useState} from 'react'
 import SendIcon from '@material-ui/icons/Send';
-import Layout from '../../components/layouts/Layout'
+import BackupOutlinedIcon from '@material-ui/icons/BackupOutlined';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import LayoutCourse from '../../components/layouts/LayoutCourse'
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -33,6 +36,8 @@ const useStyles = makeStyles((theme) => ({
     },
     btn:{
         marginTop: "2%",
+        marginRight:"50%",
+        paddingRight:"10%"
     },
     label:{
         alignItems:"center",
@@ -41,17 +46,21 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 
-export default function CreateCourse() {
-    const [courseName, setCourseName] = useState('');
-    const [nameError, setNameError] = useState(false);
-    const [CourseDescription, setCourseDescription] = useState('');
-    const [CourseDescriptionError, setCourseDescriptionError] = useState(false);
+export default function UploadMaterial() {
+    const [courseName,setCourseName] = useState('');
+    const [courseDescription,setCourseDescription] = useState('');
+    const [nameError,setNameError] = useState(false);
+    const [courseDescriptionError,setCourseDescriptionError] = useState(false);
     const [courseType, setCourseType] = React.useState({
         type: ''
       });
       const [courseMajor, setCourseMajor] = React.useState({
         major: ''
       });
+    
+    const classes = useStyles();
+    let theme = createTheme();
+    theme = responsiveFontSizes(theme);
 
     const handleChange = (e) => {
         const name = e.target.name;
@@ -68,31 +77,18 @@ export default function CreateCourse() {
           [name]: e.target.value,
         });
         };
-    
+
     const handleSubmit = () =>{
         console.log(3);
     }
 
-    const classes = useStyles();
-    let theme = createTheme();
-    theme = responsiveFontSizes(theme);
     return (
-    <Layout title="qwe">
+    <LayoutCourse title="qwe">
 
         <div>
-            <ThemeProvider theme={theme}>
-            <Typography  component="h3"  variant="h4" >
-                <Box color="text.primary">
-                Welcom Haidar Ali
-                </Box>
+            <Typography   component="h2"  variant="h4" >
+                Course info
             </Typography>
-             <Typography  component="h6" variant="body1" >
-                <Box color="text.secondary">
-                Here you can Create a new class:
-                </Box>
-            </Typography>
-            </ThemeProvider>
-
             <div className={classes.card}>
             <Grid container spacing={1} >
                 <Grid item xs={12} md={12} lg={12} key={1}>
@@ -100,8 +96,20 @@ export default function CreateCourse() {
                     <Card elevation={1} className={classes.cardbody}
                     >
                         <CardHeader
-                            title="Add Course info:"
+                            title="Update Course info"
                             className={classes.cardHeader}
+                            action={
+                                <div className={classes.btn}>
+                                <Button
+                                color="secondary" 
+                                variant="contained"
+                                onClick={handleSubmit}
+                                endIcon={<SendIcon />}>
+                                Update
+                            </Button>
+                            </div>
+                              }
+
                         />
                         <CardContent>
 
@@ -113,7 +121,7 @@ export default function CreateCourse() {
                                 <TextField
                                     onChange={(e) => setCourseName(e.target.value)}
                                     className={classes.field}
-                                    label="Course Name"
+                                    label="Name"
                                     variant="outlined"
                                     color="primary"
                                     fullWidth
@@ -139,9 +147,34 @@ export default function CreateCourse() {
                                     color="primary"
                                     fullWidth
                                     required
-                                    error={CourseDescriptionError}
+                                    error={courseDescriptionError}
                                     placeholder="Description"
                                 />
+                            </Grid>
+                            <Grid item xs={12} md={1} lg={5} key={4}>
+                            </Grid>
+                        </Grid>
+   
+
+                        <Grid container spacing={3}>
+                            <Grid item xs={12} md={5} lg={3} key={2}>
+                                <InputLabel>Course progress:</InputLabel>
+                            </Grid>
+                            <Grid item xs={12} md={6} lg={4} key={3}>
+                                <FormControl className={classes.formControl}>
+                                <Button
+                                    variant="contained"
+                                    component="label"
+                                    color="secondary" 
+                                    endIcon={<BackupOutlinedIcon/>}
+                                    >
+                                    Upload File
+                                    <input
+                                        type="file"
+                                        hidden
+                                    />
+                                </Button>
+                                </FormControl>
                             </Grid>
                             <Grid item xs={12} md={1} lg={5} key={4}>
                             </Grid>
@@ -196,26 +229,16 @@ export default function CreateCourse() {
                             <Grid item xs={12} md={1} lg={5} key={4}>
                             </Grid>
                         </Grid>
-
-                        <div className={classes.btn}>
-                        <Button
-                            
-                            color="secondary" 
-                            variant="contained"
-                            onClick={handleSubmit}
-                            endIcon={<SendIcon />}>
-                            Create Course
-                        </Button>
-                        </div>
-                        
                         </CardContent>
                     </Card>
                 </div>
                 </Grid>
             </Grid>
             </div>
+
         </div>
-    </Layout>
+        </LayoutCourse>
 
     )
 }
+

@@ -5,6 +5,8 @@ import Container from '@material-ui/core/Container'
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'
 import { makeStyles, TextField } from '@material-ui/core'
 import validator from 'validator'
+import LayoutCourse from '../../components/layouts/LayoutCourse'
+
 
 const useStyles = makeStyles({
  field: {
@@ -42,6 +44,7 @@ export default function Create({items}) {
 
 
   return (
+    <LayoutCourse title="qwe">
     <Container size="sm">
       <Typography
         variant="h6" 
@@ -89,5 +92,6 @@ export default function Create({items}) {
 
       
     </Container>
+    </LayoutCourse>
   )
 }

@@ -5,7 +5,7 @@ import { useHistory, useLocation } from 'react-router-dom'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
-import { ExpandLess, ExpandMore, StarBorder } from '@material-ui/icons'
+import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import AppBar from '@material-ui/core/AppBar';
 import Divider from '@material-ui/core/Divider';
 import Hidden from '@material-ui/core/Hidden';
@@ -20,8 +20,6 @@ import Menu from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import { Collapse } from '@material-ui/core'
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import SettingsIcon from '@material-ui/icons/Settings';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import DashboardIcon from '@material-ui/icons/Dashboard';
@@ -40,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
   root: {
     display: 'flex',
-    background: '#f9f9f9',
+    background: '#f9f9',
   },
   drawer: {
     width: drawerWidth,
@@ -165,7 +163,7 @@ toolbar2: {
 }
 }));
 
-export default function Layout2({ children }, props) {
+export default function Layout2({ children, title }, props) {
   const history = useHistory()
   const location = useLocation()
   const { window } = props;
@@ -174,6 +172,7 @@ export default function Layout2({ children }, props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+console.log(title);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -266,83 +265,70 @@ export default function Layout2({ children }, props) {
         <ListItem 
           button 
           key="Dashboard"
-          onClick={() => history.push("/course/Dashboard")}
-          className={location.pathname == "/course/Dashboard" ? classes.active : null}
+          onClick={() => history.push("/")}
+          className={location.pathname == "/" ? classes.active : null}
         >
           <ListItemIcon><DashboardIcon color="secondary" /></ListItemIcon>
           <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Dashboard</Typography>}/>
         </ListItem>
       </List>
       <Divider  variant="middle" />
-      <ListItem 
-        button 
-        onClick={handleClickFirst}
-        className={location.pathname != "/course/Dashboard" ? classes.active : null}
-      >
-        <ListItemIcon>
-          <SettingsIcon  color="secondary"/>
-        </ListItemIcon>
-        <ListItemText 
-          disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Course Content</Typography>} />
-          {openfirst ? <ExpandLess /> : <ExpandMore />}
+
+      <List>
+        <ListItem 
+          button 
+          key="Dashboard"
+          onClick={() => history.push("/onGoing")}
+          className={location.pathname == "/onGoing" ? classes.active : null}
+        >
+          <ListItemIcon><LibraryBooksIcon color="secondary" /></ListItemIcon>
+          <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>On going Courses</Typography>}/>
         </ListItem>
-      <Collapse in={openfirst} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItem 
-            button 
-            onClick={() => {
-              handleClickFirst();
-              history.push("/course/UploadMaterial");}}
-            className={classes.nested}
-          >
-            <ListItemIcon>
-              <StarBorder/>
-            </ListItemIcon>
-            <ListItemText primary="Upload Materials" />
-          </ListItem>
+      </List>
+      <Divider  variant="middle" />
 
-          <ListItem 
-            button 
-            onClick={() => {
-              handleClickFirst();
-              history.push("/create");}}
-            className={classes.nested}
-          >
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
-            <ListItemText primary="Manage Quizzes" />
-          </ListItem>
+      <List>
+        <ListItem 
+          button 
+          key="Dashboard"
+          onClick={() => history.push("/finishedCourses")}
+          className={location.pathname == "/finishedCourses" ? classes.active : null}
+        >
+          <ListItemIcon><LibraryBooksIcon color="secondary" /></ListItemIcon>
+          <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Finished Courses</Typography>}/>
+        </ListItem>
+      </List>
+      <Divider  variant="middle" />
 
-          <ListItem 
-            button 
-            onClick={() => {
-              handleClickFirst();
-              history.push("/create");}}
-            className={classes.nested}
-          >
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
-            <ListItemText primary="Manage Students" />
-          </ListItem>
+      <List>
+        <ListItem 
+          button 
+          key="Dashboard"
+          onClick={() => history.push("/createCourse")}
+          className={location.pathname == "/createCourse" ? classes.active : null}
+        >
+          <ListItemIcon><SettingsIcon color="secondary" /></ListItemIcon>
+          <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Create New Course</Typography>}/>
+        </ListItem>
+      </List>
+      <Divider  variant="middle" />
 
-          <ListItem 
-            button 
-            onClick={() => {
-              handleClickFirst();
-              history.push("/create");}}
-            className={classes.nested}
-          >
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
-            <ListItemText primary="Edit Course Info" />
-          </ListItem>
+      <List>
+        <ListItem 
+          button 
+          key="Dashboard"
+          onClick={() => history.push("/Notifications")}
+          className={location.pathname == "/Notifications" ? classes.active : null}
+        >
+          <ListItemIcon><NotificationsNoneIcon color="secondary" /></ListItemIcon>
+          <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Notifications</Typography>}/>
+        </ListItem>
+      </List>
+      <Divider  variant="middle" />
 
-        </List>
-      </Collapse>
-     
+
+      
+      
     </div>
   );
 

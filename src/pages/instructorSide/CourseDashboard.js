@@ -5,6 +5,8 @@ import { createTheme, responsiveFontSizes } from '@material-ui/core/styles';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
+import LayoutCourse from '../../components/layouts/LayoutCourse'
+
 
 const useStyles = makeStyles({
     card:{
@@ -23,6 +25,8 @@ export default function CourseDashboard() {
     let theme = createTheme();
     theme = responsiveFontSizes(theme);
     return (
+    <LayoutCourse title="qwe">
+
         <div>
             <ThemeProvider theme={theme}>
             <Typography  component="h3"  variant="h4" >
@@ -99,6 +103,8 @@ export default function CourseDashboard() {
             </Grid>
             </div>
         </div>
+        </LayoutCourse>
+
     )
 }
 

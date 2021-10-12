@@ -5,6 +5,8 @@ import SendIcon from '@material-ui/icons/Send';
 import BackupOutlinedIcon from '@material-ui/icons/BackupOutlined';
 import { DataGrid } from '@material-ui/data-grid';
 import EditIcon from '@material-ui/icons/Edit';
+import LayoutCourse from '../../components/layouts/LayoutCourse'
+
 
 const useStyles = makeStyles((theme) => ({
     card:{
@@ -82,7 +84,7 @@ const columns = [
   );
 
   const rows = [
-    { id: 1, Name: 'Snow', Description: 'Jon', Content: 35, Edit: {editIcon} },
+    { id: 1, Name: 'Snow', Description: 'Jon', Content: 35, Edit: editIcon },
     { id: 2, Name: 'Lannister', Description: 'Cersei', Content: 42 },
     { id: 3, Name: 'Lannister', Description: 'Jaime', Content: 45 },
     { id: 4, Name: 'Stark', Description: 'Arya', Content: 16 },
@@ -110,16 +112,17 @@ export default function UploadMaterial() {
     }
 
     return (
+    <LayoutCourse title="qwe">
+
         <div>
             <ThemeProvider theme={theme}>
             <Typography  component="h3"  variant="h4" >
                 <Box color="text.primary">
-                Welcom Haidar Ali
+                Upload Materials
                 </Box>
             </Typography>
              <Typography  component="h6" variant="body1" >
                 <Box color="text.secondary">
-                Upload Materials:
                 </Box>
             </Typography>
             </ThemeProvider>
@@ -130,8 +133,20 @@ export default function UploadMaterial() {
                     <Card elevation={1} className={classes.cardbody}
                     >
                         <CardHeader
-                            title="Add Chapter info:"
+                            title="Add Chapter info"
                             className={classes.cardHeader}
+                            action={
+                                
+                        <div className={classes.btn}>
+                        <Button
+                            color="secondary" 
+                            variant="contained"
+                            onClick={handleSubmit}
+                            endIcon={<SendIcon />}>
+                            Add Chapter
+                        </Button>
+                        </div>
+                            }
                         />
                         <CardContent>
 
@@ -202,15 +217,6 @@ export default function UploadMaterial() {
                             </Grid>
                         </Grid>
 
-                        <div className={classes.btn}>
-                        <Button
-                            color="secondary" 
-                            variant="contained"
-                            onClick={handleSubmit}
-                            endIcon={<SendIcon />}>
-                            Add Chapter
-                        </Button>
-                        </div>
                         
                         </CardContent>
                     </Card>
@@ -237,6 +243,7 @@ export default function UploadMaterial() {
 
 
         </div>
+        </LayoutCourse>
     )
 }
 
