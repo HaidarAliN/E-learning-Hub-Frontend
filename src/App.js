@@ -7,6 +7,8 @@ import EditCourseInfo from './pages/instructorSide/EditCourseInfo'
 import CourseDashboard from './pages/instructorSide/CourseDashboard'
 import UploadMaterial from './pages/instructorSide/UploadMaterial'
 import { createTheme, ThemeProvider } from '@material-ui/core'
+import firebase from './firebase'
+import { useEffect } from "react";
 
 const theme = createTheme({
   palette: {
@@ -27,6 +29,25 @@ const theme = createTheme({
 })
 
 function App() {
+
+  const componentDidMount = ()=>{
+
+    const messaging = firebase.messaging()
+    messaging.requestPermission().then(()=>{
+      return messaging.getToken()
+    }).then(token=>{
+      console.log('token : ', token)
+    }).catch(()=>{
+      console.log('token : ')
+
+    })
+    
+  }
+  useEffect(() => {
+    // Update the document title using the browser API
+    componentDidMount();
+  },[]);
+
   return (
     <ThemeProvider theme={theme}>
       <Router>
