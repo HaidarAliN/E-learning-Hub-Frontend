@@ -102,6 +102,18 @@ export default function CreateCourse() {
                         <CardHeader
                             title="Add Course info:"
                             className={classes.cardHeader}
+                            action={
+                                <div className={classes.btn}>
+                                <Button
+                                    
+                                    color="secondary" 
+                                    variant="contained"
+                                    onClick={handleSubmit}
+                                    endIcon={<SendIcon />}>
+                                    Create Course
+                                </Button>
+                                </div>
+                            }
                         />
                         <CardContent>
 
@@ -196,18 +208,6 @@ export default function CreateCourse() {
                             <Grid item xs={12} md={1} lg={5} key={4}>
                             </Grid>
                         </Grid>
-
-                        <div className={classes.btn}>
-                        <Button
-                            
-                            color="secondary" 
-                            variant="contained"
-                            onClick={handleSubmit}
-                            endIcon={<SendIcon />}>
-                            Create Course
-                        </Button>
-                        </div>
-                        
                         </CardContent>
                     </Card>
                 </div>

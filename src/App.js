@@ -6,6 +6,7 @@ import CreateCourse from './pages/instructorSide/CreateCourse'
 import EditCourseInfo from './pages/instructorSide/EditCourseInfo'
 import CourseDashboard from './pages/instructorSide/CourseDashboard'
 import UploadMaterial from './pages/instructorSide/UploadMaterial'
+import ManageStudents from './pages/instructorSide/ManageStudents'
 import { createTheme, ThemeProvider } from '@material-ui/core'
 import firebase from './firebase'
 import { useEffect } from "react";
@@ -60,6 +61,7 @@ function App() {
             <Route path='/course/Dashboard' exact component={CourseDashboard}/>
             <Route path='/course/UploadMaterial' exact component={UploadMaterial}/>
             <Route path='/course/EditInfo' exact component={EditCourseInfo}/> 
+            <Route path='/course/ManageStudents' exact component={ManageStudents}/> 
           </Switch>
       </Router>
     </ThemeProvider>

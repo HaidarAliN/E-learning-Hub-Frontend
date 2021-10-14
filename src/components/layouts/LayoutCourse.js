@@ -304,8 +304,8 @@ console.log(title);
         <ListItem 
           button 
           key="Dashboard"
-          onClick={() => history.push("/course/create")}
-          className={location.pathname == "/course/create" ? classes.active : null}
+          onClick={() => history.push("/course/ManageStudents")}
+          className={location.pathname == "/course/ManageStudents" ? classes.active : null}
         >
           <ListItemIcon><GroupOutlinedIcon color="secondary" /></ListItemIcon>
           <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Manage Students</Typography>}/>

@@ -1,16 +1,19 @@
 import { Box, Button, Card, CardContent, CardHeader, createTheme, FormControl, Grid, IconButton, InputLabel, makeStyles, NativeSelect, responsiveFontSizes, TextField, Typography } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/styles'
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import SendIcon from '@material-ui/icons/Send';
 import BackupOutlinedIcon from '@material-ui/icons/BackupOutlined';
-import { DataGrid } from '@material-ui/data-grid';
 import EditIcon from '@material-ui/icons/Edit';
 import LayoutCourse from '../../components/layouts/LayoutCourse'
+import Materials from '../../components/Materials';
+import BASE_API_URL from '../../services/BaseUrl'
+import axios from "axios";
 
 
 const useStyles = makeStyles((theme) => ({
     card:{
-        marginTop: "2%"
+        marginTop: "2%",
+        marginBottom: "3%",
     },
     cardbody:{
         borderWidth: "1px",
@@ -44,57 +47,6 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 
-const columns = [
-    {
-      field: 'Name',
-      headerName: 'Name',
-      width: 150,
-      editable: true,
-    },
-    {
-      field: 'Description',
-      headerName: 'Description',
-      width: 150,
-      editable: true,
-    },
-    {
-      field: 'Content',
-      headerName: 'Content',
-      width: 110,
-      editable: true,
-    },
-    {
-      field: 'Edit',
-      headerName: 'Edit',
-      width: 150,
-      editable: true,
-    },
-    {
-      field: 'Remove',
-      headerName: 'Remove',
-      width: 150,
-      editable: true,
-    },
-  ];
-  
-  const editIcon = (
-    <IconButton >
-      <EditIcon color="primary" />
-    </IconButton>
-  );
-
-  const rows = [
-    { id: 1, Name: 'Snow', Description: 'Jon', Content: 35, Edit: editIcon },
-    { id: 2, Name: 'Lannister', Description: 'Cersei', Content: 42 },
-    { id: 3, Name: 'Lannister', Description: 'Jaime', Content: 45 },
-    { id: 4, Name: 'Stark', Description: 'Arya', Content: 16 },
-    { id: 5, Name: 'Targaryen', Description: 'Daenerys', Content: null },
-    { id: 6, Name: 'Melisandre', Description: null, Content: 150 },
-    { id: 7, Name: 'Clifford', Description: 'Ferrara', Content: 44 },
-    { id: 8, Name: 'Frances', Description: 'Rossini', Content: 36 },
-    { id: 9, Name: 'Roxie', Description: 'Harvey', Content: 65 },
-  ];
-  
 
 export default function UploadMaterial() {
     const [chapterName,setChapterName] = useState('');
@@ -110,6 +62,26 @@ export default function UploadMaterial() {
     const handleSubmit = () =>{
         console.log(3);
     }
+
+    const [data, setData] = useState(null);
+    useEffect(async () => {
+        const access_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTYzNDE3MjcxOSwiZXhwIjoxNjM0MTc2MzE5LCJuYmYiOjE2MzQxNzI3MTksImp0aSI6IkFlcUVzcU9wRDZPSUh6bmUiLCJzdWIiOjIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.6FZRo-arwrvPBmv0X-XbfiW2G3b7678DwtK6BbO5lpc";
+        const response = await axios.get(`${BASE_API_URL}/api/instructor/course/get-student-info/1`,
+          {headers:{
+            'Authorization' : `Bearer ${access_token}`
+          }}
+        );
+        const data_fetched = response.data;
+        setData(data_fetched);
+        }, []);
+
+        const handleRemove = (id) => {
+            console.log(id);
+        }
+
+        const handleEdit = (id) => {
+            console.log(id);
+        }
 
     return (
     <LayoutCourse title="qwe">
@@ -225,21 +197,15 @@ export default function UploadMaterial() {
             </Grid>
             </div>
 
-            {rows && <div className={classes.card}>
-                <Grid container spacing={1} >
-                    <Grid item xs={12} md={12} lg={12} key={1}>
-                    <div style={{ height: 400, width: '100%', backgroundColor:'#f8f9fc' }}>
-                        <DataGrid
-                            rows={rows}
-                            columns={columns}
-                            pContentSize={5}
-                            checkboxSelection
-                            disableSelectionOnClick
-                        />
-                    </div>
-                    </Grid>
+            <div >
+            <Grid container spacing={1} >
+                <Grid item xs={12} md={12} lg={12} key={1}>
+                <div>
+            {data && <Materials data={data} handleRemove={handleRemove} handleEdit={handleEdit}/>}
+                </div>
                 </Grid>
-            </div>}
+                </Grid>
+                </div>
 
 
         </div>
