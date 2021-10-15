@@ -5,6 +5,8 @@ import BASE_API_URL from '../../services/BaseUrl'
 import axios from "axios";
 import ArrowForwardSharpIcon from '@material-ui/icons/ArrowForwardSharp';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
+import { useHistory } from 'react-router';
+
 
 const useStyles = makeStyles((theme) => ({
     card:{
@@ -57,7 +59,7 @@ export default function FinishedCourses() {
     const classes = useStyles();
     const [access_token, setAccess_token] = useState(JSON.parse( localStorage.getItem('access_token') ));
     const [data, setData] = useState(null);
-    const [data2, setData2] = useState(null);
+    const history = useHistory()
 
     const fetchMoreData = async () => {
         const response = await axios.get(`${BASE_API_URL}/api/instructor/get-Finished-courses`,
@@ -82,6 +84,11 @@ export default function FinishedCourses() {
             setData(data_fetched);
         }
         }, []);
+
+        const handleSubmit = (id) =>{
+            localStorage.setItem('course_id', id);
+            history.push("/course/Dashboard");
+        }
 
     return (
     <Layout title="qwe">
@@ -127,7 +134,7 @@ export default function FinishedCourses() {
                                     
                                     color="secondary" 
                                     variant="contained"
-                                    // onClick={handleSubmit}
+                                    onClick={() => handleSubmit(item.id)}
                                     startIcon={<ArrowForwardSharpIcon />}
                                     >
                                     Go To Course

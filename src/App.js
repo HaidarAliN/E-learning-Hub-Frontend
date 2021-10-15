@@ -42,7 +42,6 @@ function App() {
       return messaging.getToken()
     }).then(token=>{
       console.log('token : ', token)
-    localStorage.setItem('course_id', 1);
     }).catch(()=>{
       console.log('token : ')
 
