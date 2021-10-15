@@ -1,12 +1,13 @@
-import { Box, Card, CardContent, CardHeader, Container, Grid, IconButton, makeStyles, Typography } from '@material-ui/core'
-import { ThemeProvider } from '@material-ui/styles'
-import React from 'react'
+import { Card, CardContent, CardHeader, Grid, IconButton, makeStyles, Typography } from '@material-ui/core'
+import React, {useState, useEffect} from 'react'
 import Layout from '../../components/layouts/Layout'
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
+import BASE_API_URL from '../../services/BaseUrl'
+import axios from "axios";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     card:{
         marginTop: "2%"
     },
@@ -15,26 +16,42 @@ const useStyles = makeStyles({
         borderLeft: '.25rem solid !important',
         borderColor: "#5a5c69 !important"
     },
-   
+    // footer:{
+    //     height: window.innerHeight/2,
+    // }
+    page: {
+        background: '#f9f9f9',
+        width: '100%',
+        padding: theme.spacing(3),
+        [theme.breakpoints.down('xs')]: {
+        marginLeft:"-60%"
+    
+        }}
   
-})
+    }));
 
 export default function Dashboard() {
+    const [access_token, setAccess_token] = useState(JSON.parse( localStorage.getItem('access_token') ));
+    const [data, setData] = useState(null);
     const classes = useStyles();
+
+    useEffect(async () => {
+        const response = await axios.get(`${BASE_API_URL}/api/instructor/dashboard`,
+          {headers:{
+            'Authorization' : `Bearer ${access_token}`
+          }}
+        );
+        const data_fetched = response.data;
+        setData(data_fetched);
+        }, []);
+
     return (
     <Layout title="qwe">
         <div className={classes.paper}>
-            <Typography  component="h2"  variant="h6" >
-                <Box color="text.primary">
-                Welcom Haidar Al
-                </Box>
+        <Typography className={classes.card2}  component="h2"  variant="h4" >
+                Dashboard
             </Typography>
-             <Typography  component="h6" variant="body1" >
-                <Box color="text.secondary">
-                Here you can check your dash board
-                </Box>
-            </Typography>
-            <div className={classes.card}>
+            { data && <div className={classes.card}>
             <Grid container spacing={1} >
                 <Grid item xs={12} md={6} lg={4} key={1}>
                 <div>
@@ -50,7 +67,7 @@ export default function Dashboard() {
                         />
                         <CardContent>
                         <Typography variant="body2" color="textSecondary">
-                            25
+                            {data.courses_count}
                         </Typography>
                         </CardContent>
                     </Card>
@@ -69,7 +86,7 @@ export default function Dashboard() {
                         />
                         <CardContent>
                         <Typography variant="body2" color="textSecondary">
-                            400
+                        {data.student_count}
                         </Typography>
                         </CardContent>
                     </Card>
@@ -88,14 +105,17 @@ export default function Dashboard() {
                         />
                         <CardContent>
                         <Typography variant="body2" color="textSecondary">
-                            30%
+                        {data.Quizzes_done}
                         </Typography>
                         </CardContent>
                     </Card>
                 </div>
                 </Grid>
             </Grid>
-            </div>
+            </div>}
+        </div>
+        <div className={classes.footer}>
+                            <Typography className={classes.footer}></Typography>
         </div>
     </Layout>
 

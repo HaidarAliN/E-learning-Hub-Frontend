@@ -1,11 +1,13 @@
 import { Box, Card, CardContent, CardHeader, Container, Grid, IconButton, makeStyles, Typography } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/styles'
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { createTheme, responsiveFontSizes } from '@material-ui/core/styles';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 import LayoutCourse from '../../components/layouts/LayoutCourse'
+import BASE_API_URL from '../../services/BaseUrl'
+import axios from "axios";
 
 
 const useStyles = makeStyles({
@@ -17,6 +19,9 @@ const useStyles = makeStyles({
         borderLeft: '.25rem solid !important',
         borderColor: "#5a5c69 !important"
     },
+    card2:{
+        marginBottom:"3%"
+    },
   
 })
 
@@ -24,23 +29,36 @@ export default function CourseDashboard() {
     const classes = useStyles();
     let theme = createTheme();
     theme = responsiveFontSizes(theme);
+    const [access_token, setAccess_token] = useState(JSON.parse( localStorage.getItem('access_token') ));
+    const [data, setData] = useState(null);
+
+    const getData = async()=>{
+        const response = await axios.get(`${BASE_API_URL}/api/instructor/course/dashboard/${JSON.parse(localStorage.getItem('course_id'))}`,
+        {headers:{
+          'Authorization' : `Bearer ${access_token}`
+        }}
+      );
+      const data_fetched = response.data;
+      if(data_fetched.status){
+          setData(null);
+      }else{
+          setData(data_fetched);
+      }
+    }
+
+    useEffect(() => {
+        getData();
+        }, []);
+
     return (
     <LayoutCourse title="qwe">
 
         <div>
-            <ThemeProvider theme={theme}>
-            <Typography  component="h3"  variant="h4" >
-                <Box color="text.primary">
-                Welcom Haidar Ali
-                </Box>
+        <Typography className={classes.card2}  component="h2"  variant="h4" >
+        Course Content
             </Typography>
-             <Typography  component="h6" variant="body1" >
-                <Box color="text.secondary">
-                Course Content:
-                </Box>
-            </Typography>
-            </ThemeProvider>
-            <div className={classes.card}>
+                
+            {data? <div className={classes.card}>
             <Grid container spacing={1} >
                 <Grid item xs={12} md={6} lg={4} key={1}>
                 <div>
@@ -56,7 +74,7 @@ export default function CourseDashboard() {
                         />
                         <CardContent>
                         <Typography variant="body2" color="textSecondary">
-                            25
+                            {data.lectures_count}
                         </Typography>
                         </CardContent>
                     </Card>
@@ -75,7 +93,7 @@ export default function CourseDashboard() {
                         />
                         <CardContent>
                         <Typography variant="body2" color="textSecondary">
-                            400
+                        {data.students_count}
                         </Typography>
                         </CardContent>
                     </Card>
@@ -94,7 +112,7 @@ export default function CourseDashboard() {
                         />
                         <CardContent>
                         <Typography variant="body2" color="textSecondary">
-                            30%
+                        {data.progress}%
                         </Typography>
                         </CardContent>
                     </Card>
@@ -102,6 +120,11 @@ export default function CourseDashboard() {
                 </Grid>
             </Grid>
             </div>
+            :
+            <Typography className={classes.card2}  component="h2"  variant="h4" >
+                Nothing to show
+            </Typography>
+            }
         </div>
         </LayoutCourse>
 

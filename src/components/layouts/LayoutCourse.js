@@ -1,7 +1,7 @@
 import React from 'react'
 import Drawer from '@material-ui/core/Drawer'
 import Typography from '@material-ui/core/Typography'
-import { useHistory, useLocation } from 'react-router-dom'
+import { Link, useHistory, useLocation } from 'react-router-dom'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
@@ -180,7 +180,6 @@ export default function Layout2({ children, title }, props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-console.log(title);
   const container = window !== undefined ? () => window().document.body : undefined;
   //appbar 
   const handleProfileMenuOpen = (event) => {
@@ -291,8 +290,8 @@ console.log(title);
         <ListItem 
           button 
           key="Dashboard"
-          onClick={() => history.push("/course/create")}
-          className={location.pathname == "/course/create" ? classes.active : null}
+          onClick={() => history.push("/course/ManageQuizzes")}
+          className={location.pathname == "/course/ManageQuizzes" ? classes.active : null}
         >
           <ListItemIcon><SchoolOutlinedIcon color="secondary" /></ListItemIcon>
           <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Manage Quizzes</Typography>}/>
@@ -413,7 +412,7 @@ console.log(title);
         >
           <div className={classes.toolbar}>
               <Typography className={classes.title} variant="h6">
-                E-Learning Hub
+              <Link to="/" className={classes.title}> E-Learning Hub</Link>
               </Typography>
           </div>
           <Divider  variant="middle" />

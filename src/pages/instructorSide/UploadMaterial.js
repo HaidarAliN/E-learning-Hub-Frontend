@@ -64,16 +64,16 @@ export default function UploadMaterial() {
     }
 
     const [data, setData] = useState(null);
-    useEffect(async () => {
-        const access_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTYzNDE3MjcxOSwiZXhwIjoxNjM0MTc2MzE5LCJuYmYiOjE2MzQxNzI3MTksImp0aSI6IkFlcUVzcU9wRDZPSUh6bmUiLCJzdWIiOjIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.6FZRo-arwrvPBmv0X-XbfiW2G3b7678DwtK6BbO5lpc";
-        const response = await axios.get(`${BASE_API_URL}/api/instructor/course/get-student-info/1`,
-          {headers:{
-            'Authorization' : `Bearer ${access_token}`
-          }}
-        );
-        const data_fetched = response.data;
-        setData(data_fetched);
-        }, []);
+    // useEffect(async () => {
+    //     const access_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTYzNDIwMTU2NywiZXhwIjoxNjM0MjA1MTY3LCJuYmYiOjE2MzQyMDE1NjcsImp0aSI6IlZqQVZvMXdVYThlSnFiRUQiLCJzdWIiOjIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.wJfz_eswb1rk2YGEur59ZDLdGmz9vxwwddd1qu0f_gw";
+    //     const response = await axios.get(`${BASE_API_URL}/api/instructor/course/get-student-info/1`,
+    //       {headers:{
+    //         'Authorization' : `Bearer ${access_token}`
+    //       }}
+    //     );
+    //     const data_fetched = response.data;
+    //     setData(data_fetched);
+    //     }, []);
 
         const handleRemove = (id) => {
             console.log(id);
@@ -87,17 +87,9 @@ export default function UploadMaterial() {
     <LayoutCourse title="qwe">
 
         <div>
-            <ThemeProvider theme={theme}>
-            <Typography  component="h3"  variant="h4" >
-                <Box color="text.primary">
+                <Typography className={classes.card2}  component="h2"  variant="h4" >
                 Upload Materials
-                </Box>
             </Typography>
-             <Typography  component="h6" variant="body1" >
-                <Box color="text.secondary">
-                </Box>
-            </Typography>
-            </ThemeProvider>
             <div className={classes.card}>
             <Grid container spacing={1} >
                 <Grid item xs={12} md={12} lg={12} key={1}>
@@ -108,7 +100,6 @@ export default function UploadMaterial() {
                             title="Add Chapter info"
                             className={classes.cardHeader}
                             action={
-                                
                         <div className={classes.btn}>
                         <Button
                             color="secondary" 

@@ -62,7 +62,7 @@ export default function RTable({data, handlePending, handleRemove}) {
 
     return (
         <div>
-          <TableContainer component={Paper} >
+           {data && <TableContainer component={Paper} >
 
           <Table striped bordered hover>
             <thead>
@@ -92,7 +92,7 @@ export default function RTable({data, handlePending, handleRemove}) {
                         Pending
                   </Button>
                   </td>
-                   : <td class={classes.success} style={{backgroundColor: "#1cc88a"}}>Enrolled <DoneAllIcon/></td> }
+                   : <td style={{backgroundColor: "#1cc88a"}}>Enrolled <DoneAllIcon/></td> }
                   
                   <td><Button 
                   className={classes.btnDanger}
@@ -107,7 +107,7 @@ export default function RTable({data, handlePending, handleRemove}) {
                 ))}
             </tbody>
           </Table>
-          </TableContainer>
+          </TableContainer>}
 
         </div>
     )

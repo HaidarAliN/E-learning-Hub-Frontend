@@ -15,25 +15,56 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function ManageStudents() {
+    const [access_token, setAccess_token] = useState(JSON.parse( localStorage.getItem('access_token') ));
+    const [courseId, setCourseID] = useState(JSON.parse(localStorage.getItem('course_id')));
     const classes = useStyles();
     const [data, setData] = useState(null);
+
+    const getData = async()=>{
+        const response = await axios.get(`${BASE_API_URL}/api/instructor/course/get-student-info/${courseId}`,
+        {headers:{
+          'Authorization' : `Bearer ${access_token}`
+        }}
+      );
+      const data_fetched = response.data;
+      if(data_fetched.status){
+          setData(null);
+      }else{
+          setData(data_fetched);
+      }
+    }
     useEffect(async () => {
-        const access_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTYzNDE3MjcxOSwiZXhwIjoxNjM0MTc2MzE5LCJuYmYiOjE2MzQxNzI3MTksImp0aSI6IkFlcUVzcU9wRDZPSUh6bmUiLCJzdWIiOjIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.6FZRo-arwrvPBmv0X-XbfiW2G3b7678DwtK6BbO5lpc";
-        const response = await axios.get(`${BASE_API_URL}/api/instructor/course/get-student-info/1`,
-          {headers:{
-            'Authorization' : `Bearer ${access_token}`
-          }}
-        );
-        const data_fetched = response.data;
-        setData(data_fetched);
+        getData();
         }, []);
 
-        const handleRemove = (id) => {
-            console.log(id);
+        const handleRemove = async(id) => {
+            const response = await axios.post(`${BASE_API_URL}/api/instructor/course/remove-student/${courseId}`,
+            {
+                "student_id": id
+            },
+            {headers:{
+              'Authorization' : `Bearer ${access_token}`
+            }}
+          );
+          const data_fetched = response.data;
+          if(data_fetched){
+            getData();;
+          }
         }
 
-        const handlePending = (id) => {
-            console.log(id);
+        const handlePending = async(id) => {
+            const response = await axios.post(`${BASE_API_URL}/api/instructor/course/enroll-student/${courseId}`,
+            {
+                "student_id": id
+            },
+            {headers:{
+              'Authorization' : `Bearer ${access_token}`
+            }}
+          );
+          const data_fetched = response.data;
+          if(data_fetched){
+            getData();;
+          }
         }
 
     return (
@@ -43,11 +74,14 @@ export default function ManageStudents() {
             <Typography className={classes.card}  component="h2"  variant="h4" >
                 Manage Students
             </Typography>
-
-            <Grid container spacing={1} >
+             <Grid container spacing={1} >
                 <Grid item xs={12} md={12} lg={12} key={1}>
-            {data && <RTable data={data} handleRemove={handleRemove} handlePending={handlePending}/>}
-            </Grid>
+                   
+                    {data ? <RTable data={data} handleRemove={handleRemove} handlePending={handlePending}/>
+                            :
+                            <Typography className={classes.card}  component="h3"  variant="h5" >No Students enrolled</Typography>
+                    }
+                </Grid>
             </Grid>
         </div>
         </LayoutCourse>

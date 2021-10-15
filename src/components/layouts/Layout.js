@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import Drawer from '@material-ui/core/Drawer'
 import Typography from '@material-ui/core/Typography'
 import { useHistory, useLocation } from 'react-router-dom'
@@ -23,6 +23,8 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import SettingsIcon from '@material-ui/icons/Settings';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import BASE_API_URL from '../../services/BaseUrl'
+import axios from "axios";
 
 const drawerWidth = 240
 
@@ -30,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
   page: {
     background: '#f9f9f9',
     width: '100%',
+    height:'100%',
     padding: theme.spacing(3),
     [theme.breakpoints.down('xs')]: {
     marginLeft:"-60%"
@@ -38,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
   root: {
     display: 'flex',
-    background: '#f9f9',
+    background: '#f9f9f9',
   },
   drawer: {
     width: drawerWidth,
@@ -164,6 +167,8 @@ toolbar2: {
 }));
 
 export default function Layout2({ children, title }, props) {
+  const [access_token, setAccess_token] = useState(JSON.parse( localStorage.getItem('access_token') ));
+  const [data, setData] = useState(null);
   const history = useHistory()
   const location = useLocation()
   const { window } = props;
@@ -172,7 +177,18 @@ export default function Layout2({ children, title }, props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-console.log(title);
+  const [notification,setNotification] = useState(0);
+
+  useEffect(async () => {
+    const response = await axios.get(`${BASE_API_URL}/api/instructor/navInfo`,
+      {headers:{
+        'Authorization' : `Bearer ${access_token}`
+      }}
+    );
+    const data_fetched = response.data;
+    setData(data_fetched);
+    setNotification(data_fetched.notification_count);
+    }, []);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -229,7 +245,7 @@ console.log(title);
     >
       <MenuItem>
         <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
+          <Badge badgeContent={notification} color="secondary">
             <NotificationsIcon />
           </Badge>
         </IconButton>
@@ -351,13 +367,13 @@ console.log(title);
           >
             <MenuIcon />
           </IconButton>
-              <Typography  variant="h6">
-                E-Learning Hub
-              </Typography>
+          {data?  <Typography  variant="h6">
+              Welcome {data.name}
+              </Typography>: <Typography  variant="h6">Welcome </Typography>}
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={1} color="secondary">
+              <Badge badgeContent={notification} color="secondary">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
