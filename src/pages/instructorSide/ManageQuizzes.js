@@ -5,7 +5,7 @@ import SendIcon from '@material-ui/icons/Send';
 import BackupOutlinedIcon from '@material-ui/icons/BackupOutlined';
 import EditIcon from '@material-ui/icons/Edit';
 import LayoutCourse from '../../components/layouts/LayoutCourse'
-import Materials from '../../components/Materials';
+import Questions from '../../components/Questions';
 import BASE_API_URL from '../../services/BaseUrl'
 import axios from "axios";
 
@@ -60,52 +60,306 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ManageQuizzes() {
+    const [access_token, setAccess_token] = useState(JSON.parse( localStorage.getItem('access_token') ));
+    const [courseId, setCourseID] = useState(JSON.parse(localStorage.getItem('course_id')));
     const [quizNameT,setQuizNameT] = useState('');
+    const [data, setData] = useState(null);
+    const [quizQuestions, setQuizQuestions] = useState(null);
     const [quizNameError,setQuizNameError] = useState(false);
-    const [chapterDescription,setChapterDescription] = useState('');
-    const [chapterDescriptionError,setChapterDescriptionError] = useState(false);
-    const [rows2,setrow2] = useState(null);
+    const [newQuestion,setNewQuestion] = useState('');
+    const [quizquestionError,setQuizquestionError] = useState(false);
+    const [newQuestiontype,setNewQuestiontype] = useState(null);
+    const [quizloaded,setquizloaded] = useState(null);
+    const [quizloadedQuestions,setquizloadedQuestions] = useState(null);
+    const [quizId, setQuizId] = useState(0);
+    const [questionInfo, setQuestionInfo] = useState('');
+    const [tofquestionInfo, setTofQuestionInfo] = useState('');
+    const [firsteditanswer, setFirsteditanswer] = useState('');
+    const [secondeditanswer, setSecondeditanswer] = useState('');
+    const [thirdeditanswer, setThirdeditanswer] = useState('');
+    const [editquestion, setEditquestion] = useState('');
+    const [newFirstAnswer, setNewFirstAnswer] = useState('');
+    const [newSecondAnswer, setNewSecondAnswer] = useState('');
+    const [newThirdAnswe, setNewThirdAnswe] = useState('');
     const [quizname, setQuizName] = React.useState({
-        type: ''
+        type: 'Choose one'
       });
-    
+    const [mcqeditans, setMcqeditans] = React.useState({
+    type: 'qwe'
+    });
+    const [tofeditans, setTofeditans] = React.useState({
+        type: 'qwe'
+        });
+    const [newquestionTyped, setNewquestionTyped] = React.useState({
+        type: ''
+        });
+    const [newRightAnswer, setNewRightAnswer] = React.useState({
+        type: ''
+        });
+
     const classes = useStyles();
     let theme = createTheme();
     theme = responsiveFontSizes(theme);
 
-    const handleSubmit = () =>{
-        console.log(3);
+ 
+
+    const getDAta = async () =>{
+        const response = await axios.get(`${BASE_API_URL}/api/instructor/course/get-quiz/${courseId}`,
+          {headers:{
+            'Authorization' : `Bearer ${access_token}`
+          }}
+        );
+        const data_fetched = response.data;
+        if(data_fetched.length>0){
+            setData(data_fetched);
+        }else{
+            setData(null);
+        }
+        console.log(data_fetched.length);
     }
 
-    const [data, setData] = useState(null);
+    const getQuizquiestion = async (id) =>{
+        const response = await axios.post(`${BASE_API_URL}/api/instructor/course/get-quiz-questions/${courseId}`,
+        {
+            "quiz_id": id
+        },
+          {headers:{
+            'Authorization' : `Bearer ${access_token}`
+          }}
+        );
+        const data_fetched = response.data;
+        if(data_fetched.length>0){
+            setQuizQuestions(data_fetched);
+        }else{
+            setQuizQuestions(null);
+        }
+        if(data_fetched.status){
+            console.log(data_fetched.status);
+            setquizloadedQuestions(null);
+        }else{
+            console.log(data_fetched);
+            if(data_fetched.length > 0){
+                setquizloadedQuestions(data_fetched);
+            console.log(data_fetched);
+            }else{
+                setquizloadedQuestions(null);
+            }
+        }
+    }
+    
+    useEffect(async () => {
+        getDAta();
+    }, []);
+
+    const handleConfirm = async() =>{
+        if(quizNameT){
+            setquizloaded(quizNameT);
+            const response = await axios.post(`${BASE_API_URL}/api/instructor/course/create-quiz/${courseId}`,
+            {
+                "name": quizNameT
+            },
+            {headers:{
+                'Authorization' : `Bearer ${access_token}`
+            }}
+            );
+            const data_fetched = await response.data;
+            if(data_fetched){
+                setQuizId(data_fetched.id);
+            }
+        }else if(quizname.type != 'Choose one'){
+            setquizloaded(quizname.type);
+            getQuizquiestion(quizId);
+        }
+    }
+
+    const handleRemove = async(id) => {
+        const response = await axios.post(`${BASE_API_URL}/api/instructor/course/remove-question/${courseId}`,
+        {
+            "quiz_id": quizId,
+            "question_id": id
+        },
+          {headers:{
+            'Authorization' : `Bearer ${access_token}`
+          }}
+        );
+        const data_fetched = await response.data;
+        if(data_fetched){
+            getQuizquiestion(quizId);
+        }
+        
+    }
+
+    const handleEdit = async(id) => {
+        const response = await axios.post(`${BASE_API_URL}/api/instructor/course/get-quiz-question-by-id/${courseId}`,
+        {
+            "quiz_id": quizId,
+            "question_id": id
+        },
+          {headers:{
+            'Authorization' : `Bearer ${access_token}`
+          }}
+        );
+        const data_fetched = await response.data;
+        if(data_fetched.type == 0){
+            setQuestionInfo(data_fetched);
+            setMcqeditans({
+                ...mcqeditans,
+                ['type']: data_fetched.right_answer,
+            });
+        }else{
+            setTofQuestionInfo(data_fetched);
+            setTofeditans({
+                ...tofeditans,
+                ['type']: data_fetched.right_answer,
+            });
+        }
+        setFirsteditanswer(data_fetched.first_answer);
+        setSecondeditanswer(data_fetched.second_answer);
+        setThirdeditanswer(data_fetched.third_answer);
+        setEditquestion(data_fetched.content);
+        console.log(data_fetched.right_answer);
+    }
 
     
-    // useEffect(async () => {
-    //     const access_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTYzNDIwMTU2NywiZXhwIjoxNjM0MjA1MTY3LCJuYmYiOjE2MzQyMDE1NjcsImp0aSI6IlZqQVZvMXdVYThlSnFiRUQiLCJzdWIiOjIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.wJfz_eswb1rk2YGEur59ZDLdGmz9vxwwddd1qu0f_gw";
-    //     const response = await axios.get(`${BASE_API_URL}/api/instructor/course/get-student-info/1`,
-    //       {headers:{
-    //         'Authorization' : `Bearer ${access_token}`
-    //       }}
-    //     );
-    //     const data_fetched = response.data;
-    //     setData(data_fetched);
-    //     }, []);
 
-        const handleRemove = (id) => {
-            console.log(id);
+    const handleChange = (e) => {
+        const name = e.target.name;
+        setQuizName({
+            ...quizname,
+            [name]: data[e.target.value-1].name,
+        });
+        setQuizId(e.target.value);
+    };
+
+    const handleChangemcqedit = (e) => {
+        const name = e.target.name;
+        setMcqeditans({
+            ...mcqeditans,
+            [name]: e.target.value,
+        });
+    };
+
+    const handleChangetofedit = (e) => {
+        const name = e.target.name;
+        setTofeditans({
+            ...tofeditans,
+            [name]: e.target.value,
+        });
+    };
+
+    const handleChangeNewQuestionType  = (e) => {
+        setNewRightAnswer({type:''});
+        const name = e.target.name;
+        setNewquestionTyped({
+            ...newquestionTyped,
+            [name]: e.target.value,
+        });
+        if(newQuestion){
+            setNewQuestiontype(e.target.value);
         }
+        console.log(newRightAnswer.type);   
+    };
 
-        const handleEdit = (id) => {
-            console.log(id);
+    const handleChangeNewRightAnswer = (e) => {
+        const name = e.target.name;
+        setNewRightAnswer({
+            ...newRightAnswer,
+            [name]: e.target.value,
+        });
+    };
+
+    const handleMCQEditUpdate = async(id) => {
+        const response = await axios.post(`${BASE_API_URL}/api/instructor/course/edit-question/${courseId}`,
+        {
+            "quiz_id": quizId,
+            "question_id": questionInfo.id,
+            "content":editquestion,
+            "first_answer":firsteditanswer,
+            "second_answer":secondeditanswer,
+            "third_answer":thirdeditanswer,
+            "right_answer": mcqeditans.type
+        },
+          {headers:{
+            'Authorization' : `Bearer ${access_token}`
+          }}
+        );
+        const data_fetched = await response.data;
+        if(data_fetched){
+            setQuestionInfo('');
+            getQuizquiestion(quizId);
         }
+    }
 
-        const handleChange = (e) => {
-            const name = e.target.name;
-            setQuizName({
-              ...quizname,
-              [name]: e.target.value,
-            });
-        };
+    const handleTOFEditUpdate = async(id) => {
+        const response = await axios.post(`${BASE_API_URL}/api/instructor/course/edit-question/${courseId}`,
+        {
+            "quiz_id": quizId,
+            "question_id": tofquestionInfo.id,
+            "content":editquestion,
+            "first_answer":"True",
+            "second_answer":"False",
+            "third_answer":" ",
+            "right_answer": tofeditans.type
+        },
+          {headers:{
+            'Authorization' : `Bearer ${access_token}`
+          }}
+        );
+        const data_fetched = await response.data;
+        if(data_fetched){
+            setTofQuestionInfo('');
+            getQuizquiestion(quizId);
+        }
+    }
+
+    const addquestion = async(first_ans, second_ans, third_ans) => {
+        const response = await axios.post(`${BASE_API_URL}/api/instructor/course/add-question/${courseId}`,
+        {
+            "quiz_id": quizId,
+            "content":newQuestion,
+            "first_answer":first_ans,
+            "second_answer":second_ans,
+            "third_answer":third_ans,
+            "right_answer": newRightAnswer.type,
+            "type" : newquestionTyped.type
+        },
+          {headers:{
+            'Authorization' : `Bearer ${access_token}`
+          }}
+        );
+        const data_fetched = await response.data;
+        if(data_fetched){
+            getQuizquiestion(quizId);
+        }
+    }
+
+    const handleAdd = async() => {
+        setQuizquestionError(false);
+        if(!newQuestion){
+            setQuizquestionError(true);
+        }else if(newquestionTyped.type){
+            setNewQuestiontype(newquestionTyped.type);
+        }
+        if(newquestionTyped.type == 1 && newRightAnswer.type){
+            addquestion("True", "False", "");
+            handleClearAfterAdd();
+            getQuizquiestion(quizId);
+        }
+        if(newquestionTyped.type == 0 && newFirstAnswer && newSecondAnswer && newThirdAnswe && newRightAnswer.type){
+            addquestion(newFirstAnswer, newSecondAnswer, newThirdAnswe);
+            handleClearAfterAdd();
+            getQuizquiestion(quizId);
+        }
+    }
+
+    const handleClearAfterAdd = () => {
+       setNewFirstAnswer('');
+       setNewSecondAnswer('');
+       setNewThirdAnswe('');
+       setNewQuestion('');
+       setNewQuestiontype({type:''});
+       setNewRightAnswer('');
+    }
 
     return (
     <LayoutCourse title="qwe">
@@ -123,23 +377,25 @@ export default function ManageQuizzes() {
                         <CardHeader
                             title="Quiz info"
                             className={classes.cardHeader}
+                           
                             action={
                         <div className={classes.btn}>
                         <Button
                             color="secondary" 
                             variant="contained"
-                            onClick={handleSubmit}
+                            onClick={handleConfirm}
                             endIcon={<SendIcon />}>
                             Confirm
                         </Button>
                         </div>
-                            }
+                        }
                         />
                         <CardContent>
 
+                        {!quizloaded ?<div>
                         <Grid container spacing={3}>
                             <Grid item xs={12} md={5} lg={2} key={2}>
-                                <InputLabel className={classes.label}>Quiz Name:</InputLabel>
+                                <InputLabel className={classes.label}>Create Quiz:</InputLabel>
                             </Grid>
                             <Grid item xs={12} md={6} lg={3} key={3}>
                                 <TextField
@@ -149,36 +405,43 @@ export default function ManageQuizzes() {
                                     color="primary"
                                     fullWidth
                                     required
-                                    error={quizNameError}
-                                    placeholder="Quiz 1"
+                                    placeholder="Quiz 123"
                                 />
                             </Grid>
+                            {data && <div>
                             <Grid item xs={12} md={1} lg={1} key={4}>
                              <Typography className={classes.or}  >
                                 OR
                             </Typography>
                             </Grid>
-                            <Grid item xs={12} md={1} lg={3} key={4}>
+                            <Grid item xs={12} md={1} lg={3} key={5}>
                             <FormControl className={classes.formControl}>
                                     <NativeSelect
                                     value={quizname.type}
                                     onChange={handleChange}
-                                    label="qwe"
                                     inputProps={{
                                         name: 'type',
                                         id: 'age-native-label-placeholder',
                                     }}
                                     >
-                                    <option value={0}>Choose one</option>
-                                    <option value={10}>Ten</option>
-                                    <option value={20}>Twenty</option>
-                                    <option value={30}>Thirty</option>
+                                   <option key={33} value={0}>{quizname.type}</option>
+              {data.map(item => (
+                                    <option key={item.id} value={item.id}>{item.name}</option>
+                                    ))}
                                     </NativeSelect>
                                 </FormControl>
                             </Grid>
-                            <Grid item xs={12} md={1} lg={3} key={4}>
+                            </div>} 
+                            <Grid item xs={12} md={1} lg={3} key={6}>
                             </Grid>
-                        </Grid>
+                        </Grid></div>
+                        :
+                        <div>
+                        <Typography className={classes.card2}  component="h2"  variant="h6" >
+                            {quizloaded}
+                        </Typography>
+                        </div>
+                        }
                         </CardContent>
                     </Card>
                 </div>
@@ -189,8 +452,8 @@ export default function ManageQuizzes() {
             {/* question section */}
             <div className={classes.card}>
             <Grid container spacing={1} >
-                <Grid item xs={12} md={12} lg={12} key={1}>
-                <div>
+                <Grid item xs={12} md={12} lg={12} key={70}>
+                {quizloaded && <div>
                     <Card elevation={1} className={classes.cardbody}
                     >
                         <CardHeader
@@ -201,7 +464,7 @@ export default function ManageQuizzes() {
                         <Button
                             color="secondary" 
                             variant="contained"
-                            onClick={handleSubmit}
+                            onClick={handleAdd}
                             endIcon={<SendIcon />}>
                             Add Question
                         </Button>
@@ -211,65 +474,70 @@ export default function ManageQuizzes() {
                         <CardContent>
 
                         <Grid container spacing={3}>
-                            <Grid item xs={12} md={5} lg={3} key={2}>
+                            <Grid item xs={12} md={5} lg={3} key={71}>
                                 <InputLabel className={classes.label}>Question Content:</InputLabel>
                             </Grid>
-                            <Grid item xs={12} md={6} lg={4} key={3}>
+                            <Grid item xs={12} md={6} lg={4} key={72}>
                                 <TextField
-                                    onChange={(e) => setQuizNameT(e.target.value)}
+                                    key={777}
+                                    onChange={(e) => setNewQuestion(e.target.value)}
                                     className={classes.field}
                                     variant="outlined"
                                     color="primary"
                                     fullWidth
+                                    value={newQuestion}
                                     required
-                                    error={quizNameError}
-                                    placeholder="Quiz 1"
+                                    error={quizquestionError}
+                                    placeholder="Quiz 124"
                                 />
                             </Grid>
-                            <Grid item xs={12} md={1} lg={5} key={4}>
+                            <Grid item xs={12} md={1} lg={5} key={73}>
                             </Grid>
                         </Grid>
 
                         <Grid container spacing={3}>
-                            <Grid item xs={12} md={5} lg={3} key={2}>
+                            <Grid item xs={12} md={5} lg={3} key={74}>
                                 <InputLabel className={classes.label}>Question type:</InputLabel>
                             </Grid>
-                            <Grid item xs={12} md={6} lg={4} key={3}>
+                            <Grid item xs={12} md={6} lg={4} key={75}>
                             <FormControl className={classes.formControl}>
                                     <NativeSelect
-                                    value={quizname.type}
-                                    onChange={handleChange}
+                                    key={776}
+                                    value={newquestionTyped.type}
+                                    onChange={handleChangeNewQuestionType}
                                     label="qwe"
                                     inputProps={{
                                         name: 'type',
                                         id: 'age-native-label-placeholder',
                                     }}
                                     >
+                                    <option ></option>
                                     <option value={0}>MCQ</option>
-                                    <option value={10}>True or False</option>
+                                    <option value={1}>True or False</option>
                                     </NativeSelect>
                                 </FormControl>
                             </Grid>
-                            <Grid item xs={12} md={1} lg={5} key={4}>
+                            <Grid item xs={12} md={1} lg={5} key={76}>
                             </Grid>
                         </Grid>
 
                         <Divider  variant="middle" className={classes.divider} color="primary"/>
                         {/* MCQ section */}
+                        {newQuestiontype == 0 ?
+                        <div>
                         <Grid container spacing={3}>
                             <Grid item xs={12} md={5} lg={3} key={2}>
                                 <InputLabel className={classes.label}>First Answer:</InputLabel>
                             </Grid>
                             <Grid item xs={12} md={6} lg={4} key={3}>
                                 <TextField
-                                    onChange={(e) => setQuizNameT(e.target.value)}
+                                    onChange={(e) => setNewFirstAnswer(e.target.value)}
                                     className={classes.field}
                                     variant="outlined"
                                     color="primary"
                                     fullWidth
                                     required
-                                    error={quizNameError}
-                                    placeholder="Quiz 1"
+                                    placeholder="First Answer"
                                 />
                             </Grid>
                             <Grid item xs={12} md={1} lg={5} key={4}>
@@ -282,14 +550,13 @@ export default function ManageQuizzes() {
                             </Grid>
                             <Grid item xs={12} md={6} lg={4} key={3}>
                                 <TextField
-                                    onChange={(e) => setQuizNameT(e.target.value)}
+                                    onChange={(e) => setNewSecondAnswer(e.target.value)}
                                     className={classes.field}
                                     variant="outlined"
                                     color="primary"
                                     fullWidth
                                     required
-                                    error={quizNameError}
-                                    placeholder="Quiz 1"
+                                    placeholder="Second Answer"
                                 />
                             </Grid>
                             <Grid item xs={12} md={1} lg={5} key={4}>
@@ -302,14 +569,13 @@ export default function ManageQuizzes() {
                             </Grid>
                             <Grid item xs={12} md={6} lg={4} key={3}>
                                 <TextField
-                                    onChange={(e) => setQuizNameT(e.target.value)}
+                                    onChange={(e) => setNewThirdAnswe(e.target.value)}
                                     className={classes.field}
                                     variant="outlined"
                                     color="primary"
                                     fullWidth
                                     required
-                                    error={quizNameError}
-                                    placeholder="Quiz 1"
+                                    placeholder="Third Answe"
                                 />
                             </Grid>
                             <Grid item xs={12} md={1} lg={5} key={4}>
@@ -323,62 +589,82 @@ export default function ManageQuizzes() {
                             <Grid item xs={12} md={6} lg={4} key={3}>
                             <FormControl className={classes.formControl}>
                                     <NativeSelect
-                                    value={quizname.type}
-                                    onChange={handleChange}
+                                    value={newRightAnswer.type}
+                                    onChange={handleChangeNewRightAnswer}
                                     label="qwe"
                                     inputProps={{
                                         name: 'type',
                                         id: 'age-native-label-placeholder',
                                     }}
                                     >
-                                    <option value={0}>Choose Answer</option>
-                                    <option value={10}>First Answer</option>
-                                    <option value={10}>Second Answer</option>
-                                    <option value={10}>Third Answer</option>
+                                    <option >Choose Answer</option>
+                                    <option value={1}>First Answer</option>
+                                    <option value={2}>Second Answer</option>
+                                    <option value={3}>Third Answer</option>
                                     </NativeSelect>
                                 </FormControl>
                             </Grid>
                             <Grid item xs={12} md={1} lg={5} key={4}>
                             </Grid>
                         </Grid>
-                        {/*true or false section  */}
-                        <Grid container spacing={3}>
-                            <Grid item xs={12} md={5} lg={3} key={2}>
-                                <InputLabel className={classes.label}>Right Answer:</InputLabel>
-                            </Grid>
-                            <Grid item xs={12} md={6} lg={4} key={3}>
-                            <FormControl className={classes.formControl}>
-                                    <NativeSelect
-                                    value={quizname.type}
-                                    onChange={handleChange}
-                                    label="qwe"
-                                    inputProps={{
-                                        name: 'type',
-                                        id: 'age-native-label-placeholder',
-                                    }}
-                                    >
-                                    <option value={0}>Choose Answer</option>
-                                    <option value={10}>True</option>
-                                    <option value={10}>False</option>
-                                    </NativeSelect>
-                                </FormControl>
-                            </Grid>
-                            <Grid item xs={12} md={1} lg={5} key={4}>
-                            </Grid>
-                        </Grid>
+                        {/* <Button
+                                 color="secondary" 
+                                 variant="contained"
+                                 onClick={handleSubmitAddQuestion}
+                                 endIcon={<SendIcon />}>
+                                 Submit Question
+                             </Button> */}
+                        </div>
+                        :
+                        newQuestiontype == 1?
+                                <div>
+                                    <Grid container spacing={3}>
+                                        <Grid item xs={12} md={5} lg={3} key={2}>
+                                            <InputLabel className={classes.label}>Right Answer:</InputLabel>
+                                        </Grid>
+                                        <Grid item xs={12} md={6} lg={4} key={3}>
+                                        <FormControl className={classes.formControl}>
+                                                <NativeSelect
+                                                value={newRightAnswer.type}
+                                                onChange={handleChangeNewRightAnswer}
+                                                label="qwe"
+                                                inputProps={{
+                                                    name: 'type',
+                                                    id: 'age-native-label-placeholder',
+                                                }}
+                                                >
+                                                <option >Choose Answer</option>
+                                                <option value={1}>True</option>
+                                                <option value={0}>False</option>
+                                                </NativeSelect>
+                                            </FormControl>
+                                        </Grid>
+                                        <Grid item xs={12} md={1} lg={5} key={4}>
+                                        </Grid>
+                                    </Grid>
+                                
+                                
+                             </div>
+                            :
+                                                null
+                        }
+
+                       
 
                         </CardContent>
 
                     </Card>
-                </div>
+                </div>}
                 </Grid>
             </Grid>
-            </div>
+            </div> 
+
+            {quizloadedQuestions && <Questions data={quizloadedQuestions} handleEdit={handleEdit} handleRemove={handleRemove}  />}
 
             {/* edit MCQ section */}
-            <div className={classes.card}>
+            {questionInfo &&<div className={classes.card}>
             <Grid container spacing={1} >
-                <Grid item xs={12} md={12} lg={12} key={1}>
+                <Grid item xs={12} md={12} lg={12} key={10}>
                 <div>
                     <Card elevation={1} className={classes.cardbody}
                     >
@@ -390,7 +676,7 @@ export default function ManageQuizzes() {
                         <Button
                             color="secondary" 
                             variant="contained"
-                            onClick={handleSubmit}
+                            onClick={handleMCQEditUpdate}
                             endIcon={<SendIcon />}>
                             Update
                         </Button>
@@ -400,67 +686,75 @@ export default function ManageQuizzes() {
                         <CardContent>
 
                         <Grid container spacing={3}>
-                            <Grid item xs={12} md={5} lg={3} key={2}>
+                        <Grid item xs={12} md={6} lg={2} key={50}>
                                 <TextField
-                                        onChange={(e) => setQuizNameT(e.target.value)}
+                                    key={451}
+                                    onChange={(e) => setEditquestion(e.target.value)}
+                                    className={classes.field}
+                                    variant="outlined"
+                                    color="primary"
+                                    fullWidth
+                                    value={editquestion}
+                                    required
+                                    placeholder="Quiz 1"
+                                />
+                            </Grid>
+                            <Grid item xs={12} md={5} lg={3} key={20}>
+                                <TextField
+                                        key={41}
+                                        onChange={(e) => setFirsteditanswer(e.target.value)}
                                         className={classes.field}
                                         variant="outlined"
                                         color="primary"
+                                        value={firsteditanswer}
                                         fullWidth
                                         required
-                                        error={quizNameError}
                                         placeholder="Quiz 1"
                                     />
                             </Grid>
-                            <Grid item xs={12} md={6} lg={2} key={3}>
+                            <Grid item xs={12} md={6} lg={2} key={30}>
                                 <TextField
-                                    onChange={(e) => setQuizNameT(e.target.value)}
+                                    key={42}
+                                    onChange={(e) => setSecondeditanswer(e.target.value)}
                                     className={classes.field}
                                     variant="outlined"
                                     color="primary"
+                                    value={secondeditanswer}
+
                                     fullWidth
                                     required
-                                    error={quizNameError}
                                     placeholder="Quiz 1"
                                 />
                             </Grid>
-                            <Grid item xs={12} md={6} lg={2} key={3}>
+                            <Grid item xs={12} md={6} lg={2} key={40}>
                                 <TextField
-                                    onChange={(e) => setQuizNameT(e.target.value)}
+                                    key={43}
+                                    onChange={(e) => setThirdeditanswer(e.target.value)}
                                     className={classes.field}
                                     variant="outlined"
                                     color="primary"
+                                    value={thirdeditanswer}
                                     fullWidth
                                     required
-                                    error={quizNameError}
                                     placeholder="Quiz 1"
                                 />
                             </Grid>
-                            <Grid item xs={12} md={6} lg={2} key={3}>
-                                <TextField
-                                    onChange={(e) => setQuizNameT(e.target.value)}
-                                    className={classes.field}
-                                    variant="outlined"
-                                    color="primary"
-                                    fullWidth
-                                    required
-                                    error={quizNameError}
-                                    placeholder="Quiz 1"
-                                />
-                            </Grid>
-                            <Grid item xs={12} md={1} lg={3} key={4}>
+                           
+                            <Grid item xs={12} md={1} lg={3} key={60}>
                             <FormControl className={classes.formControl}>
                                     <NativeSelect
-                                    value={quizname.type}
-                                    onChange={handleChange}
+                                    key={44}
+                                    value={mcqeditans.type}
+                                    onChange={handleChangemcqedit}
                                     label="qwe"
                                     inputProps={{
                                         name: 'type',
                                         id: 'age-native-label-placeholder',
                                     }}
                                     >
-                                    <option value={20}>First</option>
-                                    <option value={30}>Second</option>
+                                        <option value={1}>First</option>
+                                        <option value={2}>Second</option>
+                                        <option value={3}>third</option>
                                     </NativeSelect>
                                 </FormControl>
                             </Grid>
@@ -470,12 +764,12 @@ export default function ManageQuizzes() {
                 </div>
                 </Grid>
             </Grid>
-            </div>
+            </div>}
 
             {/* edit T or F section */}
-            <div className={classes.card}>
+            {tofquestionInfo && <div className={classes.card}>
             <Grid container spacing={1} >
-                <Grid item xs={12} md={12} lg={12} key={1}>
+                <Grid item xs={12} md={12} lg={12} key={31}>
                 <div>
                     <Card elevation={1} className={classes.cardbody}
                     >
@@ -487,7 +781,7 @@ export default function ManageQuizzes() {
                         <Button
                             color="secondary" 
                             variant="contained"
-                            onClick={handleSubmit}
+                            onClick={handleTOFEditUpdate}
                             endIcon={<SendIcon />}>
                             Update
                         </Button>
@@ -497,31 +791,33 @@ export default function ManageQuizzes() {
                         <CardContent>
 
                         <Grid container spacing={3}>
-                            <Grid item xs={12} md={5} lg={4} key={2}>
+                            <Grid item xs={12} md={5} lg={4} key={32}>
                                 <TextField
-                                        onChange={(e) => setQuizNameT(e.target.value)}
+                                        key={66}
+                                        onChange={(e) => setEditquestion(e.target.value)}
                                         className={classes.field}
                                         variant="outlined"
                                         color="primary"
                                         fullWidth
-                                        required
-                                        error={quizNameError}
+                                        value={editquestion}
+                                        required                                       
                                         placeholder="Quiz 1"
                                     />
                             </Grid>
-                            <Grid item xs={12} md={1} lg={4} key={4}>
+                            <Grid item xs={12} md={1} lg={4} key={33}>
                             <FormControl className={classes.formControl}>
                                     <NativeSelect
-                                    value={quizname.type}
-                                    onChange={handleChange}
+                                    key={67}
+                                    value={tofeditans.type}
+                                    onChange={handleChangetofedit}
                                     label="qwe"
                                     inputProps={{
                                         name: 'type',
                                         id: 'age-native-label-placeholder',
                                     }}
                                     >
-                                    <option value={20}>First</option>
-                                    <option value={30}>Second</option>
+                                    <option value={1}>True</option>
+                                    <option value={0}>False</option>
                                     </NativeSelect>
                                 </FormControl>
                             </Grid>
@@ -533,7 +829,7 @@ export default function ManageQuizzes() {
                 </div>
                 </Grid>
             </Grid>
-            </div>
+            </div>}
 
 
         </div>

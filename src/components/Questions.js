@@ -50,15 +50,15 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default function Questions() {
+export default function Questions({data, handleEdit, handleRemove }) {
     const classes = useStyles();
 
-    // const removeStudent = (id)=>{
-    //   handleRemove(id);
-    // }
-    // const acceptStudent = (id)=>{
-    //   handlePending(id);
-    // }
+    const EditChapter = (id)=>{
+      handleEdit(id);
+    }
+    const removeChapter = (id)=>{
+      handleRemove(id);
+    }
   
       return (
         <TableContainer component={Paper} >
@@ -77,14 +77,34 @@ export default function Questions() {
                 </tr>
               </thead>
               <tbody>
-                {/* {data.map(item => ( */}
+                {data.map(item => (
                 <tr 
-                // key={item.id} id={item.id}
+                key={item.id} id={item.id}
                 >
   
-                    <td>qwe</td>
-                    <td>qwe</td>
-                    <td>qwe</td>
+                    <td>{item.content}</td>
+                    <td>{item.first_answer}</td>
+                    <td>{item.second_answer}</td>
+
+                    {item.type == 1? 
+                       <td>Null</td>
+                       :
+                      <td>{item.third_answer}</td>}
+
+                    {item.type == 1? 
+                      item.right_answer == 0?
+                        <td>false</td>
+                        :
+                        <td>True</td>
+                      :
+                      item.right_answer == 1?
+                        <td>First</td>
+                        :
+                          item.right_answer == 2?
+                            <td>Second</td>
+                          :
+                          <td>Third</td>
+                    }
                     
                       {/* {item.status == 0 ? <td ><Button 
                     className={classes.btnInfo}
@@ -101,23 +121,23 @@ export default function Questions() {
                     className={classes.btnInfo}
                         color="secondary" 
                         variant="contained"
-                        // onClick={() => removeStudent(item.id)}
+                        onClick={() => EditChapter(item.id)}
                         startIcon={<InfoIcon />}
                         >
-                          Edit Chapter
+                          Edit Qestion
                     </Button></td>
 
                     <td><Button 
                     className={classes.btnDanger}
                         color="secondary" 
                         variant="contained"
-                        // onClick={() => removeStudent(item.id)}
+                        onClick={() => removeChapter(item.id)}
                         startIcon={<DeleteIcon />}
                         >
-                          Drop chpater
+                          Remove Question
                     </Button></td>
                 </tr>
-                  {/* ))} */}
+                  ))} 
               </tbody>
             </Table>
           </div>

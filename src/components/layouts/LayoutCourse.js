@@ -216,7 +216,6 @@ export default function Layout2({ children }, props) {
     const data_fetched = response.data;
     setData(data_fetched);
     setNotification(data_fetched.notification_count);
-
     const response2 = await axios.get(`${BASE_API_URL}/api/instructor/course/info/${courseId}`,
     {headers:{
       'Authorization' : `Bearer ${access_token}`
