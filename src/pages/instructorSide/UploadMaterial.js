@@ -8,6 +8,7 @@ import LayoutCourse from '../../components/layouts/LayoutCourse'
 import Materials from '../../components/Materials';
 import BASE_API_URL from '../../services/BaseUrl'
 import axios from "axios";
+import { getGridDateOperators } from '@material-ui/data-grid';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -54,34 +55,188 @@ export default function UploadMaterial() {
     const [nameError,setNameError] = useState(false);
     const [chapterDescriptionError,setChapterDescriptionError] = useState(false);
     const [rows2,setrow2] = useState(null);
+    const [access_token, setAccess_token] = useState(JSON.parse( localStorage.getItem('access_token') ));
+    const [courseId, setCourseID] = useState(JSON.parse(localStorage.getItem('course_id')));
+    const [chapterEditName, setChapterEditName] = useState(null);
+    const [chapterEditDescription, setChapterEditDescription] = useState('');
+    const [editChapterId, setEditChapterId] = useState(null);
     
     const classes = useStyles();
     let theme = createTheme();
     theme = responsiveFontSizes(theme);
 
-    const handleSubmit = () =>{
-        console.log(3);
+    const getData = async() => {
+        const response = await axios.get(`${BASE_API_URL}/api/instructor/course/get-uploaded-material/${courseId}`,
+          {headers:{
+            'Authorization' : `Bearer ${access_token}`
+          }}
+        );
+        const data_fetched = response.data;
+        if(data_fetched.length == 0){
+            setData(null);
+        }else{
+            setData(data_fetched);
+        }
+        
+    }
+
+    const handleSubmit = async() =>{
+        setNameError(false);
+        setChapterDescriptionError(false);
+        if(!chapterName){
+            setNameError(true);
+        }
+        if(!chapterDescription){
+            setChapterDescriptionError(true);
+        }
+        if(chapterName && chapterDescription && pdfData ){
+            // setSubmited(true);
+            addchapt();
+            // setSubmited(false);
+            setChapterDescription('');
+            setChapterName('');
+            setPdfData(null);
+        }
+    }
+
+    const addchapt = async () =>{
+        const response = await axios.post(`${BASE_API_URL}/api/instructor/course/upload-new-material/${courseId}`,
+        {
+            "name" : chapterName,
+            "description" : chapterDescription,
+            "base64file" : pdfData
+        },
+        {headers:{
+          'Authorization' : `Bearer ${access_token}`
+        }}
+      );
+      const data_fetched = response.data;
+      if(data_fetched){
+          getData();
+        }
+    }
+
+    const handleUpdate = async() =>{
+        const response = await axios.post(`${BASE_API_URL}/api/instructor/course/edit-material/${courseId}`,
+        {
+            "id" : editChapterId,
+            "name" : chapterEditName,
+            "description" : chapterEditDescription
+        },
+        {headers:{
+          'Authorization' : `Bearer ${access_token}`
+        }}
+      );
+      const data_fetched = response.data;
+      if(data_fetched){
+          setChapterEditName('');
+          setChapterEditDescription('');
+          getData();
+        }
     }
 
     const [data, setData] = useState(null);
-    // useEffect(async () => {
-    //     const access_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTYzNDIwMTU2NywiZXhwIjoxNjM0MjA1MTY3LCJuYmYiOjE2MzQyMDE1NjcsImp0aSI6IlZqQVZvMXdVYThlSnFiRUQiLCJzdWIiOjIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.wJfz_eswb1rk2YGEur59ZDLdGmz9vxwwddd1qu0f_gw";
-    //     const response = await axios.get(`${BASE_API_URL}/api/instructor/course/get-student-info/1`,
-    //       {headers:{
-    //         'Authorization' : `Bearer ${access_token}`
-    //       }}
-    //     );
-    //     const data_fetched = response.data;
-    //     setData(data_fetched);
-    //     }, []);
+    const [submited, setSubmited] = useState(false);
+    const [pdfData, setPdfData] = useState(null);
+    useEffect(async () => {
+            getData();
+            // if(chapterDescription && chapterName && pdfData && submited){
+            //     addchapt();
+            //     setSubmited(false);
+            //     setChapterDescription('');
+            //     setChapterName('');
+            //     setPdfData(null);
+            // }
+        }, []);
 
-        const handleRemove = (id) => {
-            console.log(id);
+        const handleRemove = async(id) => {
+            const response = await axios.post(`${BASE_API_URL}/api/instructor/course/remove-material/${courseId}`,
+            {
+                "id" : id,
+            },
+            {headers:{
+            'Authorization' : `Bearer ${access_token}`
+            }}
+            );
+            const data_fetched = response.data;
+            if(data_fetched){
+                console.log(data_fetched);
+                getData();
+            }
         }
 
-        const handleEdit = (id) => {
-            console.log(id);
+        const handleEdit = async(id) => {
+            const response = await axios.get(`${BASE_API_URL}/api/instructor/course/get-material-by-id/${id}`,
+            {headers:{
+            'Authorization' : `Bearer ${access_token}`
+            }}
+            );
+            const data_fetched = response.data;
+            setChapterEditName(await data_fetched.name);
+            setChapterEditDescription(await data_fetched.description);
+            setEditChapterId(id);
         }
+        const [qwe,setState] = useState('');
+
+        // const  getBase64 = (file) => {
+        //     return new Promise(resolve => {
+        //       let fileInfo;
+        //       let baseURL = "";
+        //       // Make new FileReader
+        //       let reader = new FileReader();
+        
+        //       // Convert the file to base64 text
+        //       reader.readAsDataURL(file);
+        
+        //       // on reader load somthing...
+        //       reader.onload = () => {
+        //         // Make a fileInfo Object
+        //         console.log("Called", reader);
+        //         baseURL = reader.result;
+        //         console.log(baseURL);
+        //         resolve(baseURL);
+        //       };
+        //       console.log(fileInfo);
+        //     });
+        //   };
+
+        // const  onFileChange = (event) => {
+    
+        //     // Update the state
+        //     setState({ selectedFile: event.target.files[0] });
+        //     file = event.target.files[0];
+        //     getBase64(file).then(result => {
+        //         file["base64"] = result;
+        //         console.log("File Is", file);
+        //         this.setState({
+        //             base64URL: result,
+        //             file
+        //          });
+        //      })
+        //   };
+
+
+        const uploadFile = async (e) => {
+          const file = e.target.files[0];
+          const base64 = await convertBase64(file); //encrypt the file
+          const base = base64.split(',');//split the encypted data
+          setPdfData(base[1]);//
+        };
+      
+        const convertBase64 = (file) => {
+          return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+      
+            fileReader.onload = () => {
+              resolve(fileReader.result);
+            };
+      
+            fileReader.onerror = (error) => {
+              reject(error);
+            };
+          });
+        };
 
     return (
     <LayoutCourse title="qwe">
@@ -119,13 +274,14 @@ export default function UploadMaterial() {
                             </Grid>
                             <Grid item xs={12} md={6} lg={4} key={3}>
                                 <TextField
+                                key={554}
                                     onChange={(e) => setChapterName(e.target.value)}
                                     className={classes.field}
-                                    label="Name"
                                     variant="outlined"
                                     color="primary"
                                     fullWidth
                                     required
+                                    value={chapterName}
                                     error={nameError}
                                     placeholder="Chapter 1"
                                 />
@@ -140,12 +296,13 @@ export default function UploadMaterial() {
                             </Grid>
                             <Grid item xs={12} md={6} lg={4} key={3}>
                                 <TextField
+                                    key={555}
                                     onChange={(e) => setChapterDescription(e.target.value)}
                                     className={classes.field}
-                                    label="Description"
                                     variant="outlined"
                                     color="primary"
                                     fullWidth
+                                    value={chapterDescription}
                                     required
                                     error={chapterDescriptionError}
                                     placeholder="Description"
@@ -171,7 +328,9 @@ export default function UploadMaterial() {
                                     Upload File
                                     <input
                                         type="file"
+                                        onChange={uploadFile}
                                         hidden
+                                        accept="application/pdf"
                                     />
                                 </Button>
                                 </FormControl>
@@ -189,14 +348,73 @@ export default function UploadMaterial() {
             </div>
 
             <div >
+                <Grid container spacing={1} >
+                    <Grid item xs={12} md={12} lg={12} key={1}>
+                        <div>
+                            {data && <Materials data={data} handleRemove={handleRemove} handleEdit={handleEdit}/>}
+                        </div>
+                    </Grid>
+                </Grid>
+            </div>
+
+            { chapterEditName && <div className={classes.card}>
             <Grid container spacing={1} >
                 <Grid item xs={12} md={12} lg={12} key={1}>
                 <div>
-            {data && <Materials data={data} handleRemove={handleRemove} handleEdit={handleEdit}/>}
+                    <Card elevation={1} className={classes.cardbody}
+                    >
+                        <CardHeader
+                            title="Edit question"
+                            className={classes.cardHeader}
+                            action={
+                        <div className={classes.btn}>
+                        <Button
+                            color="secondary" 
+                            variant="contained"
+                            onClick={handleUpdate}
+                            endIcon={<SendIcon />}>
+                            Update
+                        </Button>
+                        </div>
+                            }
+                        />
+                        <CardContent>
+
+                        <Grid container spacing={3}>
+                            <Grid item xs={12} md={5} lg={6} key={1}>
+                                <TextField
+                                        onChange={(e) => setChapterEditName(e.target.value)}
+                                        className={classes.field}
+                                        variant="outlined"
+                                        color="primary"
+                                        fullWidth
+                                        required
+                                        value={chapterEditName}
+                                        placeholder="Name"
+                                    />
+                            </Grid>
+                            <Grid item xs={12} md={6} lg={6} key={2}>
+                                <TextField
+                                    onChange={(e) => setChapterEditDescription(e.target.value)}
+                                    className={classes.field}
+                                    variant="outlined"
+                                    color="primary"
+                                    fullWidth
+                                    required
+                                    value={chapterEditDescription}
+                                    placeholder="Description"
+                                />
+                            </Grid>
+                           
+                           
+                        </Grid>
+                        </CardContent>
+                    </Card>
                 </div>
                 </Grid>
-                </Grid>
-                </div>
+            </Grid>
+
+            </div>}
 
 
         </div>

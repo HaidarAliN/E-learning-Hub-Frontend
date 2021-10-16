@@ -133,16 +133,16 @@ export default function UploadMaterial() {
         setCourseDescription(await data_fetched[0].description);
         setCourseType({type: `${await data_fetched[0].course_type}`})
         setSliderValue(await data_fetched[0].progress);
-        console.log(await data_fetched[0].progress);
       }
     }
     useEffect(async () => {
         getData();
         getTypesData();
         }, []);
-        const handelSlider = () =>{
-            console.log(sliderValue);
-        }
+        
+    // const handelSlider = () =>{
+    //     console.log(sliderValue);
+    // }
     
 
     return (
@@ -182,6 +182,7 @@ export default function UploadMaterial() {
                             </Grid>
                             <Grid item xs={12} md={6} lg={4} key={3}>
                                 <TextField
+                                key={22}
                                     onChange={(e) => setCourseName(e.target.value)}
                                     className={classes.field}
                                     variant="outlined"
@@ -203,6 +204,7 @@ export default function UploadMaterial() {
                             </Grid>
                             <Grid item xs={12} md={6} lg={4} key={3}>
                                 <TextField
+                                    key={23}
                                     onChange={(e) => setCourseDescription(e.target.value)}
                                     className={classes.field}
                                     value={courseDescription}
@@ -229,7 +231,7 @@ export default function UploadMaterial() {
                                 ValueLabelComponent={ValueLabelComponent}
                                 aria-label="custom thumb label"
                                 defaultValue={sliderValue}
-                                onChange={handelSlider}
+                                // onChange={handelSlider}
                                 onChangeCommitted={(event, newValue) =>
                                     setSliderValue(newValue)
                                   }

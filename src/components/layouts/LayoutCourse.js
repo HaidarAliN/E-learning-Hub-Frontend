@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import Drawer from '@material-ui/core/Drawer'
 import Typography from '@material-ui/core/Typography'
 import { Link, useHistory, useLocation } from 'react-router-dom'
@@ -24,6 +24,8 @@ import CloudUploadOutlinedIcon from '@material-ui/icons/CloudUploadOutlined';
 import SchoolOutlinedIcon from '@material-ui/icons/SchoolOutlined';
 import GroupOutlinedIcon from '@material-ui/icons/GroupOutlined';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
+import BASE_API_URL from '../../services/BaseUrl'
+import axios from "axios";
 
 const drawerWidth = 240
 
@@ -164,7 +166,10 @@ toolbar2: {
 }
 }));
 
-export default function Layout2({ children, title }, props) {
+export default function Layout2({ children }, props) {
+  const [access_token, setAccess_token] = useState(JSON.parse( localStorage.getItem('access_token') ));
+  const [courseId, setCourseID] = useState(JSON.parse(localStorage.getItem('course_id')));
+  const [title, setTitle] = useState('');
   const history = useHistory()
   const location = useLocation()
   const { window } = props;
@@ -173,6 +178,9 @@ export default function Layout2({ children, title }, props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [notification,setNotification] = useState(0);
+  const [data, setData] = useState(null);
+
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -198,6 +206,25 @@ export default function Layout2({ children, title }, props) {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+
+  useEffect(async () => {
+    const response = await axios.get(`${BASE_API_URL}/api/instructor/navInfo`,
+      {headers:{
+        'Authorization' : `Bearer ${access_token}`
+      }}
+    );
+    const data_fetched = response.data;
+    setData(data_fetched);
+    setNotification(data_fetched.notification_count);
+
+    const response2 = await axios.get(`${BASE_API_URL}/api/instructor/course/info/${courseId}`,
+    {headers:{
+      'Authorization' : `Bearer ${access_token}`
+    }}
+  );
+  const data_fetched2 = await response2.data;
+  setTitle(data_fetched2[0].name);
+    }, []);
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -228,7 +255,7 @@ export default function Layout2({ children, title }, props) {
     >
       <MenuItem>
         <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
+          <Badge badgeContent={notification} color="secondary">
             <NotificationsIcon />
           </Badge>
         </IconButton>
@@ -347,12 +374,12 @@ export default function Layout2({ children, title }, props) {
             <MenuIcon />
           </IconButton>
               <Typography  variant="h6">
-              Welcom Haidar Ali
+              {title} {'>'}
               </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={1} color="secondary">
+              <Badge badgeContent={notification} color="secondary">
                 <NotificationsIcon />
               </Badge>
             </IconButton>

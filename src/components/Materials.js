@@ -50,15 +50,15 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default function Materials() {
+export default function Materials({handleEdit, data, handleRemove}) {
     const classes = useStyles();
 
-    // const removeStudent = (id)=>{
-    //   handleRemove(id);
-    // }
-    // const acceptStudent = (id)=>{
-    //   handlePending(id);
-    // }
+    const editChapter = (id)=>{
+      handleEdit(id);
+    }
+    const removeChapter = (id)=>{
+      handleRemove(id);
+    }
   
       return (
         <TableContainer component={Paper} >
@@ -69,20 +69,18 @@ export default function Materials() {
                 <tr>
                   <th>Name</th>
                   <th>Description</th>
-                  <th>Content</th>
                   <th>Edit</th>
                   <th>Delete</th>
                 </tr>
               </thead>
               <tbody>
-                {/* {data.map(item => ( */}
+                {data.map(item => (
                 <tr 
-                // key={item.id} id={item.id}
+                   key={item.id} id={item.id}
                 >
   
-                    <td>qwe</td>
-                    <td>qwe</td>
-                    <td>qwe</td>
+                    <td>{item.name} </td>
+                    <td>{item.description} </td>
                     
                       {/* {item.status == 0 ? <td ><Button 
                     className={classes.btnInfo}
@@ -99,7 +97,7 @@ export default function Materials() {
                     className={classes.btnInfo}
                         color="secondary" 
                         variant="contained"
-                        // onClick={() => removeStudent(item.id)}
+                        onClick={() => editChapter(item.id)}
                         startIcon={<InfoIcon />}
                         >
                           Edit Chapter
@@ -109,13 +107,13 @@ export default function Materials() {
                     className={classes.btnDanger}
                         color="secondary" 
                         variant="contained"
-                        // onClick={() => removeStudent(item.id)}
+                        onClick={() => removeChapter(item.id)}
                         startIcon={<DeleteIcon />}
                         >
                           Drop chpater
                     </Button></td>
                 </tr>
-                  {/* ))} */}
+                   ))} 
               </tbody>
             </Table>
           </div>

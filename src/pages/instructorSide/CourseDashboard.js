@@ -30,10 +30,11 @@ export default function CourseDashboard() {
     let theme = createTheme();
     theme = responsiveFontSizes(theme);
     const [access_token, setAccess_token] = useState(JSON.parse( localStorage.getItem('access_token') ));
+    const [courseId, setCourseID] = useState(JSON.parse(localStorage.getItem('course_id')));
     const [data, setData] = useState(null);
 
     const getData = async()=>{
-        const response = await axios.get(`${BASE_API_URL}/api/instructor/course/dashboard/${JSON.parse(localStorage.getItem('course_id'))}`,
+        const response = await axios.get(`${BASE_API_URL}/api/instructor/course/dashboard/${courseId}`,
         {headers:{
           'Authorization' : `Bearer ${access_token}`
         }}
