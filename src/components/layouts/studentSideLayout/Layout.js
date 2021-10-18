@@ -222,6 +222,11 @@ export default function Layout2({ children, title }, props) {
 
   }
 
+  const handleLogout = ()=>{
+    localStorage.setItem('user_type_id', 4);
+    history.push('/');
+  }
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -233,8 +238,7 @@ export default function Layout2({ children, title }, props) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleLogout}>logout</MenuItem>
     </Menu>
   );
 
@@ -266,7 +270,7 @@ export default function Layout2({ children, title }, props) {
         >
           <AccountCircle />
         </IconButton>
-        <p>Profile</p>
+        <p>logout</p>
       </MenuItem>
     </Menu>
   );

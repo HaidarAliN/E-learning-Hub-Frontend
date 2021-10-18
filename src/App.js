@@ -101,8 +101,8 @@ function App() {
               <Route path='/finishedCourses' exact component={FinishedCoursesS}/>
               <Route path='/searchCourse' exact component={SearchCourse}/>
               <Route path='/course/Dashboard' exact component={CourseDashboard}/>
-              <Route path='/course/Material' exact component={UploadMaterial}/>
-              <Route path='/course/Quizzes' exact component={ManageQuizzes}/> 
+              <Route path='/course/Materials' exact component={UploadMaterial}/>
+              <Route path='/course/CourseQuizzes' exact component={ManageQuizzes}/> 
               {/* <Route path='/course/EditInfo' exact component={EditCourseInfo}/>  */}
               {/* <Route path='/course/ManageStudents' exact component={ManageStudents}/>  */}
             </Switch>

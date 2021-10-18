@@ -169,7 +169,7 @@ toolbar2: {
 export default function Layout2({ children }, props) {
   const [access_token, setAccess_token] = useState(JSON.parse( localStorage.getItem('access_token') ));
   const [courseId, setCourseID] = useState(JSON.parse(localStorage.getItem('course_id')));
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState('course');
   const history = useHistory()
   const location = useLocation()
   const { window } = props;
@@ -203,12 +203,18 @@ export default function Layout2({ children }, props) {
     handleMobileMenuClose();
   };
 
+  const handleLogout  = () => {
+    localStorage.setItem('user_type_id', 4);
+    history.push('/');
+    // window.location.reload();
+  };
+
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
   useEffect(async () => {
-    const response = await axios.get(`${BASE_API_URL}/api/instructor/navInfo`,
+    const response = await axios.get(`${BASE_API_URL}/api/student/navInfo`,
       {headers:{
         'Authorization' : `Bearer ${access_token}`
       }}
@@ -216,13 +222,13 @@ export default function Layout2({ children }, props) {
     const data_fetched = response.data;
     setData(data_fetched);
     setNotification(data_fetched.notification_count);
-    const response2 = await axios.get(`${BASE_API_URL}/api/instructor/course/info/${courseId}`,
-    {headers:{
-      'Authorization' : `Bearer ${access_token}`
-    }}
-  );
-  const data_fetched2 = await response2.data;
-  setTitle(data_fetched2[0].name);
+  //   const response2 = await axios.get(`${BASE_API_URL}/api/instructor/course/info/${courseId}`,
+  //   {headers:{
+  //     'Authorization' : `Bearer ${access_token}`
+  //   }}
+  // );
+  // const data_fetched2 = await response2.data;
+  // setTitle(data_fetched2[0].name);
     }, []);
 
     const handleNotification = ()=>{
@@ -241,8 +247,7 @@ export default function Layout2({ children }, props) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleLogout}>Logout</MenuItem>
     </Menu>
   );
 
@@ -308,11 +313,11 @@ export default function Layout2({ children }, props) {
         <ListItem 
           button 
           key="Dashboard"
-          onClick={() => history.push("/course/UploadMaterial")}
-          className={location.pathname == "/course/UploadMaterial" ? classes.active : null}
+          onClick={() => history.push("/course/Material")}
+          className={location.pathname == "/course/Materials" ? classes.active : null}
         >
           <ListItemIcon><CloudUploadOutlinedIcon color="secondary" /></ListItemIcon>
-          <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Upload Material</Typography>}/>
+          <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Uploaded Materials</Typography>}/>
         </ListItem>
       </List>
       <Divider  variant="middle" />
@@ -321,40 +326,15 @@ export default function Layout2({ children }, props) {
         <ListItem 
           button 
           key="Dashboard"
-          onClick={() => history.push("/course/ManageQuizzes")}
-          className={location.pathname == "/course/ManageQuizzes" ? classes.active : null}
+          onClick={() => history.push("/course/CourseQuizzes")}
+          className={location.pathname == "/course/CourseQuizzes" ? classes.active : null}
         >
           <ListItemIcon><SchoolOutlinedIcon color="secondary" /></ListItemIcon>
-          <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Manage Quizzes</Typography>}/>
+          <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Course Quizzes</Typography>}/>
         </ListItem>
       </List>
       <Divider  variant="middle" />
 
-      <List>
-        <ListItem 
-          button 
-          key="Dashboard"
-          onClick={() => history.push("/course/ManageStudents")}
-          className={location.pathname == "/course/ManageStudents" ? classes.active : null}
-        >
-          <ListItemIcon><GroupOutlinedIcon color="secondary" /></ListItemIcon>
-          <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Manage Students</Typography>}/>
-        </ListItem>
-      </List>
-      <Divider  variant="middle" />
-
-      <List>
-        <ListItem 
-          button 
-          key="Dashboard"
-          onClick={() => history.push("/course/EditInfo")}
-          className={location.pathname == "/course/EditInfo" ? classes.active : null}
-        >
-          <ListItemIcon><LibraryBooksIcon color="secondary" /></ListItemIcon>
-          <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Edit Course Info</Typography>}/>
-        </ListItem>
-      </List>
-      <Divider  variant="middle" />
     </div>
   );
 
@@ -373,6 +353,7 @@ export default function Layout2({ children }, props) {
             aria-label="open drawer"
             edge="start"
             className={classes.menuButton}
+            onClick={handleDrawerToggle}
           >
             <MenuIcon />
           </IconButton>
@@ -381,9 +362,10 @@ export default function Layout2({ children }, props) {
               </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
+            <IconButton 
+              onClick={handleNotification}
+              aria-label="show 17 new notifications" color="inherit">
               <Badge badgeContent={notification}  color="secondary"
-            onClick={handleNotification}
             >
                 <NotificationsIcon />
               </Badge>
@@ -444,7 +426,7 @@ export default function Layout2({ children }, props) {
         >
           <div className={classes.toolbar}>
               <Typography className={classes.title} variant="h6">
-              <Link to="/" className={classes.title}> E-Learning Hub</Link>
+              <Link to="/home" className={classes.title}> E-Learning Hub</Link>
               </Typography>
           </div>
           <Divider  variant="middle" />
