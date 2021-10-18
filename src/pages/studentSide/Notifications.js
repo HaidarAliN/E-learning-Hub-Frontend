@@ -40,7 +40,11 @@ export default function Notifications() {
             }}
         );
         const data_fetched = response.data;
-        setData(data_fetched);
+        if(data_fetched.status){
+            setData("");
+        }else{
+            setData(data_fetched);
+        }
     }
 
     useEffect(() => {
@@ -68,12 +72,13 @@ export default function Notifications() {
         <Typography className={classes.card2}  component="h2"  variant="h4" >
                 Notifications
             </Typography>
-            { data && <div className={classes.card}>
-                <Notification data={data} handleRead={handleRead}/> 
-            </div>}
-        </div>
-        <div className={classes.footer}>
-                            <Typography className={classes.footer}></Typography>
+            { data ?
+                <div className={classes.card}>
+                    <Notification data={data} handleRead={handleRead}/> 
+                </div>
+            :
+                <Typography > No Notifications yet </Typography>
+            }
         </div>
     </Layout>
 

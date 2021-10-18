@@ -378,6 +378,7 @@ export default function Layout2({ children }, props) {
             aria-label="open drawer"
             edge="start"
             className={classes.menuButton}
+            onClick={handleDrawerToggle}
           >
             <MenuIcon />
           </IconButton>
@@ -386,9 +387,10 @@ export default function Layout2({ children }, props) {
               </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
+            <IconButton 
+              onClick={handleNotification}
+              aria-label="show 17 new notifications" color="inherit">
               <Badge badgeContent={notification}  color="secondary"
-            onClick={handleNotification}
             >
                 <NotificationsIcon />
               </Badge>
