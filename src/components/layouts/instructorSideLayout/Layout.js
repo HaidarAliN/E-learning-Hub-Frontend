@@ -168,6 +168,7 @@ toolbar2: {
 
 export default function Layout2({ children, title }, props) {
   const [access_token, setAccess_token] = useState(JSON.parse( localStorage.getItem('access_token') ));
+  const [userName, setUserName] = useState(localStorage.getItem('name'));
   const [data, setData] = useState(null);
   const history = useHistory();
   const location = useLocation();
@@ -378,9 +379,9 @@ export default function Layout2({ children, title }, props) {
           >
             <MenuIcon />
           </IconButton>
-          {data?  <Typography  variant="h6">
-              Welcome {data.name}
-              </Typography>: <Typography  variant="h6">Welcome </Typography>}
+            <Typography  variant="h6">
+              Welcome {userName}
+              </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="show 17 new notifications" onClick={handleNotification} color="inherit">

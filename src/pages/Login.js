@@ -28,6 +28,7 @@ const Login = ({redicrett}) => {
             const userType = resp.data['user']['user_type_id'];
             localStorage.setItem('access_token', JSON.stringify( resp.data['access_token']));
             localStorage.setItem('user_type_id', JSON.stringify( resp.data['user']['user_type_id']));
+            localStorage.setItem('name', resp.data['user']['first_name']);
             if (userType == 2){
                 history.push('/home');
                 window.location.reload();

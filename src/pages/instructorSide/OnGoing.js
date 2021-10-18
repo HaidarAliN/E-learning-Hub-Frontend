@@ -85,8 +85,9 @@ export default function OnGoing() {
         }
         }, []);
 
-        const handleSubmit = (id) =>{
+        const handleSubmit = (id, name) =>{
             localStorage.setItem('course_id', id);
+            localStorage.setItem('course_name', name);
             history.push("/course/Dashboard");
         }
 
@@ -135,7 +136,7 @@ export default function OnGoing() {
                                     
                                     color="secondary" 
                                     variant="contained"
-                                    onClick={() => handleSubmit(item.id)}
+                                    onClick={() => handleSubmit(item.id, item.name)}
                                     startIcon={<ArrowForwardSharpIcon />}
                                     >
                                     Go To Course

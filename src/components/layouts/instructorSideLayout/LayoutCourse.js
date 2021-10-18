@@ -180,6 +180,7 @@ export default function Layout2({ children }, props) {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [notification,setNotification] = useState(0);
   const [data, setData] = useState(null);
+  const [name, setName] = useState(localStorage.getItem('course_name'));
 
 
   const isMenuOpen = Boolean(anchorEl);
@@ -383,7 +384,7 @@ export default function Layout2({ children }, props) {
             <MenuIcon />
           </IconButton>
               <Typography  variant="h6">
-              {title} {'>'}
+              {name} {'>'}
               </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>

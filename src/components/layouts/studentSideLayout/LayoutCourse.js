@@ -180,7 +180,7 @@ export default function Layout2({ children }, props) {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [notification,setNotification] = useState(0);
   const [data, setData] = useState(null);
-
+  const [name, setName] = useState(localStorage.getItem('course_name'));
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -313,7 +313,7 @@ export default function Layout2({ children }, props) {
         <ListItem 
           button 
           key="Dashboard"
-          onClick={() => history.push("/course/Material")}
+          onClick={() => history.push("/course/Materials")}
           className={location.pathname == "/course/Materials" ? classes.active : null}
         >
           <ListItemIcon><CloudUploadOutlinedIcon color="secondary" /></ListItemIcon>
@@ -358,7 +358,7 @@ export default function Layout2({ children }, props) {
             <MenuIcon />
           </IconButton>
               <Typography  variant="h6">
-              {title} {'>'}
+              {name} {'>'}
               </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>

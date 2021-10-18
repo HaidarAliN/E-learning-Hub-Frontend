@@ -34,7 +34,7 @@ export default function CourseDashboard() {
     const [data, setData] = useState(null);
 
     const getData = async()=>{
-        const response = await axios.get(`${BASE_API_URL}/api/instructor/course/dashboard/${courseId}`,
+        const response = await axios.get(`${BASE_API_URL}/api/student/course/dashboard/${courseId}`,
         {headers:{
           'Authorization' : `Bearer ${access_token}`
         }}
@@ -85,7 +85,7 @@ export default function CourseDashboard() {
                 <div>
                     <Card elevation={1} className={classes.cardbody}>
                         <CardHeader
-                            title="STUDENTS"
+                            title="Quizzes Count"
                             action={
                                 <IconButton>
                                   <SupervisorAccountIcon/>
@@ -94,7 +94,7 @@ export default function CourseDashboard() {
                         />
                         <CardContent>
                         <Typography variant="body2" color="textSecondary">
-                        {data.students_count}
+                        {data.quiz_count}
                         </Typography>
                         </CardContent>
                     </Card>

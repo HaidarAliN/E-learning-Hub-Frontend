@@ -19,6 +19,8 @@ import OnGoingS from './pages/studentSide/OnGoing'
 import FinishedCoursesS from './pages/studentSide/FinishedCourses'
 import SearchCourse from './pages/studentSide/SearchCourse'
 import CourseDashboards from './pages/studentSide/CourseDashboard'
+import UploadMaterials from './pages/studentSide/UploadMaterial'
+import CourseQuizzes from './pages/studentSide/CourseQuizzes'
 
 
 import { createTheme, ThemeProvider, Typography } from '@material-ui/core'
@@ -103,8 +105,8 @@ function App() {
               <Route path='/finishedCourses' exact component={FinishedCoursesS}/>
               <Route path='/searchCourse' exact component={SearchCourse}/>
               <Route path='/course/Dashboard' exact component={CourseDashboards}/>
-              <Route path='/course/Materials' exact component={UploadMaterial}/>
-              <Route path='/course/CourseQuizzes' exact component={ManageQuizzes}/> 
+              <Route path='/course/Materials' exact component={UploadMaterials}/>
+              <Route path='/course/CourseQuizzes' exact component={CourseQuizzes}/> 
               {/* <Route path='/course/EditInfo' exact component={EditCourseInfo}/>  */}
               {/* <Route path='/course/ManageStudents' exact component={ManageStudents}/>  */}
             </Switch>
