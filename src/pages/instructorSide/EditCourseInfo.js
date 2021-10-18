@@ -4,7 +4,7 @@ import React, {useState, useEffect} from 'react'
 import SendIcon from '@material-ui/icons/Send';
 import Slider from '@material-ui/core/Slider';
 import { Link, useHistory, useLocation } from 'react-router-dom'
-import LayoutCourse from '../../components/layouts/LayoutCourse'
+import LayoutCourse from '../../components/layouts/instructorSideLayout/LayoutCourse'
 import BASE_API_URL from '../../services/BaseUrl'
 import axios from "axios";
 import Tooltip from '@material-ui/core/Tooltip';

@@ -2,7 +2,7 @@ import { Box, Button, Card, CardContent, CardHeader, Container, createTheme, For
 import { ThemeProvider } from '@material-ui/styles'
 import React, {useState, useEffect} from 'react'
 import SendIcon from '@material-ui/icons/Send';
-import Layout from '../../components/layouts/Layout'
+import Layout from '../../components/layouts/instructorSideLayout/Layout'
 import BASE_API_URL from '../../services/BaseUrl'
 import axios from "axios";
 

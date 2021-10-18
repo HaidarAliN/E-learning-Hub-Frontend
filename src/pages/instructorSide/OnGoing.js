@@ -1,5 +1,5 @@
 import { Button, Card, CardContent, CardHeader,  Grid, makeStyles, Typography } from '@material-ui/core'
-import Layout from '../../components/layouts/Layout'
+import Layout from '../../components/layouts/instructorSideLayout/Layout'
 import React, {useState, useEffect} from 'react'
 import BASE_API_URL from '../../services/BaseUrl'
 import axios from "axios";

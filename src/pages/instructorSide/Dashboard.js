@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, Grid, IconButton, makeStyles, Typography } from '@material-ui/core'
 import React, {useState, useEffect} from 'react'
-import Layout from '../../components/layouts/Layout'
+import Layout from '../../components/layouts/instructorSideLayout/Layout'
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import DoneAllIcon from '@material-ui/icons/DoneAll';

@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import Drawer from '@material-ui/core/Drawer'
 import Typography from '@material-ui/core/Typography'
-import { Link, useHistory, useLocation } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
+import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import AppBar from '@material-ui/core/AppBar';
 import Divider from '@material-ui/core/Divider';
 import Hidden from '@material-ui/core/Hidden';
@@ -19,12 +20,10 @@ import Menu from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import CloudUploadOutlinedIcon from '@material-ui/icons/CloudUploadOutlined';
-import SchoolOutlinedIcon from '@material-ui/icons/SchoolOutlined';
-import GroupOutlinedIcon from '@material-ui/icons/GroupOutlined';
+import SettingsIcon from '@material-ui/icons/Settings';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
-import BASE_API_URL from '../../services/BaseUrl'
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import BASE_API_URL from '../../../services/BaseUrl'
 import axios from "axios";
 
 const drawerWidth = 240
@@ -33,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
   page: {
     background: '#f9f9f9',
     width: '100%',
+    height:'100%',
     padding: theme.spacing(3),
     [theme.breakpoints.down('xs')]: {
     marginLeft:"-60%"
@@ -166,12 +166,11 @@ toolbar2: {
 }
 }));
 
-export default function Layout2({ children }, props) {
+export default function Layout2({ children, title }, props) {
   const [access_token, setAccess_token] = useState(JSON.parse( localStorage.getItem('access_token') ));
-  const [courseId, setCourseID] = useState(JSON.parse(localStorage.getItem('course_id')));
-  const [title, setTitle] = useState('');
-  const history = useHistory()
-  const location = useLocation()
+  const [data, setData] = useState(null);
+  const history = useHistory();
+  const location = useLocation();
   const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
@@ -179,8 +178,17 @@ export default function Layout2({ children }, props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [notification,setNotification] = useState(0);
-  const [data, setData] = useState(null);
 
+  useEffect(async () => {
+    const response = await axios.get(`${BASE_API_URL}/api/instructor/navInfo`,
+      {headers:{
+        'Authorization' : `Bearer ${access_token}`
+      }}
+    );
+    const data_fetched = response.data;
+    setData(data_fetched);
+    setNotification(data_fetched.notification_count);
+    }, []);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -188,6 +196,7 @@ export default function Layout2({ children }, props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
   const container = window !== undefined ? () => window().document.body : undefined;
   //appbar 
   const handleProfileMenuOpen = (event) => {
@@ -207,28 +216,10 @@ export default function Layout2({ children }, props) {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
-  useEffect(async () => {
-    const response = await axios.get(`${BASE_API_URL}/api/instructor/navInfo`,
-      {headers:{
-        'Authorization' : `Bearer ${access_token}`
-      }}
-    );
-    const data_fetched = response.data;
-    setData(data_fetched);
-    setNotification(data_fetched.notification_count);
-    const response2 = await axios.get(`${BASE_API_URL}/api/instructor/course/info/${courseId}`,
-    {headers:{
-      'Authorization' : `Bearer ${access_token}`
-    }}
-  );
-  const data_fetched2 = await response2.data;
-  setTitle(data_fetched2[0].name);
-    }, []);
+  const handleNotification = ()=>{
+    history.push("/Notifications");
 
-    const handleNotification = ()=>{
-      history.push("/Notifications");
-  
-    }
+  }
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -259,7 +250,7 @@ export default function Layout2({ children }, props) {
     >
       <MenuItem>
         <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={notification} color="secondary">
+          <Badge badgeContent={notification}   color="secondary">
             <NotificationsIcon />
           </Badge>
         </IconButton>
@@ -295,8 +286,8 @@ export default function Layout2({ children }, props) {
         <ListItem 
           button 
           key="Dashboard"
-          onClick={() => history.push("/course/Dashboard")}
-          className={location.pathname == "/course/Dashboard" ? classes.active : null}
+          onClick={() => history.push("/")}
+          className={location.pathname == "/" ? classes.active : null}
         >
           <ListItemIcon><DashboardIcon color="secondary" /></ListItemIcon>
           <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Dashboard</Typography>}/>
@@ -308,53 +299,57 @@ export default function Layout2({ children }, props) {
         <ListItem 
           button 
           key="Dashboard"
-          onClick={() => history.push("/course/UploadMaterial")}
-          className={location.pathname == "/course/UploadMaterial" ? classes.active : null}
-        >
-          <ListItemIcon><CloudUploadOutlinedIcon color="secondary" /></ListItemIcon>
-          <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Upload Material</Typography>}/>
-        </ListItem>
-      </List>
-      <Divider  variant="middle" />
-
-      <List>
-        <ListItem 
-          button 
-          key="Dashboard"
-          onClick={() => history.push("/course/ManageQuizzes")}
-          className={location.pathname == "/course/ManageQuizzes" ? classes.active : null}
-        >
-          <ListItemIcon><SchoolOutlinedIcon color="secondary" /></ListItemIcon>
-          <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Manage Quizzes</Typography>}/>
-        </ListItem>
-      </List>
-      <Divider  variant="middle" />
-
-      <List>
-        <ListItem 
-          button 
-          key="Dashboard"
-          onClick={() => history.push("/course/ManageStudents")}
-          className={location.pathname == "/course/ManageStudents" ? classes.active : null}
-        >
-          <ListItemIcon><GroupOutlinedIcon color="secondary" /></ListItemIcon>
-          <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Manage Students</Typography>}/>
-        </ListItem>
-      </List>
-      <Divider  variant="middle" />
-
-      <List>
-        <ListItem 
-          button 
-          key="Dashboard"
-          onClick={() => history.push("/course/EditInfo")}
-          className={location.pathname == "/course/EditInfo" ? classes.active : null}
+          onClick={() => history.push("/onGoing")}
+          className={location.pathname == "/onGoing" ? classes.active : null}
         >
           <ListItemIcon><LibraryBooksIcon color="secondary" /></ListItemIcon>
-          <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Edit Course Info</Typography>}/>
+          <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>On going Courses</Typography>}/>
         </ListItem>
       </List>
       <Divider  variant="middle" />
+
+      <List>
+        <ListItem 
+          button 
+          key="Dashboard"
+          onClick={() => history.push("/finishedCourses")}
+          className={location.pathname == "/finishedCourses" ? classes.active : null}
+        >
+          <ListItemIcon><LibraryBooksIcon color="secondary" /></ListItemIcon>
+          <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Finished Courses</Typography>}/>
+        </ListItem>
+      </List>
+      <Divider  variant="middle" />
+
+      <List>
+        <ListItem 
+          button 
+          key="Dashboard"
+          onClick={() => history.push("/createCourse")}
+          className={location.pathname == "/createCourse" ? classes.active : null}
+        >
+          <ListItemIcon><SettingsIcon color="secondary" /></ListItemIcon>
+          <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Create New Course</Typography>}/>
+        </ListItem>
+      </List>
+      <Divider  variant="middle" />
+
+      <List>
+        <ListItem 
+          button 
+          key="Dashboard"
+          onClick={() => history.push("/Notifications")}
+          className={location.pathname == "/Notifications" ? classes.active : null}
+        >
+          <ListItemIcon><NotificationsNoneIcon color="secondary" /></ListItemIcon>
+          <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Notifications</Typography>}/>
+        </ListItem>
+      </List>
+      <Divider  variant="middle" />
+
+
+      
+      
     </div>
   );
 
@@ -372,19 +367,18 @@ export default function Layout2({ children }, props) {
             color="inherit"
             aria-label="open drawer"
             edge="start"
+            onClick={handleDrawerToggle}
             className={classes.menuButton}
           >
             <MenuIcon />
           </IconButton>
-              <Typography  variant="h6">
-              {title} {'>'}
-              </Typography>
+          {data?  <Typography  variant="h6">
+              Welcome {data.name}
+              </Typography>: <Typography  variant="h6">Welcome </Typography>}
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={notification}  color="secondary"
-            onClick={handleNotification}
-            >
+            <IconButton aria-label="show 17 new notifications" onClick={handleNotification} color="inherit">
+              <Badge badgeContent={notification} color="secondary">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
@@ -444,7 +438,7 @@ export default function Layout2({ children }, props) {
         >
           <div className={classes.toolbar}>
               <Typography className={classes.title} variant="h6">
-              <Link to="/" className={classes.title}> E-Learning Hub</Link>
+                E-Learning Hub
               </Typography>
           </div>
           <Divider  variant="middle" />

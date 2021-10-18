@@ -1,6 +1,6 @@
 import { Button, Grid, makeStyles, Typography } from '@material-ui/core'
 import React, {useState, useEffect} from 'react'
-import LayoutCourse from '../../components/layouts/LayoutCourse'
+import LayoutCourse from '../../components/layouts/instructorSideLayout/LayoutCourse'
 import Students from '../../components/InstructorComponents/Students'
 import BASE_API_URL from '../../services/BaseUrl'
 import axios from "axios";

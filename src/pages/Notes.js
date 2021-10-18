@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
 import NCard from '../components/NCard'
-import Layout from '../components/layouts/Layout'
 
 
 export default function Notes() {
@@ -65,7 +64,7 @@ export default function Notes() {
   }
 
   return (
-    <Layout title="qwe">
+    // <Layout title="qwe">
     <Container>
       <Grid container spacing={1}>
         {notes.map(note => (
@@ -75,6 +74,6 @@ export default function Notes() {
         ))}
       </Grid>
     </Container>
-    </Layout>
+    // </Layout>
   )
 }

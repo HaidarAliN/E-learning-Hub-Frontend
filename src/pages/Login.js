@@ -3,15 +3,18 @@ import axios from "axios";
 import BASE_API_URL from '../services/BaseUrl';
 import { useHistory, Redirect } from "react-router-dom";
 
-const Login = (props) => {
+
+const Login = ({redicrett}) => {
     const [email, setEmail] = useState('instructor1@ehub.edu');
     const [password, setPassword] = useState('qweqwe');
     const [error, setError] = useState(null);
     const history = useHistory();
 
-    // const handleChange = event => {
-    //     props.onchange(event);
-    // }
+    const handleRedicret = () => {
+        redicrett();
+        console.log("qwe");
+
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -23,15 +26,15 @@ const Login = (props) => {
             const resp = await axios.post(`${BASE_API_URL}/api/login`, newPost);
             setError(null);
             const userType = resp.data['user']['user_type_id'];
-            // if (userType != 1){
-                // setError('qwe');
-                // return( <Redirect to={ {pathname: '/', state: {from: props.location} }}/>
-                // );
-            // }else{
-                // handleChange();
-                localStorage.setItem('access_token', JSON.stringify( resp.data['access_token']));
+            localStorage.setItem('access_token', JSON.stringify( resp.data['access_token']));
+            localStorage.setItem('user_type_id', JSON.stringify( resp.data['user']['user_type_id']));
+            if (userType == 2){
                 history.push('/');
-            // }
+                window.location.reload();
+            }else{
+                history.push('/');
+                window.location.reload();
+            }
         } catch (err) {
             console.error(err);
             setError('qwe');

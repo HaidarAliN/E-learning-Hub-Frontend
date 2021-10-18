@@ -5,7 +5,7 @@ import Container from '@material-ui/core/Container'
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'
 import { makeStyles, TextField } from '@material-ui/core'
 import validator from 'validator'
-import LayoutCourse from '../../components/layouts/LayoutCourse'
+import LayoutCourse from '../../components/layouts/instructorSideLayout/LayoutCourse'
 
 
 const useStyles = makeStyles({

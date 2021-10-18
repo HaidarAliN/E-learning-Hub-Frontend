@@ -5,7 +5,7 @@ import { createTheme, responsiveFontSizes } from '@material-ui/core/styles';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
-import LayoutCourse from '../../components/layouts/LayoutCourse'
+import LayoutCourse from '../../components/layouts/instructorSideLayout/LayoutCourse'
 import BASE_API_URL from '../../services/BaseUrl'
 import axios from "axios";
 

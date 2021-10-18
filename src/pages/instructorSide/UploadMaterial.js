@@ -2,7 +2,7 @@ import { Button, Card, CardContent, CardHeader, createTheme, FormControl, Grid, 
 import React, {useState,useEffect} from 'react'
 import SendIcon from '@material-ui/icons/Send';
 import BackupOutlinedIcon from '@material-ui/icons/BackupOutlined';
-import LayoutCourse from '../../components/layouts/LayoutCourse'
+import LayoutCourse from '../../components/layouts/instructorSideLayout/LayoutCourse'
 import Materials from '../../components/InstructorComponents/Materials';
 import BASE_API_URL from '../../services/BaseUrl'
 import axios from "axios";

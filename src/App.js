@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom'
 import Notes from './pages/Notes'
 import Login from './pages/Login'
 import Create from './pages/instructorSide/Create'
@@ -12,9 +12,10 @@ import ManageStudents from './pages/instructorSide/ManageStudents'
 import ManageQuizzes from './pages/instructorSide/ManageQuizzes'
 import FinishedCourses from './pages/instructorSide/FinishedCourses'
 import OnGoing from './pages/instructorSide/OnGoing'
-import { createTheme, ThemeProvider } from '@material-ui/core'
+import { createTheme, ThemeProvider, Typography } from '@material-ui/core'
 import firebase from './firebase'
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
 
 const theme = createTheme({
   palette: {
@@ -35,6 +36,8 @@ const theme = createTheme({
 })
 
 function App() {
+  const [type_id, setAccess_token] = useState(JSON.parse( localStorage.getItem('user_type_id') ));
+  const history = useHistory();
 
   const componentDidMount = ()=>{
 
@@ -49,29 +52,45 @@ function App() {
     })
     
   }
+
+
+
   useEffect(() => {
     // Update the document title using the browser API
     componentDidMount();
-
-  },[]);
+    console.log(type_id);
+  },[type_id]);
 
   return (
     <ThemeProvider theme={theme}>
       <Router>
           <Switch>
-            <Route path='/login' exact component={Login}/>
-            <Route path='/' exact component={Dashboard}/>
-            <Route path='/notifications' exact component={Notifications}/>
-            <Route path='/onGoing' exact component={OnGoing}/>
-            <Route path='/finishedCourses' exact component={FinishedCourses}/>
-            <Route path='/createCourse' exact component={CreateCourse}/>
-            <Route path='/create' exact component={Create}/>
-            <Route path='/course/Dashboard' exact component={CourseDashboard}/>
-            <Route path='/course/UploadMaterial' exact component={UploadMaterial}/>
-            <Route path='/course/EditInfo' exact component={EditCourseInfo}/> 
-            <Route path='/course/ManageStudents' exact component={ManageStudents}/> 
-            <Route path='/course/ManageQuizzes' exact component={ManageQuizzes}/> 
+            <Route path='/login' exact component={Login} />
           </Switch>
+          {type_id == 1 && 
+            <Switch>
+              <Route path='/' exact component={Dashboard}/>
+            </Switch>}
+          {type_id == 2 && 
+            <Switch>
+              <Route path='/' exact component={Dashboard}/>
+              <Route path='/notifications' exact component={Notifications}/>
+              <Route path='/onGoing' exact component={OnGoing}/>
+              <Route path='/finishedCourses' exact component={FinishedCourses}/>
+              <Route path='/createCourse' exact component={CreateCourse}/>
+              <Route path='/create' exact component={Create}/>
+              <Route path='/course/Dashboard' exact component={CourseDashboard}/>
+              <Route path='/course/UploadMaterial' exact component={UploadMaterial}/>
+              <Route path='/course/EditInfo' exact component={EditCourseInfo}/> 
+              <Route path='/course/ManageStudents' exact component={ManageStudents}/> 
+              <Route path='/course/ManageQuizzes' exact component={ManageQuizzes}/> 
+            </Switch>
+          }
+          {type_id == 3 && 
+            <Switch>
+              <Route path='/' exact component={Notes}/>
+            </Switch>
+            }
       </Router>
     </ThemeProvider>
   );

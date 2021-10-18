@@ -4,7 +4,7 @@ import React, {useState,useEffect} from 'react'
 import SendIcon from '@material-ui/icons/Send';
 import BackupOutlinedIcon from '@material-ui/icons/BackupOutlined';
 import EditIcon from '@material-ui/icons/Edit';
-import LayoutCourse from '../../components/layouts/LayoutCourse'
+import LayoutCourse from '../../components/layouts/instructorSideLayout/LayoutCourse'
 import Questions from '../../components/InstructorComponents/Questions';
 import BASE_API_URL from '../../services/BaseUrl'
 import axios from "axios";
