@@ -17,6 +17,7 @@ import DashboardS from './pages/studentSide/Dashboard'
 import NotificationsS from './pages/studentSide/Notifications'
 import OnGoingS from './pages/studentSide/OnGoing'
 import FinishedCoursesS from './pages/studentSide/FinishedCourses'
+import SearchCourse from './pages/studentSide/SearchCourse'
 
 import { createTheme, ThemeProvider, Typography } from '@material-ui/core'
 import firebase from './firebase'
@@ -98,7 +99,7 @@ function App() {
               <Route path='/notifications' exact component={NotificationsS}/>
               <Route path='/onGoing' exact component={OnGoingS}/>
               <Route path='/finishedCourses' exact component={FinishedCoursesS}/>
-              <Route path='/searchCourse' exact component={CreateCourse}/>
+              <Route path='/searchCourse' exact component={SearchCourse}/>
               <Route path='/course/Dashboard' exact component={CourseDashboard}/>
               <Route path='/course/Material' exact component={UploadMaterial}/>
               <Route path='/course/Quizzes' exact component={ManageQuizzes}/> 
