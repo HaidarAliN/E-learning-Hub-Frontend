@@ -1,8 +1,10 @@
 import { Box, Button, Card, CardContent, CardHeader, Container, createTheme, FormControl, Grid, InputLabel, makeStyles, NativeSelect, responsiveFontSizes, TextField, Typography } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/styles'
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import SendIcon from '@material-ui/icons/Send';
 import Layout from '../../components/layouts/Layout'
+import BASE_API_URL from '../../services/BaseUrl'
+import axios from "axios";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -37,40 +39,74 @@ const useStyles = makeStyles((theme) => ({
     label:{
         alignItems:"center",
         marginTop:"5%"
+    },
+    created:{
+        marginTop: "2%"
     }
   
 }));
 
 export default function CreateCourse() {
+    const [access_token, setAccess_token] = useState(JSON.parse( localStorage.getItem('access_token') ));
     const [courseName, setCourseName] = useState('');
     const [nameError, setNameError] = useState(false);
     const [CourseDescription, setCourseDescription] = useState('');
     const [CourseDescriptionError, setCourseDescriptionError] = useState(false);
-    const [courseType, setCourseType] = React.useState({
-        type: ''
-      });
-      const [courseMajor, setCourseMajor] = React.useState({
-        major: ''
-      });
+    const [types, setTypes] = useState(null);
+    const [courseTypeName,setCourseTypeName] = useState(1);//
+    const [courseType, setCourseType] = useState(0);
+    const [created, setCreated] = useState(null);
+    // const [courseType, setCourseType] = useState({
+    //     type: ''
+    //   });
 
     const handleChange = (e) => {
         const name = e.target.name;
+        setCourseTypeName(e.target.value);
         setCourseType({
           ...courseType,
-          [name]: e.target.value,
+          [name]: types[e.target.value-1].name,
         });
     };
 
-    const handleMajorChange = (e) => {
-        const name = e.target.name;
-        setCourseMajor({
-          ...courseMajor,
-          [name]: e.target.value,
-        });
-        };
+    useEffect(async () => {
+        const response = await axios.get(`${BASE_API_URL}/api/instructor/get-course-types`,
+        {headers:{
+          'Authorization' : `Bearer ${access_token}`
+        }}
+        );
+        const data_fetched = await response.data;
+        setTypes(data_fetched);
+    }, []);
+
+  
     
-    const handleSubmit = () =>{
-        console.log(3);
+    const handleSubmit = async() =>{
+        setNameError(false);
+        setCourseDescriptionError(false);
+
+        if(!courseName){
+            setNameError(true);
+        }
+        if(!CourseDescription){
+            setCourseDescriptionError(true);
+        }
+        if(courseName && CourseDescription && courseTypeName){
+            const response = await axios.post(`${BASE_API_URL}/api/instructor/create-course`,
+            {
+                "name" : courseName,
+                "description" : CourseDescription,
+                "type_id" : courseTypeName,
+            },
+            {headers:{
+            'Authorization' : `Bearer ${access_token}`
+            }}
+            );
+            const data_fetched = await response.data;
+            if(data_fetched){
+                setCreated("1");
+            }
+        }
     }
 
     const classes = useStyles();
@@ -80,20 +116,11 @@ export default function CreateCourse() {
     <Layout title="qwe">
 
         <div>
-            <ThemeProvider theme={theme}>
-            <Typography  component="h3"  variant="h4" >
-                <Box color="text.primary">
-                Welcom Haidar Ali
-                </Box>
+        <Typography className={classes.card2}  component="h2"  variant="h4" >
+                Create New Course
             </Typography>
-             <Typography  component="h6" variant="body1" >
-                <Box color="text.secondary">
-                Here you can Create a new class:
-                </Box>
-            </Typography>
-            </ThemeProvider>
 
-            <div className={classes.card}>
+            {!created ?<div className={classes.card}>
             <Grid container spacing={1} >
                 <Grid item xs={12} md={12} lg={12} key={1}>
                 <div>
@@ -123,9 +150,9 @@ export default function CreateCourse() {
                             </Grid>
                             <Grid item xs={12} md={6} lg={4} key={3}>
                                 <TextField
+                                    key={11}
                                     onChange={(e) => setCourseName(e.target.value)}
                                     className={classes.field}
-                                    label="Course Name"
                                     variant="outlined"
                                     color="primary"
                                     fullWidth
@@ -144,9 +171,9 @@ export default function CreateCourse() {
                             </Grid>
                             <Grid item xs={12} md={6} lg={4} key={3}>
                                 <TextField
+                                    key={12}
                                     onChange={(e) => setCourseDescription(e.target.value)}
                                     className={classes.field}
-                                    label="Description"
                                     variant="outlined"
                                     color="primary"
                                     fullWidth
@@ -164,7 +191,7 @@ export default function CreateCourse() {
                                 <InputLabel>Course type:</InputLabel>
                             </Grid>
                             <Grid item xs={12} md={6} lg={4} key={3}>
-                                <FormControl className={classes.formControl}>
+                            {types &&<FormControl className={classes.formControl}>
                                     <NativeSelect
                                     value={courseType.type}
                                     onChange={handleChange}
@@ -173,47 +200,28 @@ export default function CreateCourse() {
                                         id: 'age-native-label-placeholder',
                                     }}
                                     >
-                                    <option aria-label="qwe" value="" />
-                                    <option value={10}>Ten</option>
-                                    <option value={20}>Twenty</option>
-                                    <option value={30}>Thirty</option>
+                                    <option >{courseType.type}</option>
+              {types.map(item => (
+                                    <option key={item.id} value={item.id}>{item.name}</option>
+                                    ))}
                                     </NativeSelect>
-                                </FormControl>
+                                </FormControl>}
                             </Grid>
                             <Grid item xs={12} md={1} lg={5} key={4}>
                             </Grid>
                         </Grid>
 
-                        <Grid container spacing={3}>
-                            <Grid item xs={12} md={5} lg={3} key={2}>
-                                <InputLabel>Course Major:</InputLabel>
-                            </Grid>
-                            <Grid item xs={12} md={6} lg={4} key={3}>
-                                <FormControl className={classes.formControl}>
-                                    <NativeSelect
-                                    value={courseMajor.major}
-                                    onChange={handleMajorChange}
-                                    inputProps={{
-                                        name: 'major',
-                                        id: 'type-native-helper',
-                                    }}
-                                    >
-                                    <option aria-label="qwee" value="" />
-                                    <option value={10}>Ten</option>
-                                    <option value={20}>Twenty</option>
-                                    <option value={30}>Thirty</option>
-                                    </NativeSelect>
-                                </FormControl>
-                            </Grid>
-                            <Grid item xs={12} md={1} lg={5} key={4}>
-                            </Grid>
-                        </Grid>
                         </CardContent>
                     </Card>
                 </div>
                 </Grid>
             </Grid>
             </div>
+            :
+            <Typography className={classes.created} component="h2"  variant="body1" >
+                Course has beed created!
+            </Typography>    
+        }
         </div>
     </Layout>
 

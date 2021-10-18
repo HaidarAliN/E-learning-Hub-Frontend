@@ -5,7 +5,7 @@ import SendIcon from '@material-ui/icons/Send';
 import BackupOutlinedIcon from '@material-ui/icons/BackupOutlined';
 import EditIcon from '@material-ui/icons/Edit';
 import LayoutCourse from '../../components/layouts/LayoutCourse'
-import Questions from '../../components/Questions';
+import Questions from '../../components/InstructorComponents/Questions';
 import BASE_API_URL from '../../services/BaseUrl'
 import axios from "axios";
 
@@ -115,7 +115,6 @@ export default function ManageQuizzes() {
         }else{
             setData(null);
         }
-        console.log(data_fetched.length);
     }
 
     const getQuizquiestion = async (id) =>{
@@ -134,13 +133,10 @@ export default function ManageQuizzes() {
             setQuizQuestions(null);
         }
         if(data_fetched.status){
-            console.log(data_fetched.status);
             setquizloadedQuestions(null);
         }else{
-            console.log(data_fetched);
             if(data_fetched.length > 0){
                 setquizloadedQuestions(data_fetched);
-            console.log(data_fetched);
             }else{
                 setquizloadedQuestions(null);
             }
@@ -217,16 +213,19 @@ export default function ManageQuizzes() {
         setSecondeditanswer(data_fetched.second_answer);
         setThirdeditanswer(data_fetched.third_answer);
         setEditquestion(data_fetched.content);
-        console.log(data_fetched.right_answer);
     }
 
     
 
     const handleChange = (e) => {
         const name = e.target.name;
-        setQuizName({
-            ...quizname,
-            [name]: data[e.target.value-1].name,
+        data.forEach(element => {
+            if(element.id == e.target.value){
+                setQuizName({
+                    ...quizname,
+                    [name]: element.name,
+                });
+            }
         });
         setQuizId(e.target.value);
     };
@@ -257,7 +256,6 @@ export default function ManageQuizzes() {
         if(newQuestion){
             setNewQuestiontype(e.target.value);
         }
-        console.log(newRightAnswer.type);   
     };
 
     const handleChangeNewRightAnswer = (e) => {
@@ -357,8 +355,8 @@ export default function ManageQuizzes() {
        setNewSecondAnswer('');
        setNewThirdAnswe('');
        setNewQuestion('');
-       setNewQuestiontype({type:''});
-       setNewRightAnswer('');
+       setNewRightAnswer({type:''});
+
     }
 
     return (
@@ -511,7 +509,7 @@ export default function ManageQuizzes() {
                                         id: 'age-native-label-placeholder',
                                     }}
                                     >
-                                    <option ></option>
+                                    <option value={-1}></option>
                                     <option value={0}>MCQ</option>
                                     <option value={1}>True or False</option>
                                     </NativeSelect>
@@ -531,10 +529,12 @@ export default function ManageQuizzes() {
                             </Grid>
                             <Grid item xs={12} md={6} lg={4} key={3}>
                                 <TextField
+                                    key={654}
                                     onChange={(e) => setNewFirstAnswer(e.target.value)}
                                     className={classes.field}
                                     variant="outlined"
                                     color="primary"
+                                    value={newFirstAnswer}
                                     fullWidth
                                     required
                                     placeholder="First Answer"
@@ -550,8 +550,10 @@ export default function ManageQuizzes() {
                             </Grid>
                             <Grid item xs={12} md={6} lg={4} key={3}>
                                 <TextField
+                                    key={765}
                                     onChange={(e) => setNewSecondAnswer(e.target.value)}
                                     className={classes.field}
+                                    value={newSecondAnswer}
                                     variant="outlined"
                                     color="primary"
                                     fullWidth
@@ -569,10 +571,12 @@ export default function ManageQuizzes() {
                             </Grid>
                             <Grid item xs={12} md={6} lg={4} key={3}>
                                 <TextField
+                                    key={876}
                                     onChange={(e) => setNewThirdAnswe(e.target.value)}
                                     className={classes.field}
                                     variant="outlined"
                                     color="primary"
+                                    value={newThirdAnswe}
                                     fullWidth
                                     required
                                     placeholder="Third Answe"
@@ -589,6 +593,7 @@ export default function ManageQuizzes() {
                             <Grid item xs={12} md={6} lg={4} key={3}>
                             <FormControl className={classes.formControl}>
                                     <NativeSelect
+                                    key={987}
                                     value={newRightAnswer.type}
                                     onChange={handleChangeNewRightAnswer}
                                     label="qwe"
@@ -625,6 +630,7 @@ export default function ManageQuizzes() {
                                         <Grid item xs={12} md={6} lg={4} key={3}>
                                         <FormControl className={classes.formControl}>
                                                 <NativeSelect
+                                                key={567}
                                                 value={newRightAnswer.type}
                                                 onChange={handleChangeNewRightAnswer}
                                                 label="qwe"

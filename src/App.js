@@ -3,6 +3,7 @@ import Notes from './pages/Notes'
 import Login from './pages/Login'
 import Create from './pages/instructorSide/Create'
 import Dashboard from './pages/instructorSide/Dashboard'
+import Notifications from './pages/instructorSide/Notifications'
 import CreateCourse from './pages/instructorSide/CreateCourse'
 import EditCourseInfo from './pages/instructorSide/EditCourseInfo'
 import CourseDashboard from './pages/instructorSide/CourseDashboard'
@@ -60,6 +61,7 @@ function App() {
           <Switch>
             <Route path='/login' exact component={Login}/>
             <Route path='/' exact component={Dashboard}/>
+            <Route path='/notifications' exact component={Notifications}/>
             <Route path='/onGoing' exact component={OnGoing}/>
             <Route path='/finishedCourses' exact component={FinishedCourses}/>
             <Route path='/createCourse' exact component={CreateCourse}/>

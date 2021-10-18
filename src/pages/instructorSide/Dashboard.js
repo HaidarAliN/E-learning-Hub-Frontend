@@ -6,6 +6,7 @@ import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 import BASE_API_URL from '../../services/BaseUrl'
 import axios from "axios";
+import { useHistory, useLocation } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
     card:{
@@ -34,6 +35,8 @@ export default function Dashboard() {
     const [access_token, setAccess_token] = useState(JSON.parse( localStorage.getItem('access_token') ));
     const [data, setData] = useState(null);
     const classes = useStyles();
+    const history = useHistory();
+
 
     useEffect(async () => {
         const response = await axios.get(`${BASE_API_URL}/api/instructor/dashboard`,
@@ -44,9 +47,11 @@ export default function Dashboard() {
         const data_fetched = response.data;
         setData(data_fetched);
         }, []);
+    
+  
 
     return (
-    <Layout title="qwe">
+    <Layout title="qwe" >
         <div className={classes.paper}>
         <Typography className={classes.card2}  component="h2"  variant="h4" >
                 Dashboard

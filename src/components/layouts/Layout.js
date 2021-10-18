@@ -169,8 +169,8 @@ toolbar2: {
 export default function Layout2({ children, title }, props) {
   const [access_token, setAccess_token] = useState(JSON.parse( localStorage.getItem('access_token') ));
   const [data, setData] = useState(null);
-  const history = useHistory()
-  const location = useLocation()
+  const history = useHistory();
+  const location = useLocation();
   const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
@@ -216,6 +216,11 @@ export default function Layout2({ children, title }, props) {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const handleNotification = ()=>{
+    history.push("/Notifications");
+
+  }
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -245,7 +250,7 @@ export default function Layout2({ children, title }, props) {
     >
       <MenuItem>
         <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={notification} color="secondary">
+          <Badge badgeContent={notification}   color="secondary">
             <NotificationsIcon />
           </Badge>
         </IconButton>
@@ -372,7 +377,7 @@ export default function Layout2({ children, title }, props) {
               </Typography>: <Typography  variant="h6">Welcome </Typography>}
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
+            <IconButton aria-label="show 17 new notifications" onClick={handleNotification} color="inherit">
               <Badge badgeContent={notification} color="secondary">
                 <NotificationsIcon />
               </Badge>

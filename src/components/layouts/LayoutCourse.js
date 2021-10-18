@@ -225,6 +225,11 @@ export default function Layout2({ children }, props) {
   setTitle(data_fetched2[0].name);
     }, []);
 
+    const handleNotification = ()=>{
+      history.push("/Notifications");
+  
+    }
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -367,7 +372,6 @@ export default function Layout2({ children }, props) {
             color="inherit"
             aria-label="open drawer"
             edge="start"
-            onClick={handleDrawerToggle}
             className={classes.menuButton}
           >
             <MenuIcon />
@@ -378,7 +382,9 @@ export default function Layout2({ children }, props) {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={notification} color="secondary">
+              <Badge badgeContent={notification}  color="secondary"
+            onClick={handleNotification}
+            >
                 <NotificationsIcon />
               </Badge>
             </IconButton>

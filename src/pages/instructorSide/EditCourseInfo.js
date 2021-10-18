@@ -3,7 +3,7 @@ import { ThemeProvider } from '@material-ui/styles'
 import React, {useState, useEffect} from 'react'
 import SendIcon from '@material-ui/icons/Send';
 import Slider from '@material-ui/core/Slider';
-import DashboardIcon from '@material-ui/icons/Dashboard';
+import { Link, useHistory, useLocation } from 'react-router-dom'
 import LayoutCourse from '../../components/layouts/LayoutCourse'
 import BASE_API_URL from '../../services/BaseUrl'
 import axios from "axios";
@@ -64,10 +64,10 @@ export default function UploadMaterial() {
     const [courseDescription,setCourseDescription] = useState('');//
     const [nameError,setNameError] = useState(false);
     const [courseDescriptionError,setCourseDescriptionError] = useState(false);
-    const [courseType, setCourseType] = React.useState(null);
-      const [courseMajor, setCourseMajor] = React.useState({
-        major: ''
-      });
+    const [courseType, setCourseType] = useState(0);
+    const location = useLocation();
+    const history = useHistory();
+    
     
     let theme = createTheme();
     theme = responsiveFontSizes(theme);
@@ -80,14 +80,6 @@ export default function UploadMaterial() {
           [name]: types[e.target.value-1].name,
         });
     };
-
-    const handleMajorChange = (e) => {
-        const name = e.target.name;
-        setCourseMajor({
-          ...courseMajor,
-          [name]: e.target.value,
-        });
-        };
 
     const handleSubmit = async() =>{
         const response = await axios.post(`${BASE_API_URL}/api/instructor/course/edit-info/${courseId}`,
@@ -105,6 +97,7 @@ export default function UploadMaterial() {
         const data_fetched = await response.data;
         if(data_fetched){
             getData();
+            history.push("/course/Dashboard");
         }
     }
 

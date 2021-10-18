@@ -1,7 +1,7 @@
 import { Button, Grid, makeStyles, Typography } from '@material-ui/core'
 import React, {useState, useEffect} from 'react'
 import LayoutCourse from '../../components/layouts/LayoutCourse'
-import RTable from '../../components/RTable'
+import Students from '../../components/InstructorComponents/Students'
 import BASE_API_URL from '../../services/BaseUrl'
 import axios from "axios";
 
@@ -77,7 +77,7 @@ export default function ManageStudents() {
              <Grid container spacing={1} >
                 <Grid item xs={12} md={12} lg={12} key={1}>
                    
-                    {data ? <RTable data={data} handleRemove={handleRemove} handlePending={handlePending}/>
+                    {data ? <Students data={data} handleRemove={handleRemove} handlePending={handlePending}/>
                             :
                             <Typography className={classes.card}  component="h3"  variant="h5" >No Students enrolled</Typography>
                     }

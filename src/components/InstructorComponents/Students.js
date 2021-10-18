@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default function RTable({data, handlePending, handleRemove}) {
+export default function Students({data, handlePending, handleRemove}) {
   const classes = useStyles();
 
   const removeStudent = (id)=>{

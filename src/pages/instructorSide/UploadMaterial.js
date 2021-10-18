@@ -1,14 +1,11 @@
-import { Box, Button, Card, CardContent, CardHeader, createTheme, FormControl, Grid, IconButton, InputLabel, makeStyles, NativeSelect, responsiveFontSizes, TextField, Typography } from '@material-ui/core'
-import { ThemeProvider } from '@material-ui/styles'
+import { Button, Card, CardContent, CardHeader, createTheme, FormControl, Grid, InputLabel, makeStyles, responsiveFontSizes, TextField, Typography } from '@material-ui/core'
 import React, {useState,useEffect} from 'react'
 import SendIcon from '@material-ui/icons/Send';
 import BackupOutlinedIcon from '@material-ui/icons/BackupOutlined';
-import EditIcon from '@material-ui/icons/Edit';
 import LayoutCourse from '../../components/layouts/LayoutCourse'
-import Materials from '../../components/Materials';
+import Materials from '../../components/InstructorComponents/Materials';
 import BASE_API_URL from '../../services/BaseUrl'
 import axios from "axios";
-import { getGridDateOperators } from '@material-ui/data-grid';
 
 
 const useStyles = makeStyles((theme) => ({
