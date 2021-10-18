@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
   // necessary for content to be below app bar
   drawerPaper: {
     width: drawerWidth,
-    background: '#5a5c69',
+    background: '#4e73df',
   },
   content: {
     flexGrow: 1,

@@ -109,7 +109,7 @@ export default function SearchCourse() {
                                         variant="contained"
                                         onClick={handleSearch}
                                         endIcon={<SearchIcon/>}>
-                                        Add Chapter
+                                        Search
                                     </Button>
                                 </div>
                               }

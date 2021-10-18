@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
   // necessary for content to be below app bar
   drawerPaper: {
     width: drawerWidth,
-    background: '#5a5c69',
+    background: '#4e73df',
   },
   content: {
     flexGrow: 1,
@@ -164,6 +164,11 @@ nested: {
 toolbar: theme.mixins.toolbar,
 toolbar2: {
   marginBottom: "2%",
+},
+primary:{
+  backgroundColor:'#4e73df',
+  backgroundImage:"linear-gradient(180deg,#4e73df 10%,#224abe 100%)",
+  backgroundSize: "cover"
 }
 }));
 

@@ -60,17 +60,6 @@ export default function OnGoing() {
     const [data, setData] = useState(null);
     const history = useHistory()
 
-
-    const fetchMoreData = async () => {
-        const response = await axios.get(`${BASE_API_URL}/api/instructor/get-Ongoing-courses`,
-          {headers:{
-            'Authorization' : `Bearer ${access_token}`
-          }}
-        );
-        const data_fetched = response.data;
-        setData(data_fetched);
-    }
-
     useEffect(async () => {
         const response = await axios.get(`${BASE_API_URL}/api/instructor/get-Ongoing-courses`,
           {headers:{
@@ -83,6 +72,7 @@ export default function OnGoing() {
         }else{
             setData(data_fetched);
         }
+        console.log(data_fetched);
         }, []);
 
         const handleSubmit = (id, name) =>{
@@ -101,7 +91,7 @@ export default function OnGoing() {
             {/* card */}
             <div className={classes.card}>
             <Grid container spacing={1} >
-            {data && 
+            {data ?
                                         data.map(item => (
                 <Grid item xs={12}  sm={6} md={6} lg={4} key={item.id}>
                 <div>
@@ -115,7 +105,6 @@ export default function OnGoing() {
                             className={classes.cardHeader}
                         />
                         <CardContent className={classes.cardBody}>
-                       {data? 
                             <div>
                             <Typography>Progress: {item.progress}%</Typography>
                             <Typography >Course Type: {item.course_type}</Typography>
@@ -131,15 +120,17 @@ export default function OnGoing() {
                                 </Button>
                                 </div>
                              </div>                          
-                        :<Typography className={classes.card2}  component="h2"  variant="h4" >
-                            Nothing to show
-                        </Typography>}
+                        
                         
                         </CardContent>
                     </Card>
                 </div>
                 </Grid>
-                ))}                       
+                    ))
+                :<Typography className={classes.card2}  component="h2"  variant="h4" >
+                    Nothing to show
+                </Typography>
+            }                       
             </Grid>
             </div>
 

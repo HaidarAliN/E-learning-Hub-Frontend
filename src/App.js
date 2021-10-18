@@ -69,8 +69,7 @@ function App() {
   useEffect(() => {
     // Update the document title using the browser API
     componentDidMount();
-    console.log(type_id);
-  },[type_id]);
+  },[]);
 
   return (
     <ThemeProvider theme={theme}>
