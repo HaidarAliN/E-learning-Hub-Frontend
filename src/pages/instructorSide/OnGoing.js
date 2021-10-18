@@ -98,21 +98,11 @@ export default function OnGoing() {
             <Typography className={classes.card2}  component="h2"  variant="h4" >
                 On Going Courses
             </Typography>
-
             {/* card */}
             <div className={classes.card}>
             <Grid container spacing={1} >
-
             {data && 
-            // <InfiniteScroll
-            //                 dataLength={data.length} //This is important field to render the next data
-            //                 next={fetchMoreData}
-            //                 hasMore={true}
-            //                 className={classes.flex}
-            //                 loader={<h4>Loading...</h4>}
-            //                 >
                                         data.map(item => (
-
                 <Grid item xs={12}  sm={6} md={6} lg={4} key={item.id}>
                 <div>
                     <Card elevation={1} className={classes.cardbody}
@@ -126,8 +116,6 @@ export default function OnGoing() {
                         />
                         <CardContent className={classes.cardBody}>
                        {data? 
-
-                           
                             <div>
                             <Typography>Progress: {item.progress}%</Typography>
                             <Typography >Course Type: {item.course_type}</Typography>
@@ -143,7 +131,6 @@ export default function OnGoing() {
                                 </Button>
                                 </div>
                              </div>                          
-
                         :<Typography className={classes.card2}  component="h2"  variant="h4" >
                             Nothing to show
                         </Typography>}
@@ -152,16 +139,9 @@ export default function OnGoing() {
                     </Card>
                 </div>
                 </Grid>
-                
-
-                ))}
-                            {/* </InfiniteScroll> */}
-                            
-
-
+                ))}                       
             </Grid>
             </div>
-
 
         </div>
     </Layout>
