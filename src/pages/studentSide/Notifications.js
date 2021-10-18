@@ -34,7 +34,7 @@ export default function Notifications() {
     
 
     const getDAta = async () => {
-        const response = await axios.get(`${BASE_API_URL}/api/instructor/notifications`,
+        const response = await axios.get(`${BASE_API_URL}/api/student/get-notifications`,
             {headers:{
             'Authorization' : `Bearer ${access_token}`
             }}
@@ -48,7 +48,7 @@ export default function Notifications() {
         }, []);
     
     const handleRead = async(id)=>{
-        const response = await axios.post(`${BASE_API_URL}/api/instructor/notifications/mark-read`,
+        const response = await axios.post(`${BASE_API_URL}/api/student/notifications/mark-read`,
         {
             "notification_id" : id
         },
