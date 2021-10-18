@@ -25,6 +25,7 @@ import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import BASE_API_URL from '../../../services/BaseUrl'
 import axios from "axios";
+import SearchIcon from '@material-ui/icons/Search';
 
 const drawerWidth = 240
 
@@ -180,7 +181,7 @@ export default function Layout2({ children, title }, props) {
   const [notification,setNotification] = useState(0);
 
   useEffect(async () => {
-    const response = await axios.get(`${BASE_API_URL}/api/instructor/navInfo`,
+    const response = await axios.get(`${BASE_API_URL}/api/student/navInfo`,
       {headers:{
         'Authorization' : `Bearer ${access_token}`
       }}
@@ -212,13 +213,6 @@ export default function Layout2({ children, title }, props) {
     handleMobileMenuClose();
   };
 
-  const handleLogout  = () => {
-    localStorage.setItem('user_type_id', 4);
-    history.push('/');
-    // window.location.reload();
-  };
-
-
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
@@ -239,7 +233,8 @@ export default function Layout2({ children, title }, props) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleLogout}>Logout</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
   );
 
@@ -293,10 +288,23 @@ export default function Layout2({ children, title }, props) {
           button 
           key="Dashboard"
           onClick={() => history.push("/home")}
-          className={location.pathname == "/home" ? classes.active : null}
+          className={location.pathname == "/" ? classes.active : null}
         >
           <ListItemIcon><DashboardIcon color="secondary" /></ListItemIcon>
           <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Dashboard</Typography>}/>
+        </ListItem>
+      </List>
+      <Divider  variant="middle" />
+
+      <List>
+        <ListItem 
+          button 
+          key="Dashboard"
+          onClick={() => history.push("/searchCourse")}
+          className={location.pathname == "/searchCourse" ? classes.active : null}
+        >
+          <ListItemIcon><SearchIcon color="secondary" /></ListItemIcon>
+          <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Search New Course</Typography>}/>
         </ListItem>
       </List>
       <Divider  variant="middle" />
@@ -323,19 +331,6 @@ export default function Layout2({ children, title }, props) {
         >
           <ListItemIcon><LibraryBooksIcon color="secondary" /></ListItemIcon>
           <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Finished Courses</Typography>}/>
-        </ListItem>
-      </List>
-      <Divider  variant="middle" />
-
-      <List>
-        <ListItem 
-          button 
-          key="Dashboard"
-          onClick={() => history.push("/createCourse")}
-          className={location.pathname == "/createCourse" ? classes.active : null}
-        >
-          <ListItemIcon><SettingsIcon color="secondary" /></ListItemIcon>
-          <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Create New Course</Typography>}/>
         </ListItem>
       </List>
       <Divider  variant="middle" />

@@ -203,6 +203,12 @@ export default function Layout2({ children }, props) {
     handleMobileMenuClose();
   };
 
+  const handleLogout  = () => {
+    localStorage.setItem('user_type_id', 4);
+    history.push('/');
+    // window.location.reload();
+  };
+
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
@@ -241,8 +247,7 @@ export default function Layout2({ children }, props) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleLogout}>Logout</MenuItem>
     </Menu>
   );
 
@@ -444,7 +449,7 @@ export default function Layout2({ children }, props) {
         >
           <div className={classes.toolbar}>
               <Typography className={classes.title} variant="h6">
-              <Link to="/" className={classes.title}> E-Learning Hub</Link>
+              <Link to="/home" className={classes.title}> E-Learning Hub</Link>
               </Typography>
           </div>
           <Divider  variant="middle" />

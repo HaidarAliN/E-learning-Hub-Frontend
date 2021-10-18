@@ -29,10 +29,10 @@ const Login = ({redicrett}) => {
             localStorage.setItem('access_token', JSON.stringify( resp.data['access_token']));
             localStorage.setItem('user_type_id', JSON.stringify( resp.data['user']['user_type_id']));
             if (userType == 2){
-                history.push('/');
+                history.push('/home');
                 window.location.reload();
             }else{
-                history.push('/');
+                history.push('/home');
                 window.location.reload();
             }
         } catch (err) {

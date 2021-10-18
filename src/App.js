@@ -12,6 +12,12 @@ import ManageStudents from './pages/instructorSide/ManageStudents'
 import ManageQuizzes from './pages/instructorSide/ManageQuizzes'
 import FinishedCourses from './pages/instructorSide/FinishedCourses'
 import OnGoing from './pages/instructorSide/OnGoing'
+
+import DashboardS from './pages/studentSide/Dashboard'
+import NotificationsS from './pages/studentSide/Notifications'
+import OnGoingS from './pages/studentSide/OnGoing'
+import FinishedCoursesS from './pages/studentSide/FinishedCourses'
+
 import { createTheme, ThemeProvider, Typography } from '@material-ui/core'
 import firebase from './firebase'
 import { useEffect, useState } from "react";
@@ -65,7 +71,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
           <Switch>
-            <Route path='/login' exact component={Login} />
+            <Route path='/' exact component={Login} />
           </Switch>
           {type_id == 1 && 
             <Switch>
@@ -73,7 +79,7 @@ function App() {
             </Switch>}
           {type_id == 2 && 
             <Switch>
-              <Route path='/' exact component={Dashboard}/>
+              <Route path='/home' exact component={Dashboard}/>
               <Route path='/notifications' exact component={Notifications}/>
               <Route path='/onGoing' exact component={OnGoing}/>
               <Route path='/finishedCourses' exact component={FinishedCourses}/>
@@ -88,7 +94,16 @@ function App() {
           }
           {type_id == 3 && 
             <Switch>
-              <Route path='/' exact component={Notes}/>
+              <Route path='/home' exact component={DashboardS}/>
+              <Route path='/notifications' exact component={NotificationsS}/>
+              <Route path='/onGoing' exact component={OnGoingS}/>
+              <Route path='/finishedCourses' exact component={FinishedCoursesS}/>
+              <Route path='/searchCourse' exact component={CreateCourse}/>
+              <Route path='/course/Dashboard' exact component={CourseDashboard}/>
+              <Route path='/course/Material' exact component={UploadMaterial}/>
+              <Route path='/course/Quizzes' exact component={ManageQuizzes}/> 
+              {/* <Route path='/course/EditInfo' exact component={EditCourseInfo}/>  */}
+              {/* <Route path='/course/ManageStudents' exact component={ManageStudents}/>  */}
             </Switch>
             }
       </Router>
