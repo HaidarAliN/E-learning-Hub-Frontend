@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom'
-import Notes from './pages/Notes'
+import NotFound from './pages/NotFound'
 import Login from './pages/Login'
 import Create from './pages/instructorSide/Create'
 import Dashboard from './pages/instructorSide/Dashboard'
@@ -21,6 +21,8 @@ import SearchCourse from './pages/studentSide/SearchCourse'
 import CourseDashboards from './pages/studentSide/CourseDashboard'
 import UploadMaterials from './pages/studentSide/UploadMaterial'
 import CourseQuizzes from './pages/studentSide/CourseQuizzes'
+
+import Home from './pages/adminSide/Home'
 
 
 import { createTheme, ThemeProvider, Typography } from '@material-ui/core'
@@ -49,37 +51,18 @@ const theme = createTheme({
 function App() {
   const [type_id, setAccess_token] = useState(JSON.parse( localStorage.getItem('user_type_id') ));
   const history = useHistory();
-
-  const componentDidMount = ()=>{
-
-    const messaging = firebase.messaging()
-    messaging.requestPermission().then(()=>{
-      return messaging.getToken()
-    }).then(token=>{
-      console.log('token : ', token)
-    }).catch(()=>{
-      console.log('token : ')
-
-    })
-    
-  }
-
-
-
-  useEffect(() => {
-    // Update the document title using the browser API
-    componentDidMount();
-  },[]);
-
+  const [logedIn, setLogedin] = useState(JSON.parse( localStorage.getItem('access_token') ));
+  
   return (
     <ThemeProvider theme={theme}>
       <Router>
           <Switch>
-            <Route path='/' exact component={Login} />
+           {!logedIn && <Route path='/' exact component={Login} />}
+
           </Switch>
           {type_id == 1 && 
             <Switch>
-              <Route path='/' exact component={Dashboard}/>
+              <Route path='/home' exact component={Home}/>
             </Switch>}
           {type_id == 2 && 
             <Switch>
@@ -110,6 +93,9 @@ function App() {
               {/* <Route path='/course/ManageStudents' exact component={ManageStudents}/>  */}
             </Switch>
             }
+            <Switch>
+              <Route exact path="*" component={NotFound}/>
+            </Switch>
       </Router>
     </ThemeProvider>
   );
