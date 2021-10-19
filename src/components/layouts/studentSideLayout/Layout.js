@@ -298,7 +298,7 @@ export default function Layout2({ children, title }, props) {
           button 
           key="Dashboard"
           onClick={() => history.push("/home")}
-          className={location.pathname == "/" ? classes.active : null}
+          className={location.pathname == "/home" ? classes.active : null}
         >
           <ListItemIcon><DashboardIcon color="secondary" /></ListItemIcon>
           <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Dashboard</Typography>}/>

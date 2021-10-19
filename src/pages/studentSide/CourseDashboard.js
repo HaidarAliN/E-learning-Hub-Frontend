@@ -74,7 +74,7 @@ export default function CourseDashboard() {
                             }
                         />
                         <CardContent>
-                        <Typography variant="body2" color="textSecondary">
+                        <Typography variant="h4" color="textSecondary">
                             {data.lectures_count}
                         </Typography>
                         </CardContent>
@@ -93,7 +93,7 @@ export default function CourseDashboard() {
                               }
                         />
                         <CardContent>
-                        <Typography variant="body2" color="textSecondary">
+                        <Typography variant="h4" color="textSecondary">
                         {data.quiz_count}
                         </Typography>
                         </CardContent>
@@ -112,7 +112,7 @@ export default function CourseDashboard() {
                             }
                         />
                         <CardContent>
-                        <Typography variant="body2" color="textSecondary">
+                        <Typography variant="h4" color="textSecondary">
                         {data.progress}%
                         </Typography>
                         </CardContent>
