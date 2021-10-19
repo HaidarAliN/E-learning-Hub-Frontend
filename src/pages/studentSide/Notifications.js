@@ -1,10 +1,10 @@
 import { Card, CardContent, CardHeader, Grid, IconButton, makeStyles, Typography } from '@material-ui/core'
 import React, {useState, useEffect} from 'react'
 import Layout from '../../components/layouts/studentSideLayout/Layout'
-import Notification from '../../components/InstructorComponents/Notification'
+import Notification from '../../components/StudentComponents/Notification'
 import BASE_API_URL from '../../services/BaseUrl'
 import axios from "axios";
-
+import { useHistory } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
     card:{
@@ -30,8 +30,7 @@ export default function Notifications() {
     const [access_token, setAccess_token] = useState(JSON.parse( localStorage.getItem('access_token') ));
     const [data, setData] = useState(null);
     const classes = useStyles();
-
-    
+    const history = useHistory();
 
     const getDAta = async () => {
         const response = await axios.get(`${BASE_API_URL}/api/student/get-notifications`,
@@ -66,6 +65,20 @@ export default function Notifications() {
     }
     }
 
+    const NavigateToCourse = async(course_id) => {
+        const response2 = await axios.get(`${BASE_API_URL}/api/student/get-course-name-by-id/${course_id}`,
+        {headers:{
+            'Authorization' : `Bearer ${access_token}`
+        }}
+        );
+        const data_fetched2 = await response2.data;
+        if(data_fetched2){
+            localStorage.setItem('course_name', data_fetched2.name);
+        }
+        localStorage.setItem('course_id', course_id);
+        history.push("/course/Dashboard");
+    }
+
     return (
     <Layout title="qwe">
         <div className={classes.paper}>
@@ -74,7 +87,7 @@ export default function Notifications() {
             </Typography>
             { data ?
                 <div className={classes.card}>
-                    <Notification data={data} handleRead={handleRead}/> 
+                    <Notification data={data} handleRead={handleRead} NavigateToCourse={NavigateToCourse}/> 
                 </div>
             :
                 <Typography > No Notifications yet </Typography>

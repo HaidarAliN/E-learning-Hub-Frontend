@@ -72,7 +72,6 @@ export default function OnGoing() {
         }else{
             setData(data_fetched);
         }
-        console.log(data_fetched);
         }, []);
 
         const handleSubmit = (id, name) =>{

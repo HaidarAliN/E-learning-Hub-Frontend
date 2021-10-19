@@ -182,7 +182,6 @@ export default function Layout2({ children }, props) {
   const [data, setData] = useState(null);
   const [name, setName] = useState(localStorage.getItem('course_name'));
 
-
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -229,7 +228,10 @@ export default function Layout2({ children }, props) {
     }}
   );
   const data_fetched2 = await response2.data;
-  setTitle(data_fetched2[0].name);
+  if(data_fetched2){
+    setName(data_fetched2[0].name);
+    localStorage.setItem('course_name', data_fetched2[0].name);
+  }
     }, []);
 
     const handleNotification = ()=>{

@@ -69,7 +69,7 @@ export default function Dashboard() {
                               }
                         />
                         <CardContent>
-                        <Typography variant="body2" color="textSecondary">
+                        <Typography variant="h4" color="textSecondary">
                         {data.Courses_count}
                         </Typography>
                         </CardContent>
@@ -87,8 +87,9 @@ export default function Dashboard() {
                                 </IconButton>
                             }
                         />
-                        <CardContent>
-                        <Typography variant="body2" color="textSecondary">
+                        <CardContent
+                        >
+                        <Typography variant="h4" color="textSecondary">
                         {data.quiz_submited_count}
                         </Typography>
                         </CardContent>

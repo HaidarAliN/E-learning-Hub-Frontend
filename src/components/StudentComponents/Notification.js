@@ -6,7 +6,6 @@ import InfoIcon from '@material-ui/icons/Info';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
-import { NavigateNextTwoTone } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   btnSuccess:{
@@ -70,8 +69,8 @@ export default function Notification({data, handleRead, NavigateToCourse}) {
     }
    
     const handleNavigate = (course_id) =>{
-      NavigateToCourse(course_id);
-    }
+        NavigateToCourse(course_id);
+      }
   
       return (
         <TableContainer component={Paper} >

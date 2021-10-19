@@ -4,7 +4,7 @@ import Layout from '../../components/layouts/instructorSideLayout/Layout'
 import Notification from '../../components/InstructorComponents/Notification'
 import BASE_API_URL from '../../services/BaseUrl'
 import axios from "axios";
-
+import { useHistory } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
     card:{
@@ -30,8 +30,7 @@ export default function Notifications() {
     const [access_token, setAccess_token] = useState(JSON.parse( localStorage.getItem('access_token') ));
     const [data, setData] = useState(null);
     const classes = useStyles();
-
-    
+    const history = useHistory();
 
     const getDAta = async () => {
         const response = await axios.get(`${BASE_API_URL}/api/instructor/notifications`,
@@ -66,6 +65,11 @@ export default function Notifications() {
     }
     }
 
+    const NavigateToCourse = async(course_id) => {
+        localStorage.setItem('course_id', course_id);
+        history.push("/course/Dashboard");
+    }
+
     return (
     <Layout title="qwe">
         <div className={classes.paper}>
@@ -73,7 +77,7 @@ export default function Notifications() {
                 Notifications
             </Typography>
             { data ?<div className={classes.card}>
-                <Notification data={data} handleRead={handleRead}/> 
+                <Notification data={data} handleRead={handleRead} NavigateToCourse={NavigateToCourse}/> 
             </div>
             :
             <Typography >No Notifications yet!</Typography>
