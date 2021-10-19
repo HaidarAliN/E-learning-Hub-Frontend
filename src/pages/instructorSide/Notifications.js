@@ -67,7 +67,7 @@ export default function Notifications() {
 
     const NavigateToCourse = async(course_id) => {
         localStorage.setItem('course_id', course_id);
-        history.push("/course/Dashboard");
+        history.push("/course/ManageStudents");
     }
 
     return (
