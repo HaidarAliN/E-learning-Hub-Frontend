@@ -24,15 +24,10 @@ const useStyles = makeStyles((theme) => ({
         
             },
     },
-    // footer:{
-    //     height: window.innerHeight/2,
-    // }
     page: {
         background: '#f9f9f9',
         width: '100%',
-        [theme.breakpoints.down('xs')]: {
-    
-        }}
+        }
   
     }));
 

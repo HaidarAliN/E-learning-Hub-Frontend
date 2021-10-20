@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   btnInfo:{
     width: "100%",
     color:'#fff',
-    backgroundColor:'#7AD2CD',
+    backgroundColor:'#bac8f2',
     borderColor:'#36b9cc',
     '&:hover': {
       color:'#fff',

@@ -32,8 +32,8 @@ const drawerWidth = 240
 const useStyles = makeStyles((theme) => ({
   page: {
     background: '#f9f9f9',
+    height: window.innerHeight,
     width: '100%',
-    height:'100%',
     padding: theme.spacing(3),
     [theme.breakpoints.down('xs')]: {
     marginLeft:"-60%"
@@ -209,7 +209,9 @@ export default function Layout2({ children, title }, props) {
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
+  const handleProfileMenuOpen2 = (event) => {
+    handleLogout();
+  };
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
@@ -229,8 +231,9 @@ export default function Layout2({ children, title }, props) {
   }
 
   const handleLogout = ()=>{
-    localStorage.setItem('user_type_id', 4);
+    localStorage.clear();
     history.push('/');
+    window.location.reload();
   }
 
   const menuId = 'primary-search-account-menu';
@@ -267,7 +270,7 @@ export default function Layout2({ children, title }, props) {
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem onClick={handleProfileMenuOpen2}>
         <IconButton
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
@@ -383,7 +386,7 @@ export default function Layout2({ children, title }, props) {
           >
             <MenuIcon />
           </IconButton>
-              <Typography  variant="h6">
+              <Typography  variant="h6"  style={{color:'#7591e6'}}>
                 Welcome {userName}
               </Typography>
           <div className={classes.grow} />

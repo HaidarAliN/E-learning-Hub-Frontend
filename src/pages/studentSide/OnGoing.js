@@ -50,7 +50,22 @@ const useStyles = makeStyles((theme) => ({
     },
     cardBody:{
         color: '#757575',
-    }
+    },
+    labell:{
+        marginBottom : "4%"
+    },
+    page: {
+        background: '#f9f9f9',
+        width: '100%',
+       },
+        card2:{
+            color:'#5a5c69',
+            [theme.breakpoints.down('md')]: {
+                marginBottom:  "10%"
+            
+                },
+        }
+
   
 }));
 
@@ -59,17 +74,6 @@ export default function OnGoing() {
     const [access_token, setAccess_token] = useState(JSON.parse( localStorage.getItem('access_token') ));
     const [data, setData] = useState(null);
     const history = useHistory()
-
-
-    const fetchMoreData = async () => {
-        const response = await axios.get(`${BASE_API_URL}/api/student/get-ongoing-courses`,
-          {headers:{
-            'Authorization' : `Bearer ${access_token}`
-          }}
-        );
-        const data_fetched = response.data;
-        setData(data_fetched);
-    }
 
     useEffect(async () => {
         const response = await axios.get(`${BASE_API_URL}/api/student/get-ongoing-courses`,
@@ -82,6 +86,7 @@ export default function OnGoing() {
             setData(null);
         }else{
             setData(data_fetched);
+            console.log(data_fetched)
         }
         }, []);
 
@@ -94,7 +99,7 @@ export default function OnGoing() {
     return (
     <Layout title="qwe">
 
-        <div>
+        <div className={classes.page}>
             <Typography className={classes.card2}  component="h2"  variant="h4" >
                 On Going Courses
             </Typography>
@@ -113,7 +118,7 @@ export default function OnGoing() {
                         <CardHeader
                             title={item.name}
                             action={
-                                <MenuBookIcon/>
+                                <MenuBookIcon style={{color:'#bac8f2'}}/>
                             }
                             className={classes.cardHeader}
                         />
@@ -121,13 +126,14 @@ export default function OnGoing() {
 
                            
                             <div>
-                            <Typography>Progress: {item.progress}%</Typography>
-                            <Typography >Course Type: {item.course_type}</Typography>
+                            <Typography  className={classes.labell}>Progress: {item.progress}%</Typography>
+                            <Typography  className={classes.labell}>Course Type: {item.course_type}</Typography>
                             <div className={classes.btn}>
                                 <Button
                                     
                                     color="secondary" 
                                     variant="contained"
+                                    style={{backgroundColor:'#bac8f2'}}
                                     onClick={() => handleSubmit(item.id, item.name)}
                                     startIcon={<ArrowForwardSharpIcon />}
                                     >

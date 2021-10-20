@@ -11,24 +11,35 @@ import MenuBookIcon from '@material-ui/icons/MenuBook';
 
 const useStyles = makeStyles((theme) => ({
     card:{
-        marginTop: "2%"
+        marginTop: "2%",
+        color: "#bac8f2"
     },
     cardbody:{
+        color:'#5a5c69',
         borderWidth: "1px",
         borderLeft: '.25rem solid !important',
-        borderColor: "#5a5c69 !important"
+        borderColor: "#bac8f2 !important"
     },
-    // footer:{
-    //     height: window.innerHeight/2,
-    // }
+    cardHeader:{
+        color:'#5a5c69',
+        marginBottom: 0,
+        backgroundColor:'#f8f9fc',
+        borderBottom: '1px solid #e3e6f0',
+    },
     page: {
         background: '#f9f9f9',
         width: '100%',
-        padding: theme.spacing(3),
-        [theme.breakpoints.down('xs')]: {
-        marginLeft:"-60%"
-    
-        }}
+       },
+        card2:{
+            color:'#5a5c69',
+            [theme.breakpoints.down('md')]: {
+                marginBottom:  "10%"
+            
+                },
+        },
+        labell:{
+            marginBottom : "4%"
+        }
   
     }));
 
@@ -91,7 +102,7 @@ export default function SearchCourse() {
 
     return (
     <Layout title="qwe" >
-        <div className={classes.paper}>
+        <div className={classes.page}>
         <Typography className={classes.card2}  component="h2"  variant="h4" >
                 Search Course
             </Typography>
@@ -102,11 +113,14 @@ export default function SearchCourse() {
                     <Card elevation={1} className={classes.cardbody}>
                         <CardHeader
                             title="Search box"
+                            className={classes.cardHeader}
+
                             action={
                                 <div className={classes.btn}>
                                     <Button
                                         color="secondary" 
                                         variant="contained"
+                                        style={{backgroundColor :"#bac8f2"}}
                                         onClick={handleSearch}
                                         endIcon={<SearchIcon/>}>
                                         Search
@@ -158,7 +172,7 @@ export default function SearchCourse() {
                         <CardHeader
                             title={item.name}
                             action={
-                                <MenuBookIcon/>
+                                <MenuBookIcon style={{color:'#bac8f2'}}/>
                             }
                             className={classes.cardHeader}
                         />
@@ -166,13 +180,14 @@ export default function SearchCourse() {
 
                            
                             <div>
-                            <Typography>Progress: {item.progress}%</Typography>
-                            <Typography >Course Type: {item.course_type}</Typography>
+                            <Typography className={classes.labell}>Progress: {item.progress}%</Typography>
+                            <Typography className={classes.labell}>Course Type: {item.course_type}</Typography>
                             <div className={classes.btn}>
                                 <Button
                                     
                                     color="secondary" 
                                     variant="contained"
+                                    style={{backgroundColor :"#bac8f2"}}
                                     onClick={() => handleSubmit(item.id)}
                                     startIcon={<ArrowForwardSharpIcon />}
                                     >

@@ -51,7 +51,21 @@ const useStyles = makeStyles((theme) => ({
     },
     cardBody:{
         color: '#757575',
-    }
+    },
+    labell:{
+        marginBottom : "4%"
+    },
+    page: {
+        background: '#f9f9f9',
+        width: '100%',
+       },
+        card2:{
+            color:'#5a5c69',
+            [theme.breakpoints.down('md')]: {
+                marginBottom:  "10%"
+            
+                },
+        }
   
 }));
 
@@ -94,7 +108,7 @@ export default function FinishedCourses() {
     return (
     <Layout title="qwe">
 
-        <div>
+        <div className={classes.page}>
             <Typography className={classes.card2}  component="h2"  variant="h4" >
                 On Going Courses
             </Typography>
@@ -104,23 +118,16 @@ export default function FinishedCourses() {
             <Grid container spacing={1} >
 
             {data ? 
-            // <InfiniteScroll
-            //                 dataLength={data.length} //This is important field to render the next data
-            //                 next={fetchMoreData}
-            //                 hasMore={true}
-            //                 className={classes.flex}
-            //                 loader={<h4>Loading...</h4>}
-            //                 >
                                   data.map(item => (
 
-                <Grid item xs={12}  sm={6} md={8} lg={4} key={item.id}>
+                <Grid item xs={12}  sm={6} md={6} lg={4} key={item.id}>
                 <div>
                     <Card elevation={1} className={classes.cardbody}
                     >
                         <CardHeader
                             title={item.name}
                             action={
-                                <MenuBookIcon/>
+                                <MenuBookIcon style={{color:'#bac8f2'}}/>
                             }
                             className={classes.cardHeader}
                         />
@@ -128,13 +135,14 @@ export default function FinishedCourses() {
 
                            
                             <div>
-                            <Typography>Progress: {item.progress}%</Typography>
-                            <Typography >Course Type: {item.course_type}</Typography>
+                            <Typography className={classes.labell}>Progress: {item.progress}%</Typography>
+                            <Typography className={classes.labell}>Course Type: {item.course_type}</Typography>
                             <div className={classes.btn}>
                                 <Button
                                     
                                     color="secondary" 
                                     variant="contained"
+                                    style={{backgroundColor:'#bac8f2'}}
                                     onClick={() => handleSubmit(item.id, item.name)}
                                     startIcon={<ArrowForwardSharpIcon />}
                                     >

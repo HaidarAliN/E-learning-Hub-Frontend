@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
   page: {
     background: '#f9f9f9',
     width: '100%',
+    height: window.innerHeight,
     padding: theme.spacing(3),
     [theme.breakpoints.down('xs')]: {
     marginLeft:"-60%"
@@ -193,10 +194,14 @@ export default function Layout2({ children }, props) {
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  const handleProfileMenuOpen2 = (event) => {
+    handleLogout();
+  };
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
+  
 
   const handleMenuClose = () => {
     setAnchorEl(null);
@@ -204,9 +209,9 @@ export default function Layout2({ children }, props) {
   };
 
   const handleLogout  = () => {
-    localStorage.setItem('user_type_id', 4);
+    localStorage.clear();
     history.push('/');
-    // window.location.reload();
+    window.location.reload();
   };
 
   const handleMobileMenuOpen = (event) => {
@@ -263,7 +268,7 @@ export default function Layout2({ children }, props) {
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem onClick={handleProfileMenuOpen2}>
         <IconButton
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
@@ -272,7 +277,7 @@ export default function Layout2({ children }, props) {
         >
           <AccountCircle />
         </IconButton>
-        <p>Profile</p>
+        <p>Logout</p>
       </MenuItem>
     </Menu>
   );
