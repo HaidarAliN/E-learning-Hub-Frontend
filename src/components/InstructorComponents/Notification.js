@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor:'#7280F0',
       borderColor:'#7280F0'
     },
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('sm')]: {
       display : "none"
       }
   },
@@ -120,7 +120,6 @@ export default function Notification({data, handleRead, NavigateToCourse}) {
   
                     <td>
                       <Typography
-                      noWarp={true}
                       className={classes.msg}
                       style={{wordWrap: "break-word"}}
                       >

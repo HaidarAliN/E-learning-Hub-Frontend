@@ -10,7 +10,7 @@ import BASE_API_URL from '../../services/BaseUrl'
 import axios from "axios";
 
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     card:{
         marginTop: "2%"
     },
@@ -20,10 +20,14 @@ const useStyles = makeStyles({
         borderColor: "#5a5c69 !important"
     },
     card2:{
-        marginBottom:"3%"
+        marginBottom:"2%",
+        color:'#5a5c69',
+        [theme.breakpoints.down('sm')]: {
+            marginBottom:  "10%"
+            },
     },
   
-})
+}));
 
 export default function CourseDashboard() {
     const classes = useStyles();
@@ -61,7 +65,7 @@ export default function CourseDashboard() {
                 
             {data? <div className={classes.card}>
             <Grid container spacing={1} >
-                <Grid item xs={12} md={6} lg={4} key={1}>
+                <Grid item xs={12} sm={6} md={6} lg={4} key={1}>
                 <div>
                     <Card elevation={1} className={classes.cardbody}
                     >
@@ -81,11 +85,11 @@ export default function CourseDashboard() {
                     </Card>
                 </div>
                 </Grid>
-                <Grid item xs={12} md={6} lg={4} key={2}>
+                <Grid item xs={12} sm={6} md={6} lg={4} key={2}>
                 <div>
                     <Card elevation={1} className={classes.cardbody}>
                         <CardHeader
-                            title="STUDENTS"
+                            title="ALL STUDENTS"
                             action={
                                 <IconButton>
                                   <SupervisorAccountIcon/>
@@ -100,7 +104,7 @@ export default function CourseDashboard() {
                     </Card>
                 </div>
                 </Grid>
-                <Grid item xs={12} md={6} lg={4} key={3}>
+                <Grid item xs={12} sm={6} md={6} lg={4} key={3}>
                 <div>
                     <Card elevation={1} className={classes.cardbody}>
                         <CardHeader

@@ -93,7 +93,7 @@ export default function Questions({data, handleEdit, handleRemove }) {
 
                     {item.type == 1? 
                       item.right_answer == 0?
-                        <td>false</td>
+                        <td>False</td>
                         :
                         <td>True</td>
                       :
@@ -105,18 +105,6 @@ export default function Questions({data, handleEdit, handleRemove }) {
                           :
                           <td>Third</td>
                     }
-                    
-                      {/* {item.status == 0 ? <td ><Button 
-                    className={classes.btnInfo}
-                        color="secondary" 
-                        variant="contained"
-                        // onClick={() => acceptStudent(item.id)}
-                        startIcon={<InfoIcon />}
-                        >
-                          Pending
-                    </Button>
-                    </td>
-                     : <td class={classes.success} style={{backgroundColor: "#1cc88a"}}>Enrolled <DoneAllIcon/></td> } */}
                     <td><Button 
                     className={classes.btnInfo}
                         color="secondary" 

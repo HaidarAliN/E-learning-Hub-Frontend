@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
     },
     paper:{
         [theme.breakpoints.down('xs')]: {
-            marginLeft:"-5%"
         
             }
     },

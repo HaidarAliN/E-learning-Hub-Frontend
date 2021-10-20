@@ -45,9 +45,19 @@ const useStyles = makeStyles((theme) => ({
         marginTop:"5%"
     },
     or:{
-        marginTop:"20%",
+        marginTop:"3%",
         alignItems:"center",
-        marginLeft:"25%"
+        marginLeft:"2%",
+        [theme.breakpoints.down('sm')]: {
+            marginTop:"6%",
+        
+            },
+    },
+    formcontrollediv:{
+        marginTop:"2%",
+        alignItems:"center",
+        marginLeft:"2%"
+
     },
     divider:{
         marginBottom:"2%",
@@ -55,6 +65,16 @@ const useStyles = makeStyles((theme) => ({
         color:"#ff4",
         maxWidth: 360,
         width: '100%',
+    },
+    card2:{
+        color:'#5a5c69',
+        [theme.breakpoints.down('md')]: {
+            marginBottom:  "10%"
+        
+            },
+    },
+    hidebtn:{
+      display: "none"  
     }
   
 }));
@@ -104,6 +124,7 @@ export default function ManageQuizzes() {
     const torEditRef = useRef();
     const questionRef = useRef();
     const confirmRef = useRef();
+    const confirmHidRef = useRef();
  
 
     const getDAta = async () =>{
@@ -167,6 +188,7 @@ export default function ManageQuizzes() {
                 setQuizId(data_fetched.id);
             }
         }else if(quizname.type != 'Choose one'){
+            confirmHidRef.current.style.display = "none";
             setquizloaded(quizname.type);
             getQuizquiestion(quizId);
         }
@@ -371,7 +393,7 @@ export default function ManageQuizzes() {
     <LayoutCourse title="qwe">
 
         <div>
-                <Typography className={classes.card2}  component="h2"  variant="h4" >
+            <Typography className={classes.card2}  component="h2"  variant="h4" >
                 Manage Quizzes
             </Typography>
             <div className={classes.card}>
@@ -387,6 +409,7 @@ export default function ManageQuizzes() {
                             action={
                         <div className={classes.btn}>
                         <Button
+                            ref={confirmHidRef}
                             color="secondary" 
                             variant="contained"
                             onClick={handleConfirm}
@@ -402,10 +425,10 @@ export default function ManageQuizzes() {
                         
                         >
                         <Grid container spacing={3}>
-                            <Grid item xs={12} md={5} lg={2} key={2}>
+                            <Grid item xs={12} md={2} lg={2} key={2}>
                                 <InputLabel className={classes.label}>Create Quiz:</InputLabel>
                             </Grid>
-                            <Grid item xs={12} md={6} lg={3} key={3}>
+                            <Grid item xs={12} md={2} lg={2} key={3}>
                                 <TextField
                                     onChange={(e) => setQuizNameT(e.target.value)}
                                     className={classes.field}
@@ -417,14 +440,17 @@ export default function ManageQuizzes() {
                                 />
                             </Grid>
                             {data && <div
-                            
+                            className={classes.or}
                             >
-                            <Grid item xs={12} md={1} lg={1} key={4}>
-                             <Typography className={classes.or}  >
+                            <Grid item xs={12} md={2} lg={2} key={4}>
+                             <Typography   >
                                 OR
                             </Typography>
-                            </Grid>
-                            <Grid item xs={12} md={1} lg={3} key={5}>
+                            </Grid></div>}
+                            {data && <div
+                            className={classes.formcontrollediv}
+                            >
+                            <Grid item xs={12} md={6} lg={6} key={5}>
                             <FormControl className={classes.formControl}>
                                     <NativeSelect
                                     value={quizname.type}
@@ -442,8 +468,7 @@ export default function ManageQuizzes() {
                                 </FormControl>
                             </Grid>
                             </div>} 
-                            <Grid item xs={12} md={1} lg={3} key={6}>
-                            </Grid>
+                            
                         </Grid></div>
                         :
                         <div ref={confirmRef}>

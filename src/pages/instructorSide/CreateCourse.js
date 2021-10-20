@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     },
     btnxs:{
         marginTop: "2%",
-        [theme.breakpoints.up('md')]: {
+        [theme.breakpoints.up('sm')]: {
             display: 'none',
 
           },
@@ -58,7 +58,20 @@ const useStyles = makeStyles((theme) => ({
     },
     created:{
         marginTop: "2%"
-    }
+    },
+    page: {
+        background: '#f9f9f9',
+        width: '100%',
+        [theme.breakpoints.down('xs')]: {
+    
+        }},
+        card2:{
+            color:'#5a5c69',
+            [theme.breakpoints.down('md')]: {
+                marginBottom:  "10%"
+            
+                },
+        }    
   
 }));
 
@@ -131,7 +144,7 @@ export default function CreateCourse() {
     return (
     <Layout title="qwe">
 
-        <div>
+        <div className={classes.page}>
         <Typography className={classes.card2}  component="h2"  variant="h4" >
                 Create New Course
             </Typography>

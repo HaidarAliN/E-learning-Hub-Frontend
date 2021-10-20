@@ -14,7 +14,12 @@ import PropTypes from 'prop-types';
 
 const useStyles = makeStyles((theme) => ({
     card:{
-        marginTop: "2%"
+        color:'#5a5c69',
+        marginBottom:"2%",
+        [theme.breakpoints.down('md')]: {
+            marginBottom:  "10%"
+        
+            }
     },
     cardbody:{
         borderWidth: "1px",
@@ -41,11 +46,22 @@ const useStyles = makeStyles((theme) => ({
     btn:{
         marginTop: "2%",
         marginRight:"50%",
-        paddingRight:"10%"
+        paddingRight:"10%",
+        [theme.breakpoints.down('xs')]: {
+            display: 'none',
+
+          },
     },
     label:{
         alignItems:"center",
         marginTop:"5%"
+    },
+    btnxs:{
+        marginTop: "2%",
+        [theme.breakpoints.up('sm')]: {
+            display: 'none',
+
+          },
     }
   
 }));
@@ -133,19 +149,14 @@ export default function UploadMaterial() {
         getTypesData();
         }, []);
         
-    // const handelSlider = () =>{
-    //     console.log(sliderValue);
-    // }
-    
-
     return (
     <LayoutCourse title="qwe">
 
-        <div>
-            <Typography   component="h2"  variant="h4" >
+        <div >
+            <Typography className={classes.card}  component="h2"  variant="h4" >
                 Course info
             </Typography>
-            <div className={classes.card}>
+            <div>
     {data && <Grid container spacing={1} >
                 <Grid item xs={12} md={12} lg={12} key={1}>
                 <div>
@@ -258,7 +269,15 @@ export default function UploadMaterial() {
                             <Grid item xs={12} md={1} lg={5} key={4}>
                             </Grid>
                         </Grid>
-
+                        <div className={classes.btnxs}>
+                                <Button
+                                color="secondary" 
+                                variant="contained"
+                                onClick={handleSubmit}
+                                endIcon={<SendIcon />}>
+                                Update
+                            </Button>
+                            </div>
                         </CardContent>
                     </Card>
                 </div>

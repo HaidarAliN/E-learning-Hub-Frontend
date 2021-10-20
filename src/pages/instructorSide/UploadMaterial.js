@@ -37,10 +37,32 @@ const useStyles = makeStyles((theme) => ({
     },
     btn:{
         marginTop: "2%",
+        [theme.breakpoints.down('xs')]: {
+            display : "none"
+        
+            }
     },
     label:{
         alignItems:"center",
         marginTop:"5%"
+    },
+    card2:{
+        marginBottom:"2%",
+        color:'#5a5c69',
+        [theme.breakpoints.down('sm')]: {
+            marginBottom:  "10%"
+            },
+    },
+    label2:{
+        [theme.breakpoints.down('sm')]: {
+            marginTop:  "15%"
+            },
+    },
+    btnSmall:{
+
+        [theme.breakpoints.up('sm')]: {
+            display : "none"
+        }
     }
   
 }));
@@ -311,10 +333,10 @@ export default function UploadMaterial() {
    
 
                         <Grid container spacing={3}>
-                            <Grid item xs={12} md={5} lg={3} key={2}>
-                                <InputLabel>Upload File:</InputLabel>
+                            <Grid item xs={4} md={5} lg={3} key={2}>
+                                <InputLabel className={classes.label2}>Upload File:</InputLabel>
                             </Grid>
-                            <Grid item xs={12} md={6} lg={4} key={3}>
+                            <Grid item xs={8} md={6} lg={4} key={3}>
                                 <FormControl className={classes.formControl}>
                                 <Button
                                     variant="contained"
@@ -336,7 +358,15 @@ export default function UploadMaterial() {
                             </Grid>
                         </Grid>
 
-                        
+                        <div className={classes.btnSmall}>
+                        <Button
+                            color="secondary" 
+                            variant="contained"
+                            onClick={handleSubmit}
+                            endIcon={<SendIcon />}>
+                            Add Chapter
+                        </Button>
+                        </div>
                         </CardContent>
                     </Card>
                 </div>
@@ -405,6 +435,16 @@ export default function UploadMaterial() {
                            
                            
                         </Grid>
+
+                        <div className={classes.btnSmall} style={{marginTop:"5%"}}>
+                        <Button
+                            color="secondary" 
+                            variant="contained"
+                            onClick={handleUpdate}
+                            endIcon={<SendIcon />}>
+                            Update
+                        </Button>
+                        </div>
                         </CardContent>
                     </Card>
                 </div>

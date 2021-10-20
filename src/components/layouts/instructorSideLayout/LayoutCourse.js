@@ -26,13 +26,14 @@ import GroupOutlinedIcon from '@material-ui/icons/GroupOutlined';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import BASE_API_URL from '../../../services/BaseUrl'
 import axios from "axios";
-
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 const drawerWidth = 240
 
 const useStyles = makeStyles((theme) => ({
   page: {
     background: '#f9f9f9',
     width: '100%',
+    height: window.innerHeight,
     padding: theme.spacing(3),
     [theme.breakpoints.down('xs')]: {
     marginLeft:"-60%"
@@ -163,6 +164,12 @@ nested: {
 toolbar: theme.mixins.toolbar,
 toolbar2: {
   marginBottom: "2%",
+},
+back:{
+  [theme.breakpoints.up('sm')]: {
+    display: 'none',
+
+  },
 }
 }));
 
@@ -193,6 +200,9 @@ export default function Layout2({ children }, props) {
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  const handleProfileMenuOpen2 = (event) => {
+    handleLogout();
+  };
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
@@ -204,9 +214,9 @@ export default function Layout2({ children }, props) {
   };
 
   const handleLogout  = () => {
-    localStorage.setItem('user_type_id', 4);
+    localStorage.clear();
     history.push('/');
-    // window.location.reload();
+    window.location.reload();
   };
 
   const handleMobileMenuOpen = (event) => {
@@ -273,7 +283,7 @@ export default function Layout2({ children }, props) {
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem onClick={handleProfileMenuOpen2}>
         <IconButton
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
@@ -282,7 +292,7 @@ export default function Layout2({ children }, props) {
         >
           <AccountCircle />
         </IconButton>
-        <p>Profile</p>
+        <p>Logout</p>
       </MenuItem>
     </Menu>
   );
@@ -363,6 +373,18 @@ export default function Layout2({ children }, props) {
         </ListItem>
       </List>
       <Divider  variant="middle" />
+
+      <List className={classes.back}>
+        <ListItem 
+          button 
+          key="Dashboard"
+          onClick={() => history.push("/home")}
+        >
+          <ListItemIcon><ArrowBackIcon color="secondary" /></ListItemIcon>
+          <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Back to Home</Typography>}/>
+        </ListItem>
+      </List>
+
     </div>
   );
 
@@ -385,7 +407,7 @@ export default function Layout2({ children }, props) {
           >
             <MenuIcon />
           </IconButton>
-              <Typography  variant="h6">
+              <Typography  variant="h6" style={{color:'#5a5c69'}}>
               {name} {'>'}
               </Typography>
           <div className={classes.grow} />

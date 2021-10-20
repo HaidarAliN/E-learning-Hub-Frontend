@@ -18,7 +18,11 @@ const useStyles = makeStyles((theme) => ({
         marginBottom:"2%"
     },
     card2:{
-        marginBottom:"3%"
+        color:'#5a5c69',
+        [theme.breakpoints.down('md')]: {
+            marginBottom:  "10%"
+        
+            },
     },
     cardHeader:{
         marginBottom: 0,
@@ -51,7 +55,13 @@ const useStyles = makeStyles((theme) => ({
     },
     cardBody:{
         color: '#757575',
-    }
+    },
+    page: {
+        background: '#f9f9f9',
+        width: '100%',
+        [theme.breakpoints.down('xs')]: {
+    
+        }}
   
 }));
 
@@ -94,9 +104,9 @@ export default function FinishedCourses() {
     return (
     <Layout title="qwe">
 
-        <div>
+        <div className={classes.page}>
             <Typography className={classes.card2}  component="h2"  variant="h4" >
-                On Going Courses
+                Finished Courses
             </Typography>
 
             {/* card */}
@@ -104,16 +114,9 @@ export default function FinishedCourses() {
             <Grid container spacing={1} >
 
             {data ? 
-            // <InfiniteScroll
-            //                 dataLength={data.length} //This is important field to render the next data
-            //                 next={fetchMoreData}
-            //                 hasMore={true}
-            //                 className={classes.flex}
-            //                 loader={<h4>Loading...</h4>}
-            //                 >
                                   data.map(item => (
 
-                <Grid item xs={12}  sm={6} md={8} lg={4} key={item.id}>
+                <Grid item xs={12}  sm={6} md={6} lg={4} key={item.id}>
                 <div>
                     <Card elevation={1} className={classes.cardbody}
                     >
