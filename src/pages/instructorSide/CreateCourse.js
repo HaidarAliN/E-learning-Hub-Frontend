@@ -5,7 +5,7 @@ import SendIcon from '@material-ui/icons/Send';
 import Layout from '../../components/layouts/instructorSideLayout/Layout'
 import BASE_API_URL from '../../services/BaseUrl'
 import axios from "axios";
-
+import { useHistory } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
     card:{
@@ -85,9 +85,7 @@ export default function CreateCourse() {
     const [courseTypeName,setCourseTypeName] = useState(1);//
     const [courseType, setCourseType] = useState(0);
     const [created, setCreated] = useState(null);
-    // const [courseType, setCourseType] = useState({
-    //     type: ''
-    //   });
+    const history = useHistory()
 
     const handleChange = (e) => {
         const name = e.target.name;
@@ -133,7 +131,11 @@ export default function CreateCourse() {
             );
             const data_fetched = await response.data;
             if(data_fetched){
-                setCreated("1");
+                // setCreated("1");
+                console.log(data_fetched.user.name);
+                localStorage.setItem('course_id', data_fetched.user.id);
+                localStorage.setItem('course_name', data_fetched.user.name);
+                history.push('/course/Dashboard');
             }
         }
     }

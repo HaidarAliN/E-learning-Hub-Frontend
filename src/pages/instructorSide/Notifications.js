@@ -5,6 +5,7 @@ import Notification from '../../components/InstructorComponents/Notification'
 import BASE_API_URL from '../../services/BaseUrl'
 import axios from "axios";
 import { useHistory } from 'react-router';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
 const useStyles = makeStyles((theme) => ({
     card:{
@@ -26,6 +27,25 @@ const useStyles = makeStyles((theme) => ({
                 marginBottom:  "10%"
             
                 },
+        },
+        emptyState:{
+            color:'#5a5c69',
+            [theme.breakpoints.up('md')]: {
+            marginTop:`calc(${window.innerHeight/3 - 0.1*window.innerHeight}px)`,
+            textAlign:"center",
+            marginLeft:`calc(${window.innerWidth/3 - 0.5*window.innerWidth}px)`,
+            },
+            [theme.breakpoints.down('sm')]: {
+                marginLeft:"1%",
+                marginTop:`calc(${window.innerHeight/8}px)`,
+    
+                },
+            [theme.breakpoints.down('xs')]: {
+                marginBottom:"5%",
+                marginLeft:"2%",
+                marginTop:`calc(${window.innerHeight/3 - 0.1*window.innerHeight}px)`,
+    
+                }
         }
   
     }));
@@ -77,14 +97,14 @@ export default function Notifications() {
     return (
     <Layout title="qwe">
         <div className={classes.page}>
-        <Typography className={classes.card2}  component="h2"  variant="h4" >
+        { data && <Typography className={classes.card2}  component="h2"  variant="h4" >
                 Notifications
-            </Typography>
+            </Typography>}
             { data ?<div className={classes.card}>
                 <Notification data={data} handleRead={handleRead} NavigateToCourse={NavigateToCourse}/> 
             </div>
             :
-            <Typography >No Notifications yet!</Typography>
+            <Typography className={classes.emptyState} component="h2"  variant="h4">No Notifications yet <ErrorOutlineIcon/></Typography>
             }
         </div>
         

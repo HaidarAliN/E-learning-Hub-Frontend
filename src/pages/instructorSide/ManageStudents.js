@@ -14,6 +14,25 @@ const useStyles = makeStyles((theme) => ({
         
             }
     },
+    emptyState:{
+      color:'#5a5c69',
+      [theme.breakpoints.up('md')]: {
+      marginTop:`calc(${window.innerHeight/3 }px)`,
+      textAlign:"center",
+      marginLeft:`calc(${window.innerWidth/3 - 0.4*window.innerWidth}px)`,
+      },
+      [theme.breakpoints.down('sm')]: {
+          marginLeft:"1%",
+          marginTop:`calc(${window.innerHeight/8}px)`,
+
+          },
+      [theme.breakpoints.down('xs')]: {
+          marginBottom:"5%",
+          marginLeft:"5%",
+          marginTop:`calc(${window.innerHeight/3 - 0.1*window.innerHeight}px)`,
+
+          }
+  }
  
 }));
 
@@ -76,18 +95,21 @@ export default function ManageStudents() {
     <LayoutCourse title="qwe">
 
         <div>
-            <Typography className={classes.card}  component="h2"  variant="h4" >
+        {data &&  <Typography className={classes.card}  component="h2"  variant="h4" >
                 Manage Students
-            </Typography>
-             <Grid container spacing={1} >
+            </Typography>}
+            {data ? 
+            <div>
+            <Grid container spacing={1} >
                 <Grid item xs={12} md={12} lg={12} key={1}>
                    
-                    {data ? <Students data={data} handleRemove={handleRemove} handlePending={handlePending}/>
-                            :
-                            <Typography className={classes.card}  component="h3"  variant="h5" >No Students enrolled</Typography>
-                    }
+                     <Students data={data} handleRemove={handleRemove} handlePending={handlePending}/>
                 </Grid>
             </Grid>
+                 </div>
+                            :
+                            <Typography className={classes.emptyState}  component="h2"  variant="h5" >No Students enrolled</Typography>
+                    }
         </div>
         </LayoutCourse>
 

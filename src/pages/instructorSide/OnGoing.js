@@ -6,6 +6,7 @@ import axios from "axios";
 import ArrowForwardSharpIcon from '@material-ui/icons/ArrowForwardSharp';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import { useHistory } from 'react-router';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
 const useStyles = makeStyles((theme) => ({
     card:{
@@ -60,6 +61,25 @@ const useStyles = makeStyles((theme) => ({
     },
     cardBody:{
         color: '#757575',
+    },
+    emptyState:{
+        color:'#5a5c69',
+        [theme.breakpoints.up('md')]: {
+        marginTop:`calc(${window.innerHeight/3 - 0.1*window.innerHeight}px)`,
+        textAlign:"center",
+        marginLeft:`calc(${window.innerWidth/3 - 0.1*window.innerWidth}px)`,
+        },
+        [theme.breakpoints.down('sm')]: {
+            marginLeft:"1%",
+            marginTop:`calc(${window.innerHeight/8}px)`,
+
+            },
+        [theme.breakpoints.down('xs')]: {
+            marginBottom:"5%",
+            marginLeft:"2%",
+            marginTop:`calc(${window.innerHeight/3 - 0.1*window.innerHeight}px)`,
+
+            }
     }
   
 }));
@@ -94,9 +114,9 @@ export default function OnGoing() {
     <Layout title="qwe">
 
         <div className={classes.paper}>
-            <Typography className={classes.card2}  component="h2"  variant="h4" >
+        {data && <Typography className={classes.card2}  component="h2"  variant="h4" >
                 On Going Courses
-            </Typography>
+            </Typography>}
             {/* card */}
             <div className={classes.card}>
             <Grid container spacing={1} >
@@ -136,8 +156,8 @@ export default function OnGoing() {
                 </div>
                 </Grid>
                     ))
-                :<Typography className={classes.card2}  component="h2"  variant="h4" >
-                    Nothing to show
+                :<Typography className={classes.emptyState}  component="h2"  variant="h4" >
+                    Nothing to show <ErrorOutlineIcon/>
                 </Typography>
             }                       
             </Grid>

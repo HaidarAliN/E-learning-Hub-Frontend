@@ -186,6 +186,7 @@ export default function ManageQuizzes() {
             const data_fetched = await response.data;
             if(data_fetched){
                 setQuizId(data_fetched.id);
+                confirmHidRef.current.style.display = "none";
             }
         }else if(quizname.type != 'Choose one'){
             confirmHidRef.current.style.display = "none";
