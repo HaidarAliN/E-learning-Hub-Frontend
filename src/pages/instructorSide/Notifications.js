@@ -8,7 +8,8 @@ import { useHistory } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
     card:{
-        marginTop: "2%"
+        marginTop: "2%",
+        
     },
     cardbody:{
         borderWidth: "1px",

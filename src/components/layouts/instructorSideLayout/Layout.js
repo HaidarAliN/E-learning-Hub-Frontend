@@ -215,6 +215,7 @@ export default function Layout2({ children, title }, props) {
 
   const handleLogout  = () => {
     localStorage.setItem('user_type_id', 4);
+    localStorage.setItem('access_token', false);
     history.push('/');
     // window.location.reload();
   };
@@ -379,7 +380,7 @@ export default function Layout2({ children, title }, props) {
           >
             <MenuIcon />
           </IconButton>
-            <Typography  variant="h6">
+            <Typography  variant="h6" style={{color:'#5a5c69'}}>
               Welcome {userName}
               </Typography>
           <div className={classes.grow} />

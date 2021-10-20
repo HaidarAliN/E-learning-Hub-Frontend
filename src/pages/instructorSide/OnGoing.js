@@ -16,8 +16,19 @@ const useStyles = makeStyles((theme) => ({
         marginRight:"2%",
         marginBottom:"2%"
     },
+    paper:{
+        [theme.breakpoints.down('xs')]: {
+            marginLeft:"-5%"
+        
+            }
+    },
     card2:{
-        marginBottom:"3%"
+        color:'#5a5c69',
+        marginBottom:"3%",
+        [theme.breakpoints.down('xs')]: {
+            marginBottom:"5%",
+            }
+        
     },
     cardHeader:{
         marginBottom: 0,
@@ -83,7 +94,7 @@ export default function OnGoing() {
     return (
     <Layout title="qwe">
 
-        <div>
+        <div className={classes.paper}>
             <Typography className={classes.card2}  component="h2"  variant="h4" >
                 On Going Courses
             </Typography>

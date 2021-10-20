@@ -17,15 +17,21 @@ const useStyles = makeStyles((theme) => ({
         borderLeft: '.25rem solid !important',
         borderColor: "#5a5c69 !important"
     },
+    card2:{
+        color:'#5a5c69',
+        [theme.breakpoints.down('md')]: {
+            marginBottom:  "10%"
+        
+            },
+    },
     // footer:{
     //     height: window.innerHeight/2,
     // }
     page: {
         background: '#f9f9f9',
         width: '100%',
-        padding: theme.spacing(3),
         [theme.breakpoints.down('xs')]: {
-        marginLeft:"-60%"
+        marginLeft:"-5%"
     
         }}
   
@@ -52,7 +58,7 @@ export default function Dashboard() {
 
     return (
     <Layout title="qwe" >
-        <div className={classes.paper}>
+        <div className={classes.page}>
         <Typography className={classes.card2}  component="h2"  variant="h4" >
                 Dashboard
             </Typography>

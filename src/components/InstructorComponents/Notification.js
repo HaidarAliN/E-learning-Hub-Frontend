@@ -1,4 +1,4 @@
-import {Button, makeStyles} from '@material-ui/core'
+import {Button, makeStyles, Typography} from '@material-ui/core'
 import React from 'react'
 import { Table } from 'react-bootstrap'
 import DoneAllIcon from '@material-ui/icons/DoneAll';
@@ -29,7 +29,11 @@ const useStyles = makeStyles((theme) => ({
       color:'#fff',
       backgroundColor:'#2c9faf',
       borderColor:'#2a96a5'
-    }
+    },
+    [theme.breakpoints.down('xs')]: {
+      display : "none"
+  
+      }
   },
   btnDanger:{
     width: "100%",
@@ -57,9 +61,32 @@ const useStyles = makeStyles((theme) => ({
       color:'#fff',
       backgroundColor:'#7280F0',
       borderColor:'#7280F0'
-    }
-  }
-
+    },
+    [theme.breakpoints.down('xs')]: {
+      display : "none"
+  
+      }
+  },
+  msg:{
+    [theme.breakpoints.down('xs')]: {
+      fontSize: "70%"
+  
+      }
+  },
+  smallBtn:{
+    width: "100%",
+    color:'#fff',
+    backgroundColor:'#7A88FF',
+    borderColor:'#5a5c69',
+    '&:hover': {
+      color:'#fff',
+      backgroundColor:'#7280F0',
+      borderColor:'#7280F0'
+    },
+    [theme.breakpoints.up('md')]: {
+      display : "none"
+      }
+  },
 }));
 
 export default function Notification({data, handleRead, NavigateToCourse}) {
@@ -91,7 +118,15 @@ export default function Notification({data, handleRead, NavigateToCourse}) {
                    key={item.id} id={item.id}
                 >
   
-                    <td>{item.body} </td>
+                    <td>
+                      <Typography
+                      noWarp={true}
+                      className={classes.msg}
+                      style={{wordWrap: "break-word"}}
+                      >
+                      {item.body}
+                      </Typography>
+                       </td>
                     {item.is_read == 0?
                     <td><Button 
                     className={classes.btnInfo}
@@ -101,7 +136,19 @@ export default function Notification({data, handleRead, NavigateToCourse}) {
                     startIcon={<InfoIcon />}
                     >
                           Mark As Read
-                    </Button></td>
+                    </Button>
+                    
+                    <Button 
+                    className={classes.smallBtn}
+                    color="secondary" 
+                    variant="contained"
+                    onClick={() => markAsRead(item.id)}
+                    startIcon={<InfoIcon />}
+                    >
+                          Mark
+                    </Button>
+                    
+                    </td>
                     :
                     <td style={{backgroundColor: "#37F783"}}>Read<DoneAllIcon/></td>
                     }
@@ -113,7 +160,19 @@ export default function Notification({data, handleRead, NavigateToCourse}) {
                     endIcon={<ArrowForwardIosIcon />}
                     >
                           Navigate To course
-                    </Button></td>
+                    </Button>
+                    
+                    <Button 
+                    className={classes.smallBtn}
+                    color="secondary" 
+                    variant="contained"
+                    onClick={() => handleNavigate(item.course_id)}
+                    endIcon={<ArrowForwardIosIcon />}
+                    >
+                          Go
+                    </Button>
+                    
+                    </td>
                 </tr>
                    ))} 
               </tbody>

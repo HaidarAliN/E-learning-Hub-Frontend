@@ -23,6 +23,7 @@ import UploadMaterials from './pages/studentSide/UploadMaterial'
 import CourseQuizzes from './pages/studentSide/CourseQuizzes'
 
 import Home from './pages/adminSide/Home'
+import ResetPassword from './pages/adminSide/ResetPassword'
 
 
 import { createTheme, ThemeProvider, Typography } from '@material-ui/core'
@@ -53,6 +54,10 @@ function App() {
   const history = useHistory();
   const [logedIn, setLogedin] = useState(JSON.parse( localStorage.getItem('access_token') ));
   
+  useEffect(() => {
+    // window.location.reload();
+  }, [])
+
   return (
     <ThemeProvider theme={theme}>
       <Router>
@@ -63,6 +68,7 @@ function App() {
           {type_id == 1 && 
             <Switch>
               <Route path='/home' exact component={Home}/>
+              <Route path='/resetPassword' exact component={ResetPassword}/>
             </Switch>}
           {type_id == 2 && 
             <Switch>
@@ -93,9 +99,9 @@ function App() {
               {/* <Route path='/course/ManageStudents' exact component={ManageStudents}/>  */}
             </Switch>
             }
-            <Switch>
+            {/* <Switch>
               <Route exact path="*" component={NotFound}/>
-            </Switch>
+            </Switch> */}
       </Router>
     </ThemeProvider>
   );

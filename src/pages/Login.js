@@ -3,10 +3,11 @@ import axios from "axios";
 import BASE_API_URL from '../services/BaseUrl';
 import { useHistory, Redirect } from "react-router-dom";
 import firebase from '../firebase'
-
+import {isMobile} from 'react-device-detect';
 
 
 const Login = ({redicrett}) => {
+    // const isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari']);
     const [email, setEmail] = useState('instructor1@ehub.edu');
     const [password, setPassword] = useState('qweqwe');
     const [error, setError] = useState(null);
@@ -35,7 +36,9 @@ const Login = ({redicrett}) => {
       }
     
     useEffect(() => {
-        componentDidMount();
+        if(!isMobile){
+            componentDidMount();
+        }
     }, []);
 
     const handleSubmit = async (e) => {

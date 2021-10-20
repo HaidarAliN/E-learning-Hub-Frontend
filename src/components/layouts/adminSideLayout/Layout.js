@@ -214,6 +214,7 @@ export default function Layout2({ children, title }, props) {
 
   const handleLogout  = () => {
     localStorage.setItem('user_type_id', 4);
+    localStorage.clear();
     history.push('/');
     // window.location.reload();
   };
@@ -305,8 +306,8 @@ export default function Layout2({ children, title }, props) {
         <ListItem 
           button 
           key="Dashboard"
-          onClick={() => history.push("/onGoing")}
-          className={location.pathname == "/onGoing" ? classes.active : null}
+          onClick={() => history.push("/resetPassword")}
+          className={location.pathname == "/resetPassword" ? classes.active : null}
         >
           <ListItemIcon><LibraryBooksIcon color="secondary" /></ListItemIcon>
           <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Reset passwords</Typography>}/>

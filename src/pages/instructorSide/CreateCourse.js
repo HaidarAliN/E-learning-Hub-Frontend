@@ -21,6 +21,11 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor:'#f8f9fc',
         borderBottom: '1px solid #e3e6f0',
         color: '#757575',
+        [theme.breakpoints.up('xs')]: {
+            fontSize: "2px",
+            size: "2",
+            text:""
+          },
     },
     field: {
         marginTop: "2%",
@@ -35,6 +40,17 @@ const useStyles = makeStyles((theme) => ({
     },
     btn:{
         marginTop: "2%",
+        [theme.breakpoints.down('xs')]: {
+            display: 'none',
+
+          },
+    },
+    btnxs:{
+        marginTop: "2%",
+        [theme.breakpoints.up('md')]: {
+            display: 'none',
+
+          },
     },
     label:{
         alignItems:"center",
@@ -127,12 +143,14 @@ export default function CreateCourse() {
                     <Card elevation={1} className={classes.cardbody}
                     >
                         <CardHeader
-                            title="Add Course info:"
+                            title="Info"
                             className={classes.cardHeader}
                             action={
-                                <div className={classes.btn}>
+                                <div
+                                 className={classes.btn}
+                                >
                                 <Button
-                                    
+                                   
                                     color="secondary" 
                                     variant="contained"
                                     onClick={handleSubmit}
@@ -210,7 +228,18 @@ export default function CreateCourse() {
                             <Grid item xs={12} md={1} lg={5} key={4}>
                             </Grid>
                         </Grid>
-
+                        <div
+                                 className={classes.btnxs}
+                                >
+                                <Button
+                                   
+                                    color="secondary" 
+                                    variant="contained"
+                                    onClick={handleSubmit}
+                                    endIcon={<SendIcon />}>
+                                    Create Course
+                                </Button>
+                                </div>
                         </CardContent>
                     </Card>
                 </div>

@@ -1,6 +1,6 @@
 import { Box, Button, Card, CardContent, CardHeader, createTheme, Divider, FormControl, Grid, IconButton, InputLabel, makeStyles, NativeSelect, responsiveFontSizes, TextField, Typography } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/styles'
-import React, {useState,useEffect} from 'react'
+import React, {useState,useEffect, useRef} from 'react'
 import SendIcon from '@material-ui/icons/Send';
 import BackupOutlinedIcon from '@material-ui/icons/BackupOutlined';
 import EditIcon from '@material-ui/icons/Edit';
@@ -100,7 +100,10 @@ export default function ManageQuizzes() {
     const classes = useStyles();
     let theme = createTheme();
     theme = responsiveFontSizes(theme);
-
+    const mcqEditRef = useRef();
+    const torEditRef = useRef();
+    const questionRef = useRef();
+    const confirmRef = useRef();
  
 
     const getDAta = async () =>{
@@ -145,7 +148,8 @@ export default function ManageQuizzes() {
     
     useEffect(async () => {
         getDAta();
-    }, []);
+        questionRef.current.scrollIntoView({ behavior: 'smooth' })
+    }, [quizloadedQuestions]);
 
     const handleConfirm = async() =>{
         if(quizNameT){
@@ -202,17 +206,20 @@ export default function ManageQuizzes() {
                 ...mcqeditans,
                 ['type']: data_fetched.right_answer,
             });
+        mcqEditRef.current.scrollIntoView({ behavior: 'smooth' })
         }else{
             setTofQuestionInfo(data_fetched);
             setTofeditans({
                 ...tofeditans,
                 ['type']: data_fetched.right_answer,
             });
+        torEditRef.current.scrollIntoView({ behavior: 'smooth' })
         }
         setFirsteditanswer(data_fetched.first_answer);
         setSecondeditanswer(data_fetched.second_answer);
         setThirdeditanswer(data_fetched.third_answer);
         setEditquestion(data_fetched.content);
+
     }
 
     
@@ -264,6 +271,7 @@ export default function ManageQuizzes() {
             ...newRightAnswer,
             [name]: e.target.value,
         });
+        confirmRef.current.scrollIntoView({ behavior: 'smooth' })
     };
 
     const handleMCQEditUpdate = async(id) => {
@@ -390,7 +398,9 @@ export default function ManageQuizzes() {
                         />
                         <CardContent>
 
-                        {!quizloaded ?<div>
+                        {!quizloaded ?<div
+                        
+                        >
                         <Grid container spacing={3}>
                             <Grid item xs={12} md={5} lg={2} key={2}>
                                 <InputLabel className={classes.label}>Create Quiz:</InputLabel>
@@ -406,7 +416,9 @@ export default function ManageQuizzes() {
                                     placeholder="Quiz 123"
                                 />
                             </Grid>
-                            {data && <div>
+                            {data && <div
+                            
+                            >
                             <Grid item xs={12} md={1} lg={1} key={4}>
                              <Typography className={classes.or}  >
                                 OR
@@ -434,7 +446,7 @@ export default function ManageQuizzes() {
                             </Grid>
                         </Grid></div>
                         :
-                        <div>
+                        <div ref={confirmRef}>
                         <Typography className={classes.card2}  component="h2"  variant="h6" >
                             {quizloaded}
                         </Typography>
@@ -451,7 +463,9 @@ export default function ManageQuizzes() {
             <div className={classes.card}>
             <Grid container spacing={1} >
                 <Grid item xs={12} md={12} lg={12} key={70}>
-                {quizloaded && <div>
+                {quizloaded && <div
+                
+                >
                     <Card elevation={1} className={classes.cardbody}
                     >
                         <CardHeader
@@ -664,14 +678,16 @@ export default function ManageQuizzes() {
                 </Grid>
             </Grid>
             </div> 
-
-            {quizloadedQuestions && <Questions data={quizloadedQuestions} handleEdit={handleEdit} handleRemove={handleRemove}  />}
-
+            <div ref={questionRef}>
+            {quizloadedQuestions &&<Questions  data={quizloadedQuestions} handleEdit={handleEdit} handleRemove={handleRemove}  />}
+            </div>
             {/* edit MCQ section */}
-            {questionInfo &&<div className={classes.card}>
+            {questionInfo &&<div
+            ref={mcqEditRef}
+            className={classes.card}>
             <Grid container spacing={1} >
                 <Grid item xs={12} md={12} lg={12} key={10}>
-                <div>
+                <div id="edit">
                     <Card elevation={1} className={classes.cardbody}
                     >
                         <CardHeader
@@ -694,6 +710,7 @@ export default function ManageQuizzes() {
                         <Grid container spacing={3}>
                         <Grid item xs={12} md={6} lg={2} key={50}>
                                 <TextField
+                                    
                                     key={451}
                                     onChange={(e) => setEditquestion(e.target.value)}
                                     className={classes.field}
@@ -758,9 +775,9 @@ export default function ManageQuizzes() {
                                         id: 'age-native-label-placeholder',
                                     }}
                                     >
-                                        <option value={1}>First</option>
-                                        <option value={2}>Second</option>
-                                        <option value={3}>third</option>
+                                        <option key={998} value={1}>First</option>
+                                        <option key={997} value={2}>Second</option>
+                                        <option key={996} value={3}>third</option>
                                     </NativeSelect>
                                 </FormControl>
                             </Grid>
@@ -773,7 +790,9 @@ export default function ManageQuizzes() {
             </div>}
 
             {/* edit T or F section */}
-            {tofquestionInfo && <div className={classes.card}>
+            {tofquestionInfo && <div
+            ref={torEditRef}
+            className={classes.card}>
             <Grid container spacing={1} >
                 <Grid item xs={12} md={12} lg={12} key={31}>
                 <div>
