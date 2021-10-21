@@ -262,13 +262,13 @@ export default function Layout2({ children, title }, props) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
+      <MenuItem onClick={handleNotification}>
+        <IconButton aria-label="show 11 new notifications"  color="inherit">
           <Badge badgeContent={notification}   color="secondary">
             <NotificationsIcon />
           </Badge>
         </IconButton>
-        <p>Notifications</p>
+        <p style={{ marginTop:"10%" }}>Notifications</p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen2}>
         <IconButton
@@ -277,9 +277,9 @@ export default function Layout2({ children, title }, props) {
           aria-haspopup="true"
           color="inherit"
         >
-          <AccountCircle />
+          <AccountCircle  />
         </IconButton>
-        <p>logout</p>
+        <p style={{ marginTop:"10%" }}>logout</p>
       </MenuItem>
     </Menu>
   );
@@ -393,7 +393,7 @@ export default function Layout2({ children, title }, props) {
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="show 17 new notifications" onClick={handleNotification} color="inherit">
               <Badge badgeContent={notification} color="secondary">
-                <NotificationsIcon />
+                <NotificationsIcon  />
               </Badge>
             </IconButton>
             <IconButton
@@ -404,7 +404,7 @@ export default function Layout2({ children, title }, props) {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+              <AccountCircle style={{color:'#7591e6'}} />
             </IconButton>
           </div>
           <div className={classes.sectionMobile}>

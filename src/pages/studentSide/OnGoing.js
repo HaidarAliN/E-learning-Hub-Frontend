@@ -64,6 +64,25 @@ const useStyles = makeStyles((theme) => ({
                 marginBottom:  "10%"
             
                 },
+        },
+        emptyState:{
+            color:'#5a5c69',
+            [theme.breakpoints.up('md')]: {
+            marginTop:`calc(${window.innerHeight/3 - 0.1*window.innerHeight}px)`,
+            textAlign:"center",
+            marginLeft:`calc(${window.innerWidth/3 - 0.05*window.innerWidth}px)`,
+            },
+            [theme.breakpoints.down('sm')]: {
+                marginLeft:"1%",
+                marginTop:`calc(${window.innerHeight/8}px)`,
+    
+                },
+            [theme.breakpoints.down('xs')]: {
+                marginBottom:"5%",
+                marginLeft:"14%",
+                marginTop:`calc(${window.innerHeight/3 - 0.1*window.innerHeight}px)`,
+    
+                }
         }
 
   
@@ -100,9 +119,9 @@ export default function OnGoing() {
     <Layout title="qwe">
 
         <div className={classes.page}>
-            <Typography className={classes.card2}  component="h2"  variant="h4" >
+            {data && <Typography className={classes.card2}  component="h2"  variant="h4" >
                 On Going Courses
-            </Typography>
+            </Typography>}
 
             {/* card */}
             <div className={classes.card}>
@@ -149,7 +168,7 @@ export default function OnGoing() {
                 )) 
                     :
 
-                    <Typography className={classes.card2}  component="h2"  variant="h4" >
+                    <Typography className={classes.emptyState}  component="h2"  variant="h4" >
                             Nothing to show
                         </Typography>}
                 

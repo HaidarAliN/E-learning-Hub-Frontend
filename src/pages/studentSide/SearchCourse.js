@@ -39,7 +39,45 @@ const useStyles = makeStyles((theme) => ({
         },
         labell:{
             marginBottom : "4%"
-        }
+        },
+    emptyState:{
+        color:'#5a5c69',
+        [theme.breakpoints.up('md')]: {
+        marginTop:`calc(${window.innerHeight/3 - 0.1*window.innerHeight}px)`,
+        textAlign:"center",
+        marginLeft:`calc(${window.innerWidth/3 - 0.05*window.innerWidth}px)`,
+        },
+        [theme.breakpoints.down('sm')]: {
+            marginLeft:"1%",
+            marginTop:`calc(${window.innerHeight/8}px)`,
+
+            },
+        [theme.breakpoints.down('xs')]: {
+            marginBottom:"5%",
+            marginLeft:"14%",
+            marginTop:`calc(${window.innerHeight/3 - 0.2*window.innerHeight}px)`,
+
+            }
+    },
+    success:{
+        color: '#5a5c69',
+        [theme.breakpoints.up('md')]: {
+            marginTop:"10%",
+            textAlign:"center",
+            marginLeft:`calc(${window.innerWidth/3 - 0.05*window.innerWidth}px)`,
+            },
+            [theme.breakpoints.down('sm')]: {
+                marginLeft:"1%",
+                marginTop:`calc(${window.innerHeight/8}px)`,
+    
+                },
+            [theme.breakpoints.down('xs')]: {
+                marginBottom:"5%",
+                marginLeft:"14%",
+                marginTop:`calc(${window.innerHeight/3 - 0.2*window.innerHeight}px)`,
+    
+                }
+    }
   
     }));
 
@@ -208,11 +246,11 @@ export default function SearchCourse() {
                             
                         }
                         {status && 
-                <Typography  component="h2"  variant="h4" >
+                <Typography  component="h2"  variant="h4" className={classes.emptyState}>
                     Nothing to show
                 </Typography>}
             {enrollMessage &&
-                    <Typography  component="h2"  variant="h4" >
+                    <Typography className={classes.success} component="h2"  variant="h4" >
                     Request Sent!
                     </Typography>
             }
