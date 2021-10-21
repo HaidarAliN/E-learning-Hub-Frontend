@@ -56,7 +56,7 @@ export default function Dashboard() {
         <Typography className={classes.card2}  component="h2"  variant="h4" >
                 Dashboard
             </Typography>
-            { data && <div className={classes.card}>
+             <div className={classes.card}>
             <Grid container spacing={1} >
                 <Grid item xs={12} md={6} lg={4} key={1}>
                 <div>
@@ -71,9 +71,9 @@ export default function Dashboard() {
                             }
                         />
                         <CardContent>
-                        <Typography variant="h4" color="textSecondary">
+                        { data && <Typography variant="h4" color="textSecondary">
                             {data.courses_count}
-                        </Typography>
+                        </Typography>}
                         </CardContent>
                     </Card>
                 </div>
@@ -90,9 +90,9 @@ export default function Dashboard() {
                               }
                         />
                         <CardContent>
-                        <Typography variant="h4" color="textSecondary">
+                        { data && <Typography variant="h4" color="textSecondary">
                         {data.student_count}
-                        </Typography>
+                        </Typography>}
                         </CardContent>
                     </Card>
                 </div>
@@ -109,15 +109,15 @@ export default function Dashboard() {
                             }
                         />
                         <CardContent>
-                        <Typography variant="h4" color="textSecondary">
+                        { data && <Typography variant="h4" color="textSecondary">
                         {data.Quizzes_done}
-                        </Typography>
+                        </Typography>}
                         </CardContent>
                     </Card>
                 </div>
                 </Grid>
             </Grid>
-            </div>}
+            </div>
         </div>
         <div className={classes.footer}>
                             <Typography className={classes.footer}></Typography>

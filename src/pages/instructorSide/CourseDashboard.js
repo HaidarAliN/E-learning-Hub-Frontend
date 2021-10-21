@@ -63,7 +63,7 @@ export default function CourseDashboard() {
         Course Content
             </Typography>
                 
-            {data? <div className={classes.card}>
+            <div className={classes.card}>
             <Grid container spacing={1} >
                 <Grid item xs={12} sm={6} md={6} lg={4} key={1}>
                 <div>
@@ -78,9 +78,9 @@ export default function CourseDashboard() {
                             }
                         />
                         <CardContent>
-                        <Typography variant="h4" color="textSecondary">
+                        {data && <Typography variant="h4" color="textSecondary">
                             {data.lectures_count}
-                        </Typography>
+                        </Typography>}
                         </CardContent>
                     </Card>
                 </div>
@@ -97,9 +97,9 @@ export default function CourseDashboard() {
                               }
                         />
                         <CardContent>
-                        <Typography variant="h4" color="textSecondary">
+                        {data &&  <Typography variant="h4" color="textSecondary">
                         {data.students_count}
-                        </Typography>
+                        </Typography>}
                         </CardContent>
                     </Card>
                 </div>
@@ -116,20 +116,16 @@ export default function CourseDashboard() {
                             }
                         />
                         <CardContent>
-                        <Typography variant="h4" color="textSecondary">
+                        {data && <Typography variant="h4" color="textSecondary">
                         {data.progress}%
-                        </Typography>
+                        </Typography>}
                         </CardContent>
                     </Card>
                 </div>
                 </Grid>
             </Grid>
             </div>
-            :
-            <Typography className={classes.card2}  component="h2"  variant="h4" >
-                Nothing to show
-            </Typography>
-            }
+           
         </div>
         </LayoutCourse>
 
