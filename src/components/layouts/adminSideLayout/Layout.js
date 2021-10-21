@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   page: {
     background: '#f9f9f9',
     width: '100%',
-    height:'100%',
+    height: window.innerHeight,
     padding: theme.spacing(3),
     [theme.breakpoints.down('xs')]: {
     marginLeft:"-60%"
@@ -213,10 +213,9 @@ export default function Layout2({ children, title }, props) {
   };
 
   const handleLogout  = () => {
-    localStorage.setItem('user_type_id', 4);
     localStorage.clear();
     history.push('/');
-    // window.location.reload();
+    window.location.reload();
   };
 
 
@@ -255,15 +254,15 @@ export default function Layout2({ children, title }, props) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+      {/* <MenuItem>
         <IconButton aria-label="show 11 new notifications" color="inherit">
           <Badge badgeContent={notification}   color="secondary">
             <NotificationsIcon />
           </Badge>
         </IconButton>
         <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      </MenuItem> */}
+      <MenuItem onClick={handleLogout}>
         <IconButton
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
@@ -272,7 +271,7 @@ export default function Layout2({ children, title }, props) {
         >
           <AccountCircle />
         </IconButton>
-        <p>Profile</p>
+        <p style={{ marginTop:"10%" }}>Logout</p>
       </MenuItem>
     </Menu>
   );

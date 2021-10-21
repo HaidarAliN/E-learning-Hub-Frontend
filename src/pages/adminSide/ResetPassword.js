@@ -41,7 +41,20 @@ const useStyles = makeStyles((theme) => ({
     },
     created:{
         marginTop: "2%"
-    }
+    },
+    page: {
+        background: '#f9f9f9',
+        width: '100%',
+        [theme.breakpoints.down('xs')]: {
+    
+        }},
+        card2:{
+            color:'#5a5c69',
+            [theme.breakpoints.down('md')]: {
+                marginBottom:  "10%"
+            
+                },
+        }  
   
 }));
 
@@ -88,7 +101,7 @@ export default function ResetPassword() {
 
     return (
     <Layout title="qwe" >
-        <div className={classes.paper}>
+        <div className={classes.page}>
         <Typography className={classes.card2}  component="h2"  variant="h4" >
                 Reset Password
             </Typography>

@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: "2%"
     },
     cardbody:{
+        color:'#5a5c69',
         borderWidth: "1px",
         borderLeft: '.25rem solid !important',
         borderColor: "#5a5c69 !important"
@@ -34,6 +35,10 @@ const useStyles = makeStyles((theme) => ({
     },
     btn:{
         marginTop: "2%",
+        [theme.breakpoints.down('xs')]: {
+            display: 'none',
+
+            },
     },
     label:{
         alignItems:"center",
@@ -41,11 +46,29 @@ const useStyles = makeStyles((theme) => ({
     },
     created:{
         marginTop: "2%"
-    }
+    },
+    page: {
+        background: '#f9f9f9',
+        width: '100%',
+    },
+    card2:{
+        color:'#5a5c69',
+        [theme.breakpoints.down('md')]: {
+            marginBottom:  "10%"
+        
+            },
+    },
+    btnxs:{
+        marginTop: "2%",
+        [theme.breakpoints.up('sm')]: {
+            display: 'none',
+
+            },
+    }  
   
 }));
 
-export default function CreateCourse() {
+export default function Home() {
     const [access_token, setAccess_token] = useState(JSON.parse( localStorage.getItem('access_token') ));
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -55,9 +78,7 @@ export default function CreateCourse() {
     const [emailError, setEmailError] = useState(false);
     const [password, setPassword] = useState('');
     const [passwordError, setPasswordError] = useState(false);
-    const [types, setTypes] = useState(null);
     const [userTypeName,setUserTypeName] = useState('');//
-    const [courseType, setCourseType] = useState(0);
     const [created, setCreated] = useState(null);
     const [userType, setUserType] = useState({
         type: ''
@@ -76,18 +97,6 @@ export default function CreateCourse() {
         });
     };
 
-    // useEffect(async () => {
-    //     const response = await axios.get(`${BASE_API_URL}/api/instructor/get-course-types`,
-    //     {headers:{
-    //       'Authorization' : `Bearer ${access_token}`
-    //     }}
-    //     );
-    //     const data_fetched = await response.data;
-    //     setTypes(data_fetched);
-    // }, []);
-
-  
-    
     const handleSubmit = async() =>{
         setFirstNameError(false);
         setLastNameError(false);
@@ -136,7 +145,7 @@ export default function CreateCourse() {
 
     return (
     <Layout title="qwe" >
-        <div className={classes.paper}>
+        <div className={classes.page}>
         <Typography className={classes.card2}  component="h2"  variant="h4" >
                 Register New user
             </Typography>
@@ -251,7 +260,7 @@ export default function CreateCourse() {
 
                         <Grid container spacing={3}>
                             <Grid item xs={12} md={5} lg={3} key={10}>
-                                <InputLabel>Course type:</InputLabel>
+                                <InputLabel>User type:</InputLabel>
                             </Grid>
                             <Grid item xs={12} md={6} lg={4} key={1}>
                             <FormControl className={classes.formControl}>
@@ -272,6 +281,16 @@ export default function CreateCourse() {
                             <Grid item xs={12} md={1} lg={5} key={12}>
                             </Grid>
                         </Grid>
+                        
+                        <div className={classes.btnxs}>
+                                <Button
+                                    color="secondary" 
+                                    variant="contained"
+                                    onClick={handleSubmit}
+                                    endIcon={<PersonAddIcon />}>
+                                    Register User
+                                </Button>
+                        </div>
 
                         </CardContent>
                     </Card>
@@ -280,7 +299,7 @@ export default function CreateCourse() {
             </Grid>
             </div>
             :
-            <Typography className={classes.created} component="h2"  variant="body1" >
+            <Typography className={classes.created} component="h2"  variant="h5" >
                 User Has been Registerd!
             </Typography>    
         }
