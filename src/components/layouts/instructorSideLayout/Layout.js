@@ -259,13 +259,16 @@ export default function Layout2({ children, title }, props) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+      <MenuItem
+        onClick={handleNotification}
+      
+      >
         <IconButton aria-label="show 11 new notifications" color="inherit">
           <Badge badgeContent={notification}   color="secondary">
             <NotificationsIcon />
           </Badge>
         </IconButton>
-        <p>Notifications</p>
+        <p style={{ marginTop:"10%" }}>Notifications</p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen2}>
         <IconButton
@@ -276,7 +279,7 @@ export default function Layout2({ children, title }, props) {
         >
           <AccountCircle />
         </IconButton>
-        <p>Logout</p>
+        <p style={{ marginTop:"10%" }}>Logout</p>
       </MenuItem>
     </Menu>
   );

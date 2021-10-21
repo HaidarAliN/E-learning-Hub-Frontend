@@ -144,7 +144,7 @@ export default function Notification({data, handleRead, NavigateToCourse}) {
                     onClick={() => markAsRead(item.id)}
                     startIcon={<InfoIcon />}
                     >
-                          Mark
+                          seen
                     </Button>
                     
                     </td>

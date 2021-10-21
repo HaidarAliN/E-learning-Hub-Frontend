@@ -26,6 +26,7 @@ import GroupOutlinedIcon from '@material-ui/icons/GroupOutlined';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import BASE_API_URL from '../../../services/BaseUrl'
 import axios from "axios";
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 const drawerWidth = 240
 
@@ -164,6 +165,12 @@ nested: {
 toolbar: theme.mixins.toolbar,
 toolbar2: {
   marginBottom: "2%",
+},
+back:{
+  [theme.breakpoints.up('sm')]: {
+    display: 'none',
+
+  },
 }
 }));
 
@@ -260,13 +267,15 @@ export default function Layout2({ children }, props) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+      <MenuItem
+      onClick={handleNotification}
+      >
         <IconButton aria-label="show 11 new notifications" color="inherit">
           <Badge badgeContent={notification} color="secondary">
             <NotificationsIcon />
           </Badge>
         </IconButton>
-        <p>Notifications</p>
+        <p style={{ marginTop:"10%" }}>Notifications</p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen2}>
         <IconButton
@@ -277,7 +286,7 @@ export default function Layout2({ children }, props) {
         >
           <AccountCircle />
         </IconButton>
-        <p>Logout</p>
+        <p style={{ marginTop:"10%" }}>Logout</p>
       </MenuItem>
     </Menu>
   );
@@ -333,6 +342,16 @@ export default function Layout2({ children }, props) {
       </List>
       <Divider  variant="middle" />
 
+      <List className={classes.back}>
+        <ListItem 
+          button 
+          key="Dashboard"
+          onClick={() => history.push("/home")}
+        >
+          <ListItemIcon><ArrowBackIcon color="secondary" /></ListItemIcon>
+          <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Back to Home</Typography>}/>
+        </ListItem>
+      </List>
     </div>
   );
 
@@ -355,7 +374,7 @@ export default function Layout2({ children }, props) {
           >
             <MenuIcon />
           </IconButton>
-              <Typography  variant="h6">
+              <Typography  variant="h6" style={{color:'#7591e6'}}>
               {name} {'>'}
               </Typography>
           <div className={classes.grow} />
@@ -376,7 +395,7 @@ export default function Layout2({ children }, props) {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+              <AccountCircle  style={{color:'#7591e6'}}/>
             </IconButton>
           </div>
           <div className={classes.sectionMobile}>
