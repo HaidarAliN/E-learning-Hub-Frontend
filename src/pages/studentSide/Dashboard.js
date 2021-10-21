@@ -17,9 +17,6 @@ const useStyles = makeStyles((theme) => ({
         borderLeft: '.25rem solid !important',
         borderColor: "#bac8f2 !important"
     },
-    // footer:{
-    //     height: window.innerHeight/2,
-    // }
     page: {
         background: '#f9f9f9',
         width: '100%',

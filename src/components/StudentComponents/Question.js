@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     cardbody:{
         borderWidth: "1px",
         borderLeft: '.25rem solid !important',
-        borderColor: "#5a5c69 !important"
+        borderColor: "#bac8f2 !important"
     },
     cardHeader:{
         marginBottom: 0,
@@ -30,14 +30,25 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: "2%"
     },
     formControl: {
-        margin: theme.spacing(1),
-        minWidth: 120,
+        minWidth: 150,
+            marginTop:  "70%",
+            marginLeft:"50%",
+        
+        [theme.breakpoints.down('sm')]: {
+            marginTop:  "10%",
+            marginLeft:"10%",
+            marginBottom:"10%"
+            }
     },
       selectEmpty: {
         marginTop: theme.spacing(2),
     },
     btn:{
         marginTop: "2%",
+        [theme.breakpoints.down('xs')]: {
+            display : "none"
+        
+            }
     },
     label:{
         alignItems:"center",
@@ -54,6 +65,12 @@ const useStyles = makeStyles((theme) => ({
         color:"#ff4",
         maxWidth: 360,
         width: '100%',
+    },
+    btnSmall:{
+
+        [theme.breakpoints.up('sm')]: {
+            display : "none"
+        }
     }
 }));
 
@@ -130,6 +147,7 @@ export default function Question({data, handleSubmit}) {
                         <div className={classes.btn}>
                         <Button
                             color="secondary" 
+                            style={{backgroundColor:'#bac8f2'}}
                             variant="contained"
                             onClick={handleSubmitAnswer}
                             endIcon={<SendIcon />}>
@@ -206,6 +224,15 @@ export default function Question({data, handleSubmit}) {
                             <Grid item xs={12} md={3} lg={3} key={4}>
                             </Grid>
                         </Grid>
+                        <div className={classes.btnSmall} >
+                        <Button
+                        style={{backgroundColor:'#bac8f2'}}
+                            variant="contained"
+                            onClick={handleSubmitAnswer}
+                            endIcon={<SendIcon />}>
+                            Submit Answer
+                        </Button>
+                        </div>
                         </CardContent>
                     </Card>
                 </div>

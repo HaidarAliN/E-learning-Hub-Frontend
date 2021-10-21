@@ -315,7 +315,7 @@ export default function Layout2({ children, title }, props) {
       </List>
       <Divider  variant="middle" />
 
-      <List>
+      {/* <List>
         <ListItem 
           button 
           key="Dashboard"
@@ -326,7 +326,7 @@ export default function Layout2({ children, title }, props) {
           <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Notifications</Typography>}/>
         </ListItem>
       </List>
-      <Divider  variant="middle" />
+      <Divider  variant="middle" /> */}
 
 
       
@@ -358,11 +358,11 @@ export default function Layout2({ children, title }, props) {
               </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 17 new notifications" onClick={handleNotification} color="inherit">
+            {/* <IconButton aria-label="show 17 new notifications" onClick={handleNotification} color="inherit">
               <Badge badgeContent={notification} color="secondary">
                 <NotificationsIcon />
               </Badge>
-            </IconButton>
+            </IconButton> */}
             <IconButton
               edge="end"
               aria-label="account of current user"

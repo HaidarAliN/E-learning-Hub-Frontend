@@ -10,20 +10,28 @@ import BASE_API_URL from '../../services/BaseUrl'
 import axios from "axios";
 
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     card:{
         marginTop: "2%"
     },
     cardbody:{
+        color:'#5a5c69',
         borderWidth: "1px",
         borderLeft: '.25rem solid !important',
-        borderColor: "#5a5c69 !important"
+        borderColor: "#bac8f2 !important"
     },
-    card2:{
-        marginBottom:"3%"
-    },
-  
-})
+    page: {
+        background: '#f9f9f9',
+        width: '100%',
+        },
+        card2:{
+            color:'#5a5c69',
+            [theme.breakpoints.down('md')]: {
+                marginBottom:  "10%"
+            
+                },
+        }  
+    }));
 
 export default function CourseDashboard() {
     const classes = useStyles();
@@ -59,7 +67,7 @@ export default function CourseDashboard() {
         Course Content
             </Typography>
                 
-            {data? <div className={classes.card}>
+             <div className={classes.card}>
             <Grid container spacing={1} >
                 <Grid item xs={12} md={6} lg={4} key={1}>
                 <div>
@@ -69,14 +77,14 @@ export default function CourseDashboard() {
                             title="LECUTURES UPLOADED"
                             action={
                                 <IconButton>
-                                <MenuBookIcon/>
+                                <MenuBookIcon style={{color:'#4e73df'}}/>
                                 </IconButton>
                             }
                         />
                         <CardContent>
-                        <Typography variant="h4" color="textSecondary">
+                        {data &&<Typography variant="h4" color="textSecondary">
                             {data.lectures_count}
-                        </Typography>
+                        </Typography>}
                         </CardContent>
                     </Card>
                 </div>
@@ -88,14 +96,14 @@ export default function CourseDashboard() {
                             title="Quizzes Count"
                             action={
                                 <IconButton>
-                                  <SupervisorAccountIcon/>
+                                  <SupervisorAccountIcon style={{color:'#4e73df'}}/>
                                 </IconButton>
                               }
                         />
                         <CardContent>
-                        <Typography variant="h4" color="textSecondary">
+                        {data && <Typography variant="h4" color="textSecondary">
                         {data.quiz_count}
-                        </Typography>
+                        </Typography>}
                         </CardContent>
                     </Card>
                 </div>
@@ -107,25 +115,20 @@ export default function CourseDashboard() {
                             title="COURSE PROGRESS"
                             action={
                                 <IconButton>
-                                    <DoneAllIcon/>
+                                    <DoneAllIcon style={{color:'#4e73df'}}/>
                                 </IconButton>
                             }
                         />
                         <CardContent>
-                        <Typography variant="h4" color="textSecondary">
+                        {data && <Typography variant="h4" color="textSecondary">
                         {data.progress}%
-                        </Typography>
+                        </Typography>}
                         </CardContent>
                     </Card>
                 </div>
                 </Grid>
             </Grid>
             </div>
-            :
-            <Typography className={classes.card2}  component="h2"  variant="h4" >
-                Nothing to show
-            </Typography>
-            }
         </div>
         </LayoutCourse>
 

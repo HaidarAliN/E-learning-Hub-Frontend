@@ -10,7 +10,38 @@ const useStyles = makeStyles((theme) => ({
     card:{
         marginTop: "2%",
         marginBottom: "3%",
-    }
+    },
+    page: {
+        background: '#f9f9f9',
+        width: '100%',
+        },
+        card2:{
+            color:'#5a5c69',
+        marginBottom: "2%",
+            [theme.breakpoints.down('md')]: {
+                marginBottom:  "10%"
+            
+                },
+        },
+        emptyState:{
+            color:'#5a5c69',
+            [theme.breakpoints.up('md')]: {
+            marginTop:`calc(${window.innerHeight/3 - 0.07*window.innerHeight}px)`,
+            textAlign:"center",
+            marginLeft:`calc(${window.innerWidth/3 - 0.36*window.innerWidth}px)`,
+            },
+            [theme.breakpoints.down('sm')]: {
+                marginLeft:"1%",
+                marginTop:`calc(${window.innerHeight/8}px)`,
+    
+                },
+            [theme.breakpoints.down('xs')]: {
+                marginBottom:"5%",
+                marginLeft:"14%",
+                marginTop:`calc(${window.innerHeight/3 - 0.1*window.innerHeight}px)`,
+    
+                }
+        }
 }));
 
 
@@ -47,25 +78,26 @@ export default function UploadMaterial() {
     return (
     <LayoutCourse title="qwe">
 
-        <div>
-                <Typography className={classes.card}  component="h2"  variant="h4" >
-                Upload Materials
+{data ? <div className={classes.page}>
+                <Typography className={classes.card2}  component="h2"  variant="h4" >
+                Upload Materialss
             </Typography>
             <div >
                 <Grid container spacing={1} >
                     <Grid item xs={12} md={12} lg={12} key={1}>
                         <div>
-                            {data ?
+                            
                                  <Materials data={data} handlePreview={handlePreview}/>
-                            :
-                                <Typography>No uploaded materials</Typography>
-                            }
+                            
+                           
                         </div>
                     </Grid>
                 </Grid>
             </div>
-
         </div>
+            :
+             <Typography className={classes.emptyState} component="h2"  variant="h4">No uploaded materials</Typography>
+            }
         </LayoutCourse>
     )
 }

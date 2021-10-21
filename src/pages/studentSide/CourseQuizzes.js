@@ -1,6 +1,6 @@
 import { Box, Button, Card, CardContent, CardHeader, createTheme, Divider, FormControl, Grid, IconButton, InputLabel, makeStyles, NativeSelect, responsiveFontSizes, TextField, Typography } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/styles'
-import React, {useState,useEffect} from 'react'
+import React, {useState,useEffect, useRef} from 'react'
 import SendIcon from '@material-ui/icons/Send';
 import BackupOutlinedIcon from '@material-ui/icons/BackupOutlined';
 import EditIcon from '@material-ui/icons/Edit';
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     cardbody:{
         borderWidth: "1px",
         borderLeft: '.25rem solid !important',
-        borderColor: "#5a5c69 !important"
+        borderColor: "#bac8f2 !important"
     },
     cardHeader:{
         marginBottom: 0,
@@ -55,7 +55,56 @@ const useStyles = makeStyles((theme) => ({
         color:"#ff4",
         maxWidth: 360,
         width: '100%',
-    }
+    },
+    page: {
+        background: '#f9f9f9',
+        width: '100%',
+       },
+        card2:{
+            color:'#5a5c69',
+            [theme.breakpoints.down('md')]: {
+                marginBottom:  "10%"
+            
+                },
+        },
+        emptyState:{
+            color:'#5a5c69',
+            [theme.breakpoints.up('md')]: {
+            marginTop:`calc(${window.innerHeight/3 - 0.07*window.innerHeight}px)`,
+            textAlign:"center",
+            marginLeft:`calc(${window.innerWidth/3 - 0.36*window.innerWidth}px)`,
+            },
+            [theme.breakpoints.down('sm')]: {
+                marginLeft:"1%",
+                marginTop:`calc(${window.innerHeight/8}px)`,
+    
+                },
+            [theme.breakpoints.down('xs')]: {
+                marginBottom:"5%",
+                marginLeft:"14%",
+                marginTop:`calc(${window.innerHeight/3 - 0.1*window.innerHeight}px)`,
+    
+                }
+        },
+        quizdone:{
+            color:'#5a5c69',
+            [theme.breakpoints.up('md')]: {
+            marginTop:`calc(${window.innerHeight/3 - 0.1*window.innerHeight}px)`,
+            textAlign:"center",
+            },
+            [theme.breakpoints.down('sm')]: {
+                marginTop:`calc(${window.innerHeight/8 + 0.2*window.innerHeight}px)`,
+                textAlign:"center",
+    
+                },
+            [theme.breakpoints.down('xs')]: {
+                marginBottom:"5%",
+                alignItems:"center",
+                textAlign:"center",
+                marginTop:`calc(${window.innerHeight/3 - 0.2*window.innerHeight}px)`,
+    
+                }
+        }
   
 }));
 
@@ -74,7 +123,7 @@ export default function ManageQuizzes() {
     const classes = useStyles();
     let theme = createTheme();
     theme = responsiveFontSizes(theme);
-
+    const confirmHidRef = useRef();
     const getDAta = async () =>{
         const response = await axios.get(`${BASE_API_URL}/api/student/course/get-quizzes/${courseId}`,
           {headers:{
@@ -117,9 +166,12 @@ export default function ManageQuizzes() {
             }}
             );
             const data_fetched = await response.data;
+            if(data_fetched){
+                confirmHidRef.current.style.display = "none";
                 setQuizSubmition(data_fetched.id);
                 setquizloaded(quizname.type);
                 getQuizquestion();
+            }
     }}
 
 
@@ -156,11 +208,11 @@ export default function ManageQuizzes() {
     return (
     <LayoutCourse title="qwe">
 
-        <div>
+{data ? <div className={classes.page}>
                 <Typography className={classes.card2}  component="h2"  variant="h4" >
                 Course Quizzes
             </Typography>
-            {data ? <div className={classes.card}>
+             <div className={classes.card}>
             <Grid container spacing={1} >
                 <Grid item xs={12} md={12} lg={12} key={1}>
                 <div>
@@ -173,6 +225,8 @@ export default function ManageQuizzes() {
                             action={
                         <div className={classes.btn}>
                         <Button
+                            ref={confirmHidRef}
+                            style={{backgroundColor:'#bac8f2'}}
                             color="secondary" 
                             variant="contained"
                             onClick={handleConfirm}
@@ -186,11 +240,11 @@ export default function ManageQuizzes() {
 
                         {!quizloaded ?<div>
                         <Grid container spacing={3}>
-                            <Grid item xs={12} md={3} lg={3} key={2}>
+                            <Grid item xs={12} md={12} lg={3} key={2}>
                                 <InputLabel className={classes.label}>Choose Quiz:</InputLabel>
                             </Grid>
                             {data && <div>
-                            <Grid item xs={12} md={4} lg={4} key={5}>
+                            <Grid item xs={12} md={12} lg={4} key={5}>
                             <FormControl className={classes.formControl}>
                                     <NativeSelect
                                     value={quizname.type}
@@ -214,7 +268,7 @@ export default function ManageQuizzes() {
                         :
                         <div>
                         <Typography className={classes.card2}  component="h2"  variant="h6" >
-                            Quiz Name: {quizloaded}
+                            {quizloaded}
                         </Typography>
                         </div>
                         }
@@ -224,11 +278,7 @@ export default function ManageQuizzes() {
                 </Grid>
             </Grid>
             </div>
-            :
-                <Typography className={classes.card2}  component="h2"  variant="h6" >
-                    No quizzes for this course.
-                </Typography>          
-            }
+          
 
             {/* question section */}
 
@@ -239,12 +289,17 @@ export default function ManageQuizzes() {
 
             {/* quiz done */}
             {quizDone &&
-                <Typography className={classes.card2}  component="h2"  variant="h6" >
+                <Typography className={classes.quizdone}  component="h2"  variant="h4" >
                    Wohoo No more questions!!!
                 </Typography>   
             }
 
         </div>
+          :
+          <Typography className={classes.emptyState}  component="h2"  variant="h4" >
+              No quizzes for this course.
+          </Typography>          
+      }
         </LayoutCourse>
     )
     }
