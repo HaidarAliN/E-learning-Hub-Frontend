@@ -89,7 +89,7 @@ export default function CourseDashboard() {
                 <div>
                     <Card elevation={1} className={classes.cardbody}>
                         <CardHeader
-                            title="ALL STUDENTS"
+                            title="STUDENTS"
                             action={
                                 <IconButton>
                                   <SupervisorAccountIcon/>

@@ -101,7 +101,7 @@ export default function Dashboard() {
                 <div>
                     <Card elevation={1} className={classes.cardbody}>
                         <CardHeader
-                            title="FINISHED CLASSES"
+                            title="FINISHED COURSES"
                             action={
                                 <IconButton>
                                     <DoneAllIcon/>
@@ -110,7 +110,7 @@ export default function Dashboard() {
                         />
                         <CardContent>
                         { data && <Typography variant="h4" color="textSecondary">
-                        {data.Quizzes_done}
+                        {data.finished_courses}
                         </Typography>}
                         </CardContent>
                     </Card>
