@@ -115,15 +115,23 @@ export default function Question({data, handleSubmit}) {
         })
     }
 
-    const handleSubmitAnswer = () => {
+    const handleSubmitAnswer = (ans) => {
         if(torf.type != 'Choose one'){
-            handleSubmit(torf.type);
+            if(torf.type == ans){
+                handleSubmit(1);
+            }else{
+                handleSubmit(0);
+            }
             setTorf({
                 type: 'Choose one'
             });
         }
         if(mcq.type != 'Choose one'){
-            handleSubmit(mcq.type);
+            if(mcq.type == ans){
+                handleSubmit(1);
+            }else{
+                handleSubmit(0);
+            }
             setMcq({
                 type: 'Choose one'
             });
@@ -149,7 +157,7 @@ export default function Question({data, handleSubmit}) {
                             color="secondary" 
                             style={{backgroundColor:'#bac8f2'}}
                             variant="contained"
-                            onClick={handleSubmitAnswer}
+                            onClick={() => handleSubmitAnswer(data.right_answer)}
                             endIcon={<SendIcon />}>
                             Submit Answer
                         </Button>
@@ -224,11 +232,13 @@ export default function Question({data, handleSubmit}) {
                             <Grid item xs={12} md={3} lg={3} key={4}>
                             </Grid>
                         </Grid>
-                        <div className={classes.btnSmall} >
+                        <div 
+                        className={classes.btnSmall} 
+                        >
                         <Button
                         style={{backgroundColor:'#bac8f2'}}
                             variant="contained"
-                            onClick={handleSubmitAnswer}
+                            onClick={() => handleSubmitAnswer(data.right_answer)}
                             endIcon={<SendIcon />}>
                             Submit Answer
                         </Button>

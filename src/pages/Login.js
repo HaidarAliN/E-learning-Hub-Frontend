@@ -111,7 +111,7 @@ const Login = ({redicrett}) => {
         //     </Row>
         // </Container>
 <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" >
         <CssBaseline />
         <Box
           sx={{

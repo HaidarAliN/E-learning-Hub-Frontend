@@ -149,7 +149,6 @@ export default function ManageQuizzes() {
             setQuizDone(true);  
             setQuizQuestion('');
         }else{
-            console.log(data_fetched);
             setQuizQuestion(data_fetched);
         }
     }
@@ -200,7 +199,6 @@ export default function ManageQuizzes() {
         );
         const data_fetched = response.data;
         if(data_fetched){
-            console.log(data_fetched);
             getQuizquestion();
         }
     }
