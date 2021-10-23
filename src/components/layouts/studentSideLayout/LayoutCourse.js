@@ -92,10 +92,10 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     marginTop:"7%",
-    alignItems: "center",
-    textAlign: "center",
     display: 'none',
     color: "#eaecf4",
+    marginLeft:"15%",
+    marginBottom:"7%",
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
@@ -441,10 +441,12 @@ export default function Layout2({ children }, props) {
           variant="permanent"
           open
         >
-          <div className={classes.toolbar}>
-              <Typography className={classes.title} variant="h6">
-              <Link to="/home" className={classes.title}> E-Learning Hub</Link>
-              </Typography>
+           <div >
+          <Link to="/home" style={{textDecoration: 'none'}} >
+                <Typography type="body2"  className={classes.title} style={{ color: '#d1d3e2' }}>
+                  <ArrowBackIcon color="secondary" />  Back to Home
+                </Typography>
+              </Link>
           </div>
           <Divider  variant="middle" />
           
