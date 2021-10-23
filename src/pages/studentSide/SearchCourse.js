@@ -131,7 +131,6 @@ export default function SearchCourse() {
             );
             const data_fetched = response.data;
             if(data_fetched){
-                console.log(id);
                 setSearchName('');
                 setEnrollMessage(true);
                 setData('');

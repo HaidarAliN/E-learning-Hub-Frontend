@@ -197,7 +197,7 @@ export default function ManageQuizzes() {
             'Authorization' : `Bearer ${access_token}`
           }}
         );
-        const data_fetched = response.data;
+        const data_fetched = await response.data;
         if(data_fetched){
             getQuizquestion();
         }
