@@ -31,8 +31,7 @@ const useStyles = makeStyles((theme) => ({
     },
     formControl: {
         minWidth: 150,
-            marginTop:  "70%",
-            marginLeft:"50%",
+            marginLeft:"10%",
         
         [theme.breakpoints.down('sm')]: {
             marginTop:  "10%",
@@ -167,7 +166,7 @@ export default function Question({data, handleSubmit}) {
                         <CardContent>
 
                         <Grid container spacing={3}>
-                            <Grid item xs={12} md={5} lg={4} key={32}>
+                            <Grid item xs={12} md={12} lg={12} key={32}>
                                 <TextField
                                         key={66}
                                         value={data.content}
@@ -185,7 +184,7 @@ export default function Question({data, handleSubmit}) {
 
                             {data.type == 1?
                                 <div>
-                                <Grid item xs={12} md={1} lg={4} key={33}>
+                                <Grid item xs={12} md={12} lg={12} key={33}>
                                 <FormControl className={classes.formControl}>
                                         <NativeSelect
                                         key={67}
@@ -206,7 +205,7 @@ export default function Question({data, handleSubmit}) {
                                 </div>
                             :
                                 <div>
-                                <Grid item xs={12} md={5} lg={5} key={34}>
+                                <Grid item xs={12} md={12} lg={12} key={34}>
                                 <FormControl className={classes.formControl}>
                                         <NativeSelect
                                         key={67}
@@ -229,8 +228,7 @@ export default function Question({data, handleSubmit}) {
 
                                         }             
 
-                            <Grid item xs={12} md={3} lg={3} key={4}>
-                            </Grid>
+                            
                         </Grid>
                         <div className={classes.btnSmall} >
                         <Button

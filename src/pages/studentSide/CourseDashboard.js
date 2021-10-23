@@ -74,7 +74,7 @@ export default function CourseDashboard() {
                     <Card elevation={1} className={classes.cardbody}
                     >
                         <CardHeader
-                            title="LECUTURES UPLOADED"
+                            title="LECTURES UPLOADED"
                             action={
                                 <IconButton>
                                 <MenuBookIcon style={{color:'#4e73df'}}/>
@@ -93,7 +93,7 @@ export default function CourseDashboard() {
                 <div>
                     <Card elevation={1} className={classes.cardbody}>
                         <CardHeader
-                            title="Quizzes Count"
+                            title="QUIZZES COUNTS"
                             action={
                                 <IconButton>
                                   <SupervisorAccountIcon style={{color:'#4e73df'}}/>
