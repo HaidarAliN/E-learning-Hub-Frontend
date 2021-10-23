@@ -12,6 +12,7 @@ import ManageStudents from './pages/instructorSide/ManageStudents'
 import ManageQuizzes from './pages/instructorSide/ManageQuizzes'
 import FinishedCourses from './pages/instructorSide/FinishedCourses'
 import OnGoing from './pages/instructorSide/OnGoing'
+import StudentSubmissions from './pages/instructorSide/StudentSubmissions'
 
 import DashboardS from './pages/studentSide/Dashboard'
 import NotificationsS from './pages/studentSide/Notifications'
@@ -83,6 +84,7 @@ function App() {
               <Route path='/course/EditInfo' exact component={EditCourseInfo}/> 
               <Route path='/course/ManageStudents' exact component={ManageStudents}/> 
               <Route path='/course/ManageQuizzes' exact component={ManageQuizzes}/> 
+              <Route path='/course/StudentSubmissions' exact component={StudentSubmissions}/> 
             </Switch>
           }
           {type_id == 3 && 

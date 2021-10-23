@@ -27,6 +27,8 @@ import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import BASE_API_URL from '../../../services/BaseUrl'
 import axios from "axios";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
+
 const drawerWidth = 240
 
 const useStyles = makeStyles((theme) => ({
@@ -91,10 +93,10 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     marginTop:"7%",
-    alignItems: "center",
-    textAlign: "center",
     display: 'none',
     color: "#eaecf4",
+    marginLeft:"15%",
+    marginBottom:"7%",
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
@@ -367,6 +369,19 @@ export default function Layout2({ children }, props) {
         <ListItem 
           button 
           key="Dashboard"
+          onClick={() => history.push("/course/StudentSubmissions")}
+          className={location.pathname == "/course/StudentSubmissions" ? classes.active : null}
+        >
+          <ListItemIcon><CheckBoxOutlinedIcon color="secondary" /></ListItemIcon>
+          <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Submissions</Typography>}/>
+        </ListItem>
+      </List>
+      <Divider  variant="middle" />
+
+      <List>
+        <ListItem 
+          button 
+          key="Dashboard"
           onClick={() => history.push("/course/EditInfo")}
           className={location.pathname == "/course/EditInfo" ? classes.active : null}
         >
@@ -476,10 +491,12 @@ export default function Layout2({ children }, props) {
           variant="permanent"
           open
         >
-          <div className={classes.toolbar}>
-              <Typography className={classes.title} variant="h6">
-              <Link to="/home" className={classes.title}> E-Learning Hub</Link>
-              </Typography>
+          <div >
+          <Link to="/home" style={{textDecoration: 'none'}} >
+                <Typography type="body2"  className={classes.title} style={{ color: '#d1d3e2' }}>
+                  <ArrowBackIcon color="secondary" />  Back to Home
+                </Typography>
+              </Link>
           </div>
           <Divider  variant="middle" />
           

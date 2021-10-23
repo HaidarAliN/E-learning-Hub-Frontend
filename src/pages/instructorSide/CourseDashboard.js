@@ -70,7 +70,7 @@ export default function CourseDashboard() {
                     <Card elevation={1} className={classes.cardbody}
                     >
                         <CardHeader
-                            title="LECUTURES UPLOADED"
+                            title="LECTURES UPLOADED"
                             action={
                                 <IconButton>
                                 <MenuBookIcon/>

@@ -232,9 +232,7 @@ export default function Question({data, handleSubmit}) {
                             <Grid item xs={12} md={3} lg={3} key={4}>
                             </Grid>
                         </Grid>
-                        <div 
-                        className={classes.btnSmall} 
-                        >
+                        <div className={classes.btnSmall} >
                         <Button
                         style={{backgroundColor:'#bac8f2'}}
                             variant="contained"
