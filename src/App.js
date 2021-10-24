@@ -63,6 +63,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
           <Switch>
+          <Route path='/' exact component={Login} />
            {!logedIn && <Route path='/' exact component={Login} />}
 
           </Switch>

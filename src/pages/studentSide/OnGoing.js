@@ -105,7 +105,6 @@ export default function OnGoing() {
             setData(null);
         }else{
             setData(data_fetched);
-            console.log(data_fetched)
         }
         }, []);
 
