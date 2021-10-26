@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: "2%"
     },
     formControl: {
+        marginLeft:"5%",
         margin: theme.spacing(1),
         minWidth: 120,
     },
@@ -38,7 +39,10 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(2),
     },
     btn:{
-        marginTop: "2%",
+        marginTop: "5%",
+        [theme.breakpoints.down('sm')]: {
+            marginTop: "2%",
+        }
     },
     label:{
         alignItems:"center",
@@ -166,7 +170,7 @@ export default function ManageQuizzes() {
             );
             const data_fetched = await response.data;
             if(data_fetched){
-                confirmHidRef.current.style.display = "none";
+                // confirmHidRef.current.style.display = "none";
                 setQuizSubmition(data_fetched.id);
                 setquizloaded(quizname.type);
                 getQuizquestion();
@@ -217,34 +221,18 @@ export default function ManageQuizzes() {
                     <Card elevation={1} className={classes.cardbody}
                     >
                         <CardHeader
-                            title="Quiz info"
-                            className={classes.cardHeader}
-                           
-                            action={
-                        <div className={classes.btn}>
-                        <Button
-                            ref={confirmHidRef}
-                            style={{backgroundColor:'#bac8f2'}}
-                            color="secondary" 
-                            variant="contained"
-                            onClick={handleConfirm}
-                            endIcon={<SendIcon />}>
-                            Confirm
-                        </Button>
-                        </div>
-                        }
+                            title="Quiz Name"
+                            className={classes.cardHeader}                          
                         />
                         <CardContent>
 
-                        {!quizloaded ?<div>
+                        <div>
                         <Grid container spacing={3}>
-                            <Grid item xs={12} md={12} lg={3} key={2}>
-                                <InputLabel className={classes.label}>Choose Quiz:</InputLabel>
-                            </Grid>
                             {data && <div>
                             <Grid item xs={12} md={12} lg={4} key={5}>
                             <FormControl className={classes.formControl}>
                                     <NativeSelect
+                                    style={{marginLeft:"10%"}}
                                     value={quizname.type}
                                     onChange={handleChange}
                                     inputProps={{
@@ -263,13 +251,17 @@ export default function ManageQuizzes() {
                             <Grid item xs={12} md={5} lg={5} key={6}>
                             </Grid>
                         </Grid></div>
-                        :
-                        <div>
-                        <Typography className={classes.card2}  component="h2"  variant="h6" >
-                            {quizloaded}
-                        </Typography>
+                        <div className={classes.btn}>
+                        <Button
+                            ref={confirmHidRef}
+                            style={{backgroundColor:'#bac8f2'}}
+                            color="secondary" 
+                            variant="contained"
+                            onClick={handleConfirm}
+                            endIcon={<SendIcon />}>
+                            Confirm
+                        </Button>
                         </div>
-                        }
                         </CardContent>
                     </Card>
                 </div>

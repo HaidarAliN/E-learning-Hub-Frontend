@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     cardHeader:{
         color:'#5a5c69',
         marginBottom: 0,
-        backgroundColor:'#f8f9fc',
+        backgroundColor:'#e3e6f0',
         borderBottom: '1px solid #e3e6f0',
     },
     page: {

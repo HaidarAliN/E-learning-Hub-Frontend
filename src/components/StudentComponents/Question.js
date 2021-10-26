@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
     },
     formControl: {
         minWidth: 150,
+        marginTop:"10%",
             marginLeft:"10%",
         
         [theme.breakpoints.down('sm')]: {
@@ -44,9 +45,9 @@ const useStyles = makeStyles((theme) => ({
     },
     btn:{
         marginTop: "2%",
-        [theme.breakpoints.down('xs')]: {
-            display : "none"
-        
+        [theme.breakpoints.down('sm')]: {
+            display : "none",
+            marginTop: "2%",
             }
     },
     label:{
@@ -66,9 +67,9 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
     },
     btnSmall:{
-
-        [theme.breakpoints.up('sm')]: {
-            display : "none"
+        marginTop:"5%",
+        [theme.breakpoints.down('sm')]: {
+        marginTop:"10%",
         }
     }
 }));
@@ -150,36 +151,14 @@ export default function Question({data, handleSubmit}) {
                         <CardHeader
                             title="Question"
                             className={classes.cardHeader}
-                            action={
-                        <div className={classes.btn}>
-                        <Button
-                            color="secondary" 
-                            style={{backgroundColor:'#bac8f2'}}
-                            variant="contained"
-                            onClick={() => handleSubmitAnswer(data.right_answer)}
-                            endIcon={<SendIcon />}>
-                            Submit Answer
-                        </Button>
-                        </div>
-                            }
                         />
                         <CardContent>
 
                         <Grid container spacing={3}>
                             <Grid item xs={12} md={12} lg={12} key={32}>
-                                <TextField
-                                        key={66}
-                                        value={data.content}
-                                        InputProps={{
-                                            readOnly: true,
-                                          }}
-                                        className={classes.field}
-                                        variant="filled"
-                                        color="primary"
-                                        fullWidth
-                                        required                                       
-                                        placeholder="Quiz 1"
-                                    />
+                                <Typography>
+                                    {data.content}
+                                </Typography>
                             </Grid>
 
                             {data.type == 1?

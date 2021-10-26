@@ -51,12 +51,12 @@ const useStyles = makeStyles((theme) => ({
   gradient:{
     width: "100%",
     color:'#fff',
-    backgroundColor:'#7A88FF',
+    backgroundColor:'#2c9faf',
     borderColor:'#5a5c69',
     '&:hover': {
       color:'#fff',
-      backgroundColor:'#7280F0',
-      borderColor:'#7280F0'
+      backgroundColor:'#2c9faf',
+      borderColor:'#2c9faf'
     },
     
   },

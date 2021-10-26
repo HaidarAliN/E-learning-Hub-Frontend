@@ -30,7 +30,13 @@ const useStyles = makeStyles((theme) => ({
                 marginBottom:  "10%"
             
                 },
-        }  
+        } ,
+        cardHeader:{
+            marginBottom: 0,
+            backgroundColor:'#e3e6f0',
+            borderBottom: '1px solid #e3e6f0',
+            color: '#757575',
+        }   
     }));
 
 export default function CourseDashboard() {
@@ -64,7 +70,7 @@ export default function CourseDashboard() {
 
         <div>
         <Typography className={classes.card2}  component="h2"  variant="h4" >
-        Course Content
+        Course Dashboard
             </Typography>
                 
              <div className={classes.card}>
@@ -75,6 +81,7 @@ export default function CourseDashboard() {
                     >
                         <CardHeader
                             title="LECTURES UPLOADED"
+                            className={classes.cardHeader}
                             action={
                                 <IconButton>
                                 <MenuBookIcon style={{color:'#4e73df'}}/>
@@ -82,7 +89,7 @@ export default function CourseDashboard() {
                             }
                         />
                         <CardContent>
-                        {data &&<Typography variant="h4" color="textSecondary">
+                        {data &&<Typography variant="h3" color="textSecondary">
                             {data.lectures_count}
                         </Typography>}
                         </CardContent>
@@ -94,6 +101,7 @@ export default function CourseDashboard() {
                     <Card elevation={1} className={classes.cardbody}>
                         <CardHeader
                             title="QUIZZES COUNTS"
+                            className={classes.cardHeader}
                             action={
                                 <IconButton>
                                   <SupervisorAccountIcon style={{color:'#4e73df'}}/>
@@ -101,7 +109,7 @@ export default function CourseDashboard() {
                               }
                         />
                         <CardContent>
-                        {data && <Typography variant="h4" color="textSecondary">
+                        {data && <Typography variant="h3" color="textSecondary">
                         {data.quiz_count}
                         </Typography>}
                         </CardContent>
@@ -113,6 +121,7 @@ export default function CourseDashboard() {
                     <Card elevation={1} className={classes.cardbody}>
                         <CardHeader
                             title="COURSE PROGRESS"
+                            className={classes.cardHeader}
                             action={
                                 <IconButton>
                                     <DoneAllIcon style={{color:'#4e73df'}}/>
@@ -120,7 +129,7 @@ export default function CourseDashboard() {
                             }
                         />
                         <CardContent>
-                        {data && <Typography variant="h4" color="textSecondary">
+                        {data && <Typography variant="h3" color="textSecondary">
                         {data.progress}%
                         </Typography>}
                         </CardContent>
