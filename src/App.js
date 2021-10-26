@@ -51,20 +51,12 @@ const theme = createTheme({
 
 function App() {
   const [type_id, setAccess_token] = useState(JSON.parse( localStorage.getItem('user_type_id') ));
-  const history = useHistory();
-  const [logedIn, setLogedin] = useState(JSON.parse( localStorage.getItem('access_token') ));
   
-  useEffect(() => {
-    // window.location.reload();
-  }, [])
-
   return (
     <ThemeProvider theme={theme}>
       <Router>
           <Switch>
           <Route path='/' exact component={Login} />
-           {!logedIn && <Route path='/' exact component={Login} />}
-
           </Switch>
           {type_id == 1 && 
             <Switch>
@@ -96,13 +88,8 @@ function App() {
               <Route path='/course/Dashboard' exact component={CourseDashboards}/>
               <Route path='/course/Materials' exact component={UploadMaterials}/>
               <Route path='/course/CourseQuizzes' exact component={CourseQuizzes}/> 
-              {/* <Route path='/course/EditInfo' exact component={EditCourseInfo}/>  */}
-              {/* <Route path='/course/ManageStudents' exact component={ManageStudents}/>  */}
             </Switch>
             }
-            {/* <Switch>
-              <Route exact path="*" component={NotFound}/>
-            </Switch> */}
       </Router>
     </ThemeProvider>
   );

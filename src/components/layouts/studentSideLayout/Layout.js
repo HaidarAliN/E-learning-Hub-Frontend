@@ -233,7 +233,6 @@ export default function Layout2({ children, title }, props) {
   const handleLogout = ()=>{
     localStorage.clear();
     history.push('/');
-    window.location.reload();
   }
 
   const menuId = 'primary-search-account-menu';

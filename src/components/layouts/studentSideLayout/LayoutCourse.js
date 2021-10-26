@@ -218,7 +218,6 @@ export default function Layout2({ children }, props) {
   const handleLogout  = () => {
     localStorage.clear();
     history.push('/');
-    window.location.reload();
   };
 
   const handleMobileMenuOpen = (event) => {
