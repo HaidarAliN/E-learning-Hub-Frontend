@@ -16,19 +16,19 @@ const useStyles = makeStyles((theme) => ({
     card:{
         color:'#5a5c69',
         marginBottom:"2%",
-        [theme.breakpoints.down('md')]: {
-            marginBottom:  "10%"
+        [theme.breakpoints.down('sm')]: {
+            marginBottom:  "5%"
         
             }
     },
     cardbody:{
         borderWidth: "1px",
         borderLeft: '.25rem solid !important',
-        borderColor: "#5a5c69 !important"
+        borderColor: "#2a96a5 !important"
     },
     cardHeader:{
         marginBottom: 0,
-        backgroundColor:'#f8f9fc',
+        backgroundColor:'#e3e6f0',
         borderBottom: '1px solid #e3e6f0',
         color: '#757575',
     },
@@ -57,11 +57,13 @@ const useStyles = makeStyles((theme) => ({
         marginTop:"5%"
     },
     btnxs:{
-        marginTop: "2%",
-        [theme.breakpoints.up('sm')]: {
-            display: 'none',
-
-          },
+        color:'#fff',
+        marginTop:"2%",
+        backgroundColor:"#2a96a5",
+        '&:hover': {
+            color:'#fff',
+            backgroundColor:'#2c9faf',
+          }
     }
   
 }));
@@ -154,7 +156,7 @@ export default function UploadMaterial() {
 
         <div >
             <Typography className={classes.card}  component="h2"  variant="h4" >
-                Course info
+                Edit Course Info
             </Typography>
             <div>
     {data && <Grid container spacing={1} >
@@ -163,20 +165,8 @@ export default function UploadMaterial() {
                     <Card elevation={1} className={classes.cardbody}
                     >
                         <CardHeader
-                            title="Update Course info"
+                            title="Course Details"
                             className={classes.cardHeader}
-                            action={
-                                <div className={classes.btn}>
-                                <Button
-                                color="secondary" 
-                                variant="contained"
-                                onClick={handleSubmit}
-                                endIcon={<SendIcon />}>
-                                Update
-                            </Button>
-                            </div>
-                              }
-
                         />
                         <CardContent>
 
@@ -247,7 +237,7 @@ export default function UploadMaterial() {
 
                         <Grid container spacing={3}>
                             <Grid item xs={12} md={5} lg={3} key={2}>
-                                <InputLabel>Course type:</InputLabel>
+                                <InputLabel style={{marginTop:"3%"}}>Course type:</InputLabel>
                             </Grid>
                             <Grid item xs={12} md={6} lg={4} key={3}>
                                {types &&<FormControl className={classes.formControl}>
@@ -269,9 +259,9 @@ export default function UploadMaterial() {
                             <Grid item xs={12} md={1} lg={5} key={4}>
                             </Grid>
                         </Grid>
-                        <div className={classes.btnxs}>
+                        <div >
                                 <Button
-                                color="secondary" 
+                                className={classes.btnxs}
                                 variant="contained"
                                 onClick={handleSubmit}
                                 endIcon={<SendIcon />}>

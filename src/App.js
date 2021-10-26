@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom'
 import NotFound from './pages/NotFound'
 import Login from './pages/Login'
-import Create from './pages/instructorSide/Create'
 import Dashboard from './pages/instructorSide/Dashboard'
 import Notifications from './pages/instructorSide/Notifications'
 import CreateCourse from './pages/instructorSide/CreateCourse'
@@ -79,7 +78,6 @@ function App() {
               <Route path='/onGoing' exact component={OnGoing}/>
               <Route path='/finishedCourses' exact component={FinishedCourses}/>
               <Route path='/createCourse' exact component={CreateCourse}/>
-              <Route path='/create' exact component={Create}/>
               <Route path='/course/Dashboard' exact component={CourseDashboard}/>
               <Route path='/course/UploadMaterial' exact component={UploadMaterial}/>
               <Route path='/course/EditInfo' exact component={EditCourseInfo}/> 

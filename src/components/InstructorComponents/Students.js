@@ -92,7 +92,7 @@ export default function Students({data, handlePending, handleRemove}) {
                         Pending
                   </Button>
                   </td>
-                   : <td style={{backgroundColor: "#1cc88a"}}>Enrolled <DoneAllIcon/></td> }
+                   : <td >Enrolled <DoneAllIcon style={{color: "#1cc88a"}}/></td> }
                   
                   <td><Button 
                   className={classes.btnDanger}

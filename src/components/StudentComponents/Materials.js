@@ -78,18 +78,6 @@ export default function Materials({handlePreview, data}) {
   
                     <td>{item.name} </td>
                     <td>{item.description} </td>
-                    
-                      {/* {item.status == 0 ? <td ><Button 
-                    className={classes.btnInfo}
-                        color="secondary" 
-                        variant="contained"
-                        // onClick={() => acceptStudent(item.id)}
-                        startIcon={<InfoIcon />}
-                        >
-                          Pending
-                    </Button>
-                    </td>
-                     : <td class={classes.success} style={{backgroundColor: "#1cc88a"}}>Enrolled <DoneAllIcon/></td> } */}
                     <td><Button 
                     className={classes.btnInfo}
                         color="secondary" 

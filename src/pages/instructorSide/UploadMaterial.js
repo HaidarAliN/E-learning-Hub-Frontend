@@ -16,11 +16,11 @@ const useStyles = makeStyles((theme) => ({
     cardbody:{
         borderWidth: "1px",
         borderLeft: '.25rem solid !important',
-        borderColor: "#5a5c69 !important"
+        borderColor: "#2a96a5 !important"
     },
     cardHeader:{
         marginBottom: 0,
-        backgroundColor:'#f8f9fc',
+        backgroundColor:'#e3e6f0',
         borderBottom: '1px solid #e3e6f0',
         color: '#757575',
     },
@@ -59,9 +59,14 @@ const useStyles = makeStyles((theme) => ({
             },
     },
     btnSmall:{
-
+        color:'#fff',
+        marginTop:"2%",
+        backgroundColor:"#2a96a5",
+        '&:hover': {
+            color:'#fff',
+            backgroundColor:'#2c9faf',
+          },
         [theme.breakpoints.up('sm')]: {
-            display : "none"
         }
     }
   
@@ -195,45 +200,6 @@ export default function UploadMaterial() {
             setChapterEditDescription(await data_fetched.description);
             setEditChapterId(id);
         }
-        const [qwe,setState] = useState('');
-
-        // const  getBase64 = (file) => {
-        //     return new Promise(resolve => {
-        //       let fileInfo;
-        //       let baseURL = "";
-        //       // Make new FileReader
-        //       let reader = new FileReader();
-        
-        //       // Convert the file to base64 text
-        //       reader.readAsDataURL(file);
-        
-        //       // on reader load somthing...
-        //       reader.onload = () => {
-        //         // Make a fileInfo Object
-        //         console.log("Called", reader);
-        //         baseURL = reader.result;
-        //         console.log(baseURL);
-        //         resolve(baseURL);
-        //       };
-        //       console.log(fileInfo);
-        //     });
-        //   };
-
-        // const  onFileChange = (event) => {
-    
-        //     // Update the state
-        //     setState({ selectedFile: event.target.files[0] });
-        //     file = event.target.files[0];
-        //     getBase64(file).then(result => {
-        //         file["base64"] = result;
-        //         console.log("File Is", file);
-        //         this.setState({
-        //             base64URL: result,
-        //             file
-        //          });
-        //      })
-        //   };
-
 
         const uploadFile = async (e) => {
           const file = e.target.files[0];
@@ -273,17 +239,6 @@ export default function UploadMaterial() {
                         <CardHeader
                             title="Add Chapter info"
                             className={classes.cardHeader}
-                            action={
-                        <div className={classes.btn}>
-                        <Button
-                            color="secondary" 
-                            variant="contained"
-                            onClick={handleSubmit}
-                            endIcon={<SendIcon />}>
-                            Add Chapter
-                        </Button>
-                        </div>
-                            }
                         />
                         <CardContent>
 
@@ -358,9 +313,9 @@ export default function UploadMaterial() {
                             </Grid>
                         </Grid>
 
-                        <div className={classes.btnSmall}>
+                        <div >
                         <Button
-                            color="secondary" 
+                            className={classes.btnSmall}
                             variant="contained"
                             onClick={handleSubmit}
                             endIcon={<SendIcon />}>

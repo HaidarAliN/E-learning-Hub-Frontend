@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     cardbody:{
         borderWidth: "1px",
         borderLeft: '.25rem solid !important',
-        borderColor: "#5a5c69 !important"
+        borderColor: "#2a96a5 !important"
     },
     card2:{
         color:'#5a5c69',
@@ -27,6 +27,12 @@ const useStyles = makeStyles((theme) => ({
     page: {
         background: '#f9f9f9',
         width: '100%',
+        },
+        cardHeader:{
+            marginBottom: 0,
+            backgroundColor:'#e3e6f0',
+            borderBottom: '1px solid #e3e6f0',
+            color: '#757575',
         }
   
     }));
@@ -64,14 +70,15 @@ export default function Dashboard() {
                     >
                         <CardHeader
                             title="COURSES"
+                            className={classes.cardHeader}
                             action={
                                 <IconButton>
-                                <MenuBookIcon/>
+                                <MenuBookIcon style={{color:"#2c9faf"}}/>
                                 </IconButton>
                             }
                         />
                         <CardContent>
-                        { data && <Typography variant="h4" color="textSecondary">
+                        { data && <Typography variant="h3" style={{color:"#2a96a5"}}>
                             {data.courses_count}
                         </Typography>}
                         </CardContent>
@@ -83,14 +90,15 @@ export default function Dashboard() {
                     <Card elevation={1} className={classes.cardbody}>
                         <CardHeader
                             title="STUDENTS"
+                            className={classes.cardHeader}
                             action={
                                 <IconButton>
-                                  <SupervisorAccountIcon/>
+                                  <SupervisorAccountIcon style={{color:"#2c9faf"}}/>
                                 </IconButton>
                               }
                         />
                         <CardContent>
-                        { data && <Typography variant="h4" color="textSecondary">
+                        { data && <Typography variant="h3" style={{color:"#2a96a5"}}>
                         {data.student_count}
                         </Typography>}
                         </CardContent>
@@ -102,14 +110,15 @@ export default function Dashboard() {
                     <Card elevation={1} className={classes.cardbody}>
                         <CardHeader
                             title="FINISHED COURSES"
+                            className={classes.cardHeader}
                             action={
                                 <IconButton>
-                                    <DoneAllIcon/>
+                                    <DoneAllIcon style={{color:"#2c9faf"}}/>
                                 </IconButton>
                             }
                         />
                         <CardContent>
-                        { data && <Typography variant="h4" color="textSecondary">
+                        { data && <Typography variant="h3" style={{color:"#2a96a5"}}>
                         {data.finished_courses}
                         </Typography>}
                         </CardContent>

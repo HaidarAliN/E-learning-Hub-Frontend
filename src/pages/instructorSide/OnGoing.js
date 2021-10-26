@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     },
     cardHeader:{
         marginBottom: 0,
-        backgroundColor:'#f8f9fc',
+        backgroundColor:'#e3e6f0',
         borderBottom: '1px solid #e3e6f0',
         color: '#757575',
     },
@@ -80,6 +80,16 @@ const useStyles = makeStyles((theme) => ({
             marginTop:`calc(${window.innerHeight/3 - 0.1*window.innerHeight}px)`,
 
             }
+    },
+    labell:{
+        marginBottom : "4%"
+    },button: {
+         color:'#fff',
+        backgroundColor:"#2a96a5",
+        '&:hover': {
+            color:'#fff',
+            backgroundColor:'#2c9faf',
+          }
     }
   
 }));
@@ -129,18 +139,17 @@ export default function OnGoing() {
                         <CardHeader
                             title={item.name}
                             action={
-                                <MenuBookIcon/>
+                                <MenuBookIcon style={{color:"#2c9faf"}}/>
                             }
                             className={classes.cardHeader}
                         />
                         <CardContent className={classes.cardBody}>
                             <div>
-                            <Typography>Progress: {item.progress}%</Typography>
-                            <Typography >Course Type: {item.course_type}</Typography>
+                            <Typography className={classes.labell}>Progress: {item.progress}%</Typography>
+                            <Typography className={classes.labell}>Course Type: {item.course_type}</Typography>
                             <div className={classes.btn}>
                                 <Button
-                                    
-                                    color="secondary" 
+                                    className={classes.button}
                                     variant="contained"
                                     onClick={() => handleSubmit(item.id, item.name)}
                                     startIcon={<ArrowForwardSharpIcon />}

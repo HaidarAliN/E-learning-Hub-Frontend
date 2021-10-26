@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     cardbody:{
         borderWidth: "1px",
         borderLeft: '.25rem solid !important',
-        borderColor: "#5a5c69 !important"
+        borderColor: "#2a96a5 !important"
     },
     card2:{
         marginBottom:"2%",
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     },
     cardHeader:{
         marginBottom: 0,
-        backgroundColor:'#f8f9fc',
+        backgroundColor:'#e3e6f0',
         borderBottom: '1px solid #e3e6f0',
         color: '#757575',
     },
@@ -138,7 +138,7 @@ export default function StudentSubmissions() {
 
 {data ? <div>
             <Typography className={classes.card2}  component="h2"  variant="h4" >
-                Check Students Submissions
+                Submissions
             </Typography>
             <div className={classes.card}>
             <Grid container spacing={1} >
@@ -153,7 +153,7 @@ export default function StudentSubmissions() {
                             action={
                         <div className={classes.btn}>
                         <Button
-                            color="secondary" 
+                            style={{backgroundColor:"#2a96a5", color:"#fff"}}
                             variant="contained"
                             onClick={handleConfirm}
                             endIcon={<SendIcon />}>

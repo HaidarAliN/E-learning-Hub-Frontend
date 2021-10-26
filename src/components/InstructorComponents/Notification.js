@@ -6,8 +6,8 @@ import InfoIcon from '@material-ui/icons/Info';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
-import { NavigateNextTwoTone } from '@material-ui/icons';
-
+import ForwardIcon from '@material-ui/icons/Forward';
+import DraftsOutlinedIcon from '@material-ui/icons/DraftsOutlined';
 const useStyles = makeStyles((theme) => ({
   btnSuccess:{
     width: "100%",
@@ -27,13 +27,9 @@ const useStyles = makeStyles((theme) => ({
     borderColor:'#36b9cc',
     '&:hover': {
       color:'#fff',
-      backgroundColor:'#2c9faf',
-      borderColor:'#2a96a5'
+      backgroundColor:'#36b9cc',
+      borderColor:'#36b9cc'
     },
-    [theme.breakpoints.down('xs')]: {
-      display : "none"
-  
-      }
   },
   btnDanger:{
     width: "100%",
@@ -55,38 +51,20 @@ const useStyles = makeStyles((theme) => ({
   gradient:{
     width: "100%",
     color:'#fff',
-    backgroundColor:'#7A88FF',
+    backgroundColor:'#2c9faf',
     borderColor:'#5a5c69',
     '&:hover': {
       color:'#fff',
-      backgroundColor:'#7280F0',
-      borderColor:'#7280F0'
+      backgroundColor:'#2c9faf',
+      borderColor:'#2c9faf'
     },
-    [theme.breakpoints.down('xs')]: {
-      display : "none"
-  
-      }
   },
   msg:{
     [theme.breakpoints.down('xs')]: {
       fontSize: "70%"
   
       }
-  },
-  smallBtn:{
-    width: "100%",
-    color:'#fff',
-    backgroundColor:'#7A88FF',
-    borderColor:'#5a5c69',
-    '&:hover': {
-      color:'#fff',
-      backgroundColor:'#7280F0',
-      borderColor:'#7280F0'
-    },
-    [theme.breakpoints.up('sm')]: {
-      display : "none"
-      }
-  },
+  }
 }));
 
 export default function Notification({data, handleRead, NavigateToCourse}) {
@@ -99,6 +77,15 @@ export default function Notification({data, handleRead, NavigateToCourse}) {
     const handleNavigate = (course_id) =>{
       NavigateToCourse(course_id);
     }
+
+    const [state, setState] = React.useState({
+      checkedA: true,
+      checkedB: true,
+    });
+  
+    const handleChange = (event) => {
+      setState({ ...state, [event.target.name]: event.target.checked });
+    };
   
       return (
         <TableContainer component={Paper} >
@@ -108,8 +95,8 @@ export default function Notification({data, handleRead, NavigateToCourse}) {
               <thead>
                 <tr>
                   <th>Message</th>
-                  <th>Action</th>
-                  <th>Navigation</th>
+                  <th>Read</th>
+                  <th>Details</th>
                 </tr>
               </thead>
               <tbody>
@@ -132,45 +119,21 @@ export default function Notification({data, handleRead, NavigateToCourse}) {
                     color="secondary" 
                     variant="contained"
                     onClick={() => markAsRead(item.id)}
-                    startIcon={<InfoIcon />}
+                    startIcon={<DraftsOutlinedIcon />}
                     >
-                          Mark As Read
                     </Button>
-                    
-                    <Button 
-                    className={classes.smallBtn}
-                    color="secondary" 
-                    variant="contained"
-                    onClick={() => markAsRead(item.id)}
-                    startIcon={<InfoIcon />}
-                    >
-                          seen
-                    </Button>
-                    
                     </td>
                     :
-                    <td style={{backgroundColor: "#37F783"}}>Read<DoneAllIcon/></td>
+                    <td style={{color: "#5a5c69", textAlign:"center"}}><DoneAllIcon/></td>
                     }
                     <td><Button 
                     className={classes.gradient}
                     color="secondary" 
                     variant="contained"
                     onClick={() => handleNavigate(item.course_id)}
-                    endIcon={<ArrowForwardIosIcon />}
+                    endIcon={<ForwardIcon />}
                     >
-                          Navigate To course
                     </Button>
-                    
-                    <Button 
-                    className={classes.smallBtn}
-                    color="secondary" 
-                    variant="contained"
-                    onClick={() => handleNavigate(item.course_id)}
-                    endIcon={<ArrowForwardIosIcon />}
-                    >
-                          Go
-                    </Button>
-                    
                     </td>
                 </tr>
                    ))} 

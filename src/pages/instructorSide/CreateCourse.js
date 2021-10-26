@@ -14,11 +14,11 @@ const useStyles = makeStyles((theme) => ({
     cardbody:{
         borderWidth: "1px",
         borderLeft: '.25rem solid !important',
-        borderColor: "#5a5c69 !important"
+        borderColor: "#2a96a5 !important"
     },
     cardHeader:{
         marginBottom: 0,
-        backgroundColor:'#f8f9fc',
+        backgroundColor:'#e3e6f0',
         borderBottom: '1px solid #e3e6f0',
         color: '#757575',
         [theme.breakpoints.up('xs')]: {
@@ -65,13 +65,22 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('xs')]: {
     
         }},
-        card2:{
-            color:'#5a5c69',
-            [theme.breakpoints.down('md')]: {
-                marginBottom:  "10%"
-            
-                },
-        }    
+    card2:{
+        color:'#5a5c69',
+        [theme.breakpoints.down('md')]: {
+            marginBottom:  "10%"
+        
+            },
+    },
+    test:{
+        color:'#fff',
+        marginTop:"2%",
+        backgroundColor:"#2a96a5",
+        '&:hover': {
+            color:'#fff',
+            backgroundColor:'#2c9faf',
+          }
+    }    
   
 }));
 
@@ -158,22 +167,8 @@ export default function CreateCourse() {
                     <Card elevation={1} className={classes.cardbody}
                     >
                         <CardHeader
-                            title="Info"
+                            title="Course Details"
                             className={classes.cardHeader}
-                            action={
-                                <div
-                                 className={classes.btn}
-                                >
-                                <Button
-                                   
-                                    color="secondary" 
-                                    variant="contained"
-                                    onClick={handleSubmit}
-                                    endIcon={<SendIcon />}>
-                                    Create Course
-                                </Button>
-                                </div>
-                            }
                         />
                         <CardContent>
 
@@ -244,9 +239,10 @@ export default function CreateCourse() {
                             </Grid>
                         </Grid>
                         <div
-                                 className={classes.btnxs}
+                                //  className={classes.btnxs}
                                 >
                                 <Button
+                                 className={classes.test}
                                    
                                     color="secondary" 
                                     variant="contained"

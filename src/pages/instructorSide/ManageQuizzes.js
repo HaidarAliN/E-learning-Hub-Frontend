@@ -18,11 +18,11 @@ const useStyles = makeStyles((theme) => ({
     cardbody:{
         borderWidth: "1px",
         borderLeft: '.25rem solid !important',
-        borderColor: "#5a5c69 !important"
+        borderColor: "#2a96a5 !important"
     },
     cardHeader:{
         marginBottom: 0,
-        backgroundColor:'#f8f9fc',
+        backgroundColor:'#e3e6f0',
         borderBottom: '1px solid #e3e6f0',
         color: '#757575',
     },
@@ -72,9 +72,6 @@ const useStyles = makeStyles((theme) => ({
             marginBottom:  "10%"
         
             },
-    },
-    hidebtn:{
-      display: "none"  
     }
   
 }));
@@ -169,7 +166,6 @@ export default function ManageQuizzes() {
     
     useEffect(async () => {
         getDAta();
-        questionRef.current.scrollIntoView({ behavior: 'smooth' })
     }, [quizloadedQuestions]);
 
     const handleConfirm = async() =>{
@@ -294,7 +290,6 @@ export default function ManageQuizzes() {
             ...newRightAnswer,
             [name]: e.target.value,
         });
-        confirmRef.current.scrollIntoView({ behavior: 'smooth' })
     };
 
     const handleMCQEditUpdate = async(id) => {
@@ -373,11 +368,13 @@ export default function ManageQuizzes() {
             addquestion("True", "False", "");
             handleClearAfterAdd();
             getQuizquiestion(quizId);
+            questionRef.current.scrollIntoView({ behavior: 'smooth' })
         }
         if(newquestionTyped.type == 0 && newFirstAnswer && newSecondAnswer && newThirdAnswe && newRightAnswer.type){
             addquestion(newFirstAnswer, newSecondAnswer, newThirdAnswe);
             handleClearAfterAdd();
             getQuizquiestion(quizId);
+            questionRef.current.scrollIntoView({ behavior: 'smooth' })
         }
     }
 
@@ -411,7 +408,7 @@ export default function ManageQuizzes() {
                         <div className={classes.btn}>
                         <Button
                             ref={confirmHidRef}
-                            color="secondary" 
+                            style={{color:"#fff", backgroundColor:'#2c9faf'}}
                             variant="contained"
                             onClick={handleConfirm}
                             endIcon={<SendIcon />}>
@@ -497,17 +494,6 @@ export default function ManageQuizzes() {
                         <CardHeader
                             title="Add Question"
                             className={classes.cardHeader}
-                            action={
-                        <div className={classes.btn}>
-                        <Button
-                            color="secondary" 
-                            variant="contained"
-                            onClick={handleAdd}
-                            endIcon={<SendIcon />}>
-                            Add Question
-                        </Button>
-                        </div>
-                            }
                         />
                         <CardContent>
 
@@ -652,13 +638,15 @@ export default function ManageQuizzes() {
                             <Grid item xs={12} md={1} lg={5} key={4}>
                             </Grid>
                         </Grid>
-                        {/* <Button
-                                 color="secondary" 
-                                 variant="contained"
-                                 onClick={handleSubmitAddQuestion}
-                                 endIcon={<SendIcon />}>
-                                 Submit Question
-                             </Button> */}
+                        <div className={classes.btn}>
+                        <Button
+                            style={{color:"#fff",backgroundColor:'#2c9faf'}}
+                            variant="contained"
+                            onClick={handleAdd}
+                            endIcon={<SendIcon />}>
+                            Add Question
+                        </Button>
+                        </div>
                         </div>
                         :
                         newQuestiontype == 1?
@@ -722,7 +710,7 @@ export default function ManageQuizzes() {
                             action={
                         <div className={classes.btn}>
                         <Button
-                            color="secondary" 
+                            style={{color:"#fff",backgroundColor:'#2c9faf'}}
                             variant="contained"
                             onClick={handleMCQEditUpdate}
                             endIcon={<SendIcon />}>
@@ -830,7 +818,7 @@ export default function ManageQuizzes() {
                             action={
                         <div className={classes.btn}>
                         <Button
-                            color="secondary" 
+                            style={{color:"#fff",backgroundColor:'#2c9faf'}}
                             variant="contained"
                             onClick={handleTOFEditUpdate}
                             endIcon={<SendIcon />}>
