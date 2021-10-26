@@ -1,17 +1,8 @@
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from "react";
-
+import { useState } from "react";
 
 const NotFound = () => {
-
     const [logedIn, setLogedin] = useState(JSON.parse( localStorage.getItem('access_token') ));
-
-    // useEffect(() => {
-    //   console.log(localStorage.getItem('access_token'));
-    //   if(localStorage.getItem('access_token')){
-    //     setLogedin(localStorage.getItem('access_token'));
-    //   }
-    // }, []);
 
     return ( 
       <div className="not-found">
