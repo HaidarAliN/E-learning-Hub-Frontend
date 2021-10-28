@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     card:{
         marginBottom:"3%",
         color:'#5a5c69',
-        [theme.breakpoints.down('md')]: {
+        [theme.breakpoints.down('sm')]: {
             marginBottom:  "10%"
         
             }

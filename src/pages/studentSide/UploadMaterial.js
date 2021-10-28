@@ -80,7 +80,7 @@ export default function UploadMaterial() {
 
 {data ? <div className={classes.page}>
                 <Typography className={classes.card2}  component="h2"  variant="h4" >
-                Upload Materialss
+                Uploaded Material
             </Typography>
             <div >
                 <Grid container spacing={1} >
@@ -96,7 +96,7 @@ export default function UploadMaterial() {
             </div>
         </div>
             :
-             <Typography className={classes.emptyState} component="h2"  variant="h4">No uploaded materials</Typography>
+             <Typography className={classes.emptyState} component="h2"  variant="h4">No uploaded material</Typography>
             }
         </LayoutCourse>
     )

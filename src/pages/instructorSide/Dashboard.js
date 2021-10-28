@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     },
     card2:{
         color:'#5a5c69',
-        [theme.breakpoints.down('md')]: {
+        [theme.breakpoints.down('sm')]: {
             marginBottom:  "10%"
         
             },
@@ -107,7 +107,7 @@ export default function Dashboard() {
                 </Grid>
                 <Grid item xs={12} md={6} lg={4} key={3}>
                 <div>
-                    <Card elevation={1} className={classes.cardbody}>
+                    <Card elevation={1} className={classes.cardbody} style={{marginTop:"2%"}}>
                         <CardHeader
                             title="FINISHED COURSES"
                             className={classes.cardHeader}

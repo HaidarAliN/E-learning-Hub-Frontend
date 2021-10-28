@@ -316,7 +316,7 @@ export default function Layout2({ children, title }, props) {
           className={location.pathname == "/onGoing" ? classes.active : null}
         >
           <ListItemIcon><LibraryBooksIcon color="secondary" /></ListItemIcon>
-          <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>On going Courses</Typography>}/>
+          <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Ongoing Courses</Typography>}/>
         </ListItem>
       </List>
       <Divider  variant="middle" />

@@ -83,7 +83,7 @@ function App() {
           }
         <Switch>
           <Route path='/' exact component={Login} />
-          <Route exact path="*" component={NotFound}/>
+          {/* <Route exact path="*" component={NotFound}/> */}
         </Switch>
       </Router>
     </ThemeProvider>

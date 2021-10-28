@@ -237,7 +237,7 @@ export default function UploadMaterial() {
                     <Card elevation={1} className={classes.cardbody}
                     >
                         <CardHeader
-                            title="Add Chapter info"
+                            title="Add Chapter Info"
                             className={classes.cardHeader}
                         />
                         <CardContent>
@@ -346,19 +346,8 @@ export default function UploadMaterial() {
                     <Card elevation={1} className={classes.cardbody}
                     >
                         <CardHeader
-                            title="Edit question"
+                            title="Edit Chapter Info"
                             className={classes.cardHeader}
-                            action={
-                        <div className={classes.btn}>
-                        <Button
-                            color="secondary" 
-                            variant="contained"
-                            onClick={handleUpdate}
-                            endIcon={<SendIcon />}>
-                            Update
-                        </Button>
-                        </div>
-                            }
                         />
                         <CardContent>
 
@@ -391,9 +380,9 @@ export default function UploadMaterial() {
                            
                         </Grid>
 
-                        <div className={classes.btnSmall} style={{marginTop:"5%"}}>
+                        <div >
                         <Button
-                            color="secondary" 
+                            className={classes.btnSmall}
                             variant="contained"
                             onClick={handleUpdate}
                             endIcon={<SendIcon />}>

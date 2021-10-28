@@ -8,6 +8,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
 import ForwardIcon from '@material-ui/icons/Forward';
 import DraftsOutlinedIcon from '@material-ui/icons/DraftsOutlined';
+import EmailOutlinedIcon from '@material-ui/icons/EmailOutlined';
+
 const useStyles = makeStyles((theme) => ({
   btnSuccess:{
     width: "100%",
@@ -63,23 +65,19 @@ const useStyles = makeStyles((theme) => ({
   msg:{
     [theme.breakpoints.down('xs')]: {
       fontSize: "70%"
-  
       }
   }
-
 }));
 
 export default function Notification({data, handleRead, NavigateToCourse}) {
     const classes = useStyles();
-
     const markAsRead = (id)=>{
         handleRead(id);
     }
-   
-    const handleNavigate = (course_id) =>{
+    const handleNavigate = (course_id, id) =>{
         NavigateToCourse(course_id);
+        markAsRead(id);
       }
-  
       return (
         <TableContainer component={Paper} >
 
@@ -112,20 +110,20 @@ export default function Notification({data, handleRead, NavigateToCourse}) {
                     color="secondary" 
                     variant="contained"
                     onClick={() => markAsRead(item.id)}
-                    startIcon={<DraftsOutlinedIcon />}
                     >
+                      <EmailOutlinedIcon />
                     </Button>
                     </td>
                     :
-                    <td style={{color: "#5a5c69", textAlign:"center"}}><DoneAllIcon/></td>
+                    <td style={{color: "#5a5c69", textAlign:"center"}}><DraftsOutlinedIcon/></td>
                     }
                     <td><Button 
                     className={classes.gradient}
                     color="secondary" 
                     variant="contained"
-                    onClick={() => handleNavigate(item.course_id)}
-                    endIcon={<ForwardIcon />}
+                    onClick={() => handleNavigate(item.course_id, item.id)}
                     >
+                      <ForwardIcon />
                     </Button>
                     </td>
                 </tr>

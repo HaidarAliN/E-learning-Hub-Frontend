@@ -67,6 +67,7 @@ export default function Notifications() {
             setData('');
         }else{
             setData(data_fetched);
+            console.log(data_fetched)
         }
     }
 

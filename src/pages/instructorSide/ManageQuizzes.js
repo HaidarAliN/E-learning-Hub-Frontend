@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
     },
     card2:{
         color:'#5a5c69',
-        [theme.breakpoints.down('md')]: {
+        [theme.breakpoints.down('sm')]: {
             marginBottom:  "10%"
         
             },
@@ -470,7 +470,7 @@ export default function ManageQuizzes() {
                         </Grid></div>
                         :
                         <div ref={confirmRef}>
-                        <Typography className={classes.card2}  component="h2"  variant="h6" >
+                        <Typography  component="h2"  variant="h6" >
                             {quizloaded}
                         </Typography>
                         </div>
@@ -676,8 +676,16 @@ export default function ManageQuizzes() {
                                         <Grid item xs={12} md={1} lg={5} key={4}>
                                         </Grid>
                                     </Grid>
-                                
-                                
+                                    <div className={classes.btn}>
+                                        <Button
+                                            style={{color:"#fff",backgroundColor:'#2c9faf'}}
+                                            variant="contained"
+                                            onClick={handleAdd}
+                                            endIcon={<SendIcon />}>
+                                            Add Question
+                                        </Button>
+                                    </div>
+                                            
                              </div>
                             :
                                                 null
@@ -707,22 +715,12 @@ export default function ManageQuizzes() {
                         <CardHeader
                             title="Edit question"
                             className={classes.cardHeader}
-                            action={
-                        <div className={classes.btn}>
-                        <Button
-                            style={{color:"#fff",backgroundColor:'#2c9faf'}}
-                            variant="contained"
-                            onClick={handleMCQEditUpdate}
-                            endIcon={<SendIcon />}>
-                            Update
-                        </Button>
-                        </div>
-                            }
+                           
                         />
                         <CardContent>
 
                         <Grid container spacing={3}>
-                        <Grid item xs={12} md={6} lg={2} key={50}>
+                        <Grid item xs={12} md={12} lg={12} key={50}>
                                 <TextField
                                     
                                     key={451}
@@ -736,7 +734,7 @@ export default function ManageQuizzes() {
                                     placeholder="Quiz 1"
                                 />
                             </Grid>
-                            <Grid item xs={12} md={5} lg={3} key={20}>
+                            <Grid item xs={12} md={4} lg={4} key={20}>
                                 <TextField
                                         key={41}
                                         onChange={(e) => setFirsteditanswer(e.target.value)}
@@ -749,7 +747,7 @@ export default function ManageQuizzes() {
                                         placeholder="Quiz 1"
                                     />
                             </Grid>
-                            <Grid item xs={12} md={6} lg={2} key={30}>
+                            <Grid item xs={12} md={4} lg={4} key={30}>
                                 <TextField
                                     key={42}
                                     onChange={(e) => setSecondeditanswer(e.target.value)}
@@ -763,7 +761,7 @@ export default function ManageQuizzes() {
                                     placeholder="Quiz 1"
                                 />
                             </Grid>
-                            <Grid item xs={12} md={6} lg={2} key={40}>
+                            <Grid item xs={12} md={4} lg={4} key={40}>
                                 <TextField
                                     key={43}
                                     onChange={(e) => setThirdeditanswer(e.target.value)}
@@ -777,7 +775,7 @@ export default function ManageQuizzes() {
                                 />
                             </Grid>
                            
-                            <Grid item xs={12} md={1} lg={3} key={60}>
+                            <Grid item xs={12} md={12} lg={12} key={60}>
                             <FormControl className={classes.formControl}>
                                     <NativeSelect
                                     key={44}
@@ -795,8 +793,21 @@ export default function ManageQuizzes() {
                                     </NativeSelect>
                                 </FormControl>
                             </Grid>
+                            <Grid item xs={12} md={12} lg={12} key={60}>
+
+                                    <div className={classes.btn}>
+                                <Button
+                                    style={{color:"#fff",backgroundColor:'#2c9faf'}}
+                                    variant="contained"
+                                    onClick={handleMCQEditUpdate}
+                                    endIcon={<SendIcon />}>
+                                    Update
+                                </Button>
+                                </div>
+                        </Grid>
                         </Grid>
                         </CardContent>
+                        
                     </Card>
                 </div>
                 </Grid>
@@ -815,22 +826,12 @@ export default function ManageQuizzes() {
                         <CardHeader
                             title="Edit question"
                             className={classes.cardHeader}
-                            action={
-                        <div className={classes.btn}>
-                        <Button
-                            style={{color:"#fff",backgroundColor:'#2c9faf'}}
-                            variant="contained"
-                            onClick={handleTOFEditUpdate}
-                            endIcon={<SendIcon />}>
-                            Update
-                        </Button>
-                        </div>
-                            }
+                          
                         />
                         <CardContent>
 
                         <Grid container spacing={3}>
-                            <Grid item xs={12} md={5} lg={4} key={32}>
+                            <Grid item xs={12} md={12} lg={12} key={32}>
                                 <TextField
                                         key={66}
                                         onChange={(e) => setEditquestion(e.target.value)}
@@ -843,7 +844,7 @@ export default function ManageQuizzes() {
                                         placeholder="Quiz 1"
                                     />
                             </Grid>
-                            <Grid item xs={12} md={1} lg={4} key={33}>
+                            <Grid item xs={12} md={12} lg={12} key={33}>
                             <FormControl className={classes.formControl}>
                                     <NativeSelect
                                     key={67}
@@ -860,7 +861,16 @@ export default function ManageQuizzes() {
                                     </NativeSelect>
                                 </FormControl>
                             </Grid>
-                            <Grid item xs={12} md={1} lg={4} key={4}>
+                            <Grid item xs={12} md={12} lg={12} key={4}>
+                                <div className={classes.btn}>
+                                    <Button
+                                        style={{color:"#fff",backgroundColor:'#2c9faf'}}
+                                        variant="contained"
+                                        onClick={handleTOFEditUpdate}
+                                        endIcon={<SendIcon />}>
+                                        Update
+                                    </Button>
+                                </div>
                             </Grid>
                         </Grid>
                         </CardContent>

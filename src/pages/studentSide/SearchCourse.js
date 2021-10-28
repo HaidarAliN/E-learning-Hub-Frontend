@@ -151,9 +151,8 @@ export default function SearchCourse() {
                         <CardHeader
                             title="Search box"
                             className={classes.cardHeader}
-
                             action={
-                                <div className={classes.btn}>
+                                <div className={classes.btn} style={{marginTop:"5%"}}>
                                     <Button
                                         color="secondary" 
                                         variant="contained"
@@ -187,6 +186,16 @@ export default function SearchCourse() {
                                 <Grid item xs={12} md={4} lg={4} key={4}>
                                 </Grid>
                             </Grid>
+                            {/* <div className={classes.btn}>
+                                    <Button
+                                        color="secondary" 
+                                        variant="contained"
+                                        style={{backgroundColor :"#bac8f2"}}
+                                        onClick={handleSearch}
+                                        endIcon={<SearchIcon/>}>
+                                        Search
+                                    </Button>
+                                </div> */}
                         </CardContent>
                     </Card>
                 </div>
@@ -246,7 +255,7 @@ export default function SearchCourse() {
                         }
                         {status && 
                 <Typography  component="h2"  variant="h4" className={classes.emptyState}>
-                    Nothing to show
+                    No Such Course
                 </Typography>}
             {enrollMessage &&
                     <Typography className={classes.success} component="h2"  variant="h4" >

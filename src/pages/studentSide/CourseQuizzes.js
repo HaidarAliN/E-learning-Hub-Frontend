@@ -280,7 +280,7 @@ export default function ManageQuizzes() {
             {/* quiz done */}
             {quizDone &&
                 <Typography className={classes.quizdone}  component="h2"  variant="h4" >
-                   Wohoo No more questions!!!
+                   Wohoo No More Questions!!!
                 </Typography>   
             }
 

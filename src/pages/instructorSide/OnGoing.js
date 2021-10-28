@@ -125,7 +125,7 @@ export default function OnGoing() {
 
         <div className={classes.paper}>
         {data && <Typography className={classes.card2}  component="h2"  variant="h4" >
-                On Going Courses
+                Ongoing Courses
             </Typography>}
             {/* card */}
             <div className={classes.card}>

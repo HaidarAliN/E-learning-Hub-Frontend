@@ -100,7 +100,7 @@ export default function CourseDashboard() {
                 <div>
                     <Card elevation={1} className={classes.cardbody}>
                         <CardHeader
-                            title="QUIZZES COUNTS"
+                            title="QUIZZES"
                             className={classes.cardHeader}
                             action={
                                 <IconButton>
