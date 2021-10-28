@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
   card2: {
     color: "#5a5c69",
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.down("sm")]: {
       marginBottom: "10%",
     },
   },
@@ -75,7 +75,6 @@ export default function Notifications() {
       setData("");
     } else {
       setData(data_fetched);
-      console.log(data_fetched);
     }
   };
 
