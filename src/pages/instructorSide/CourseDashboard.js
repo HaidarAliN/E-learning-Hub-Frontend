@@ -9,6 +9,16 @@ import {
   makeStyles,
   Typography,
 } from "@material-ui/core";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 import { ThemeProvider } from "@material-ui/styles";
 import React, { useState, useEffect } from "react";
 import { createTheme, responsiveFontSizes } from "@material-ui/core/styles";
@@ -72,8 +82,28 @@ export default function CourseDashboard() {
     }
   };
 
+  const [graphData, setGraphData] = useState(null);
+  const getgraph = async () => {
+    //to be done
+    const response = await axios.get(
+      `${BASE_API_URL}/api/instructor/course/get-students-scoregraph/${courseId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      }
+    );
+    const data_fetched = response.data;
+    if (data_fetched.status) {
+      setGraphData(null);
+    } else {
+      setGraphData(data_fetched);
+    }
+  };
+
   useEffect(() => {
     getData();
+    getgraph();
   }, []);
 
   return (
@@ -85,29 +115,7 @@ export default function CourseDashboard() {
 
         <div className={classes.card}>
           <Grid container spacing={1}>
-            <Grid item xs={12} sm={6} md={6} lg={4} key={1}>
-              <div>
-                <Card elevation={1} className={classes.cardbody}>
-                  <CardHeader
-                    title="LECTURES UPLOADED"
-                    className={classes.cardHeader}
-                    action={
-                      <IconButton>
-                        <MenuBookIcon style={{ color: "#2c9faf" }} />
-                      </IconButton>
-                    }
-                  />
-                  <CardContent>
-                    {data && (
-                      <Typography variant="h3" style={{ color: "#2a96a5" }}>
-                        {data.lectures_count}
-                      </Typography>
-                    )}
-                  </CardContent>
-                </Card>
-              </div>
-            </Grid>
-            <Grid item xs={12} sm={6} md={6} lg={4} key={2}>
+            <Grid item xs={12} sm={6} md={6} lg={6} key={2}>
               <div>
                 <Card elevation={1} className={classes.cardbody}>
                   <CardHeader
@@ -129,7 +137,7 @@ export default function CourseDashboard() {
                 </Card>
               </div>
             </Grid>
-            <Grid item xs={12} sm={6} md={6} lg={4} key={3}>
+            <Grid item xs={12} sm={6} md={6} lg={6} key={3}>
               <div>
                 <Card elevation={1} className={classes.cardbody}>
                   <CardHeader
@@ -154,6 +162,34 @@ export default function CourseDashboard() {
           </Grid>
         </div>
       </div>
+      <div style={{ marginTop: "5%" }}></div>
+
+      {graphData && (
+        <ResponsiveContainer width="100%" height="50%">
+          <BarChart
+            width={50}
+            height={50}
+            data={graphData}
+            margin={{
+              top: 5,
+              left: -45,
+              bottom: 5,
+            }}
+            barSize={30}
+          >
+            <XAxis dataKey="name" padding={{ left: 10, right: 10 }} />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <CartesianGrid strokeDasharray="1 1" />
+            <Bar
+              dataKey="Top_Scores"
+              fill="#2a96a5"
+              background={{ fill: "#e3e6f0" }}
+            />
+          </BarChart>
+        </ResponsiveContainer>
+      )}
     </LayoutCourse>
   );
 }
