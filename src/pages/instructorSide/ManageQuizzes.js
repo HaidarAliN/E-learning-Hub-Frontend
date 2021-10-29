@@ -659,7 +659,7 @@ export default function ManageQuizzes() {
                                 value={newThirdAnswe}
                                 fullWidth
                                 required
-                                placeholder="Third Answe"
+                                placeholder="Third Answer"
                               />
                             </Grid>
                             <Grid item xs={12} md={1} lg={5} key={4}></Grid>
