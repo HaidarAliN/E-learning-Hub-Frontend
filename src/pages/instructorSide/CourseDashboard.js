@@ -28,6 +28,7 @@ import DoneAllIcon from "@material-ui/icons/DoneAll";
 import LayoutCourse from "../../components/layouts/instructorSideLayout/LayoutCourse";
 import BASE_API_URL from "../../services/BaseUrl";
 import axios from "axios";
+import EqualizerIcon from "@material-ui/icons/Equalizer";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -163,9 +164,30 @@ export default function CourseDashboard() {
         </div>
       </div>
       <div style={{ marginTop: "5%" }}></div>
-
       {graphData && (
-        <ResponsiveContainer width="100%" height="50%">
+        <div className={classes.card}>
+          <Grid container spacing={1}>
+            <Grid item xs={12} sm={12} md={12} lg={12} key={2}>
+              <div>
+                <Card elevation={1} className={classes.cardbody}>
+                  <CardHeader
+                    title="TOP SCORES"
+                    className={classes.cardHeader}
+                    action={
+                      <IconButton>
+                        <EqualizerIcon style={{ color: "#2c9faf" }} />
+                      </IconButton>
+                    }
+                  />
+                </Card>
+              </div>
+            </Grid>
+          </Grid>
+        </div>
+      )}
+      <div style={{ marginTop: "2%" }}></div>
+      {graphData && (
+        <ResponsiveContainer width="100%" height="50%" text="qwe">
           <BarChart
             width={50}
             height={50}

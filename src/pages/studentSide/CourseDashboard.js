@@ -19,7 +19,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import { ThemeProvider } from "@material-ui/styles";
+import EqualizerIcon from "@material-ui/icons/Equalizer";
 import React, { useState, useEffect } from "react";
 import { createTheme, responsiveFontSizes } from "@material-ui/core/styles";
 import MenuBookIcon from "@material-ui/icons/MenuBook";
@@ -189,7 +189,28 @@ export default function CourseDashboard() {
         </div>
       </div>
       <div style={{ marginTop: "5%" }}></div>
-
+      {graphData && (
+        <div className={classes.card}>
+          <Grid container spacing={1}>
+            <Grid item xs={12} sm={12} md={12} lg={12} key={2}>
+              <div>
+                <Card elevation={1} className={classes.cardbody}>
+                  <CardHeader
+                    title="TOP SCORES"
+                    className={classes.cardHeader}
+                    action={
+                      <IconButton>
+                        <EqualizerIcon style={{ color: "#4e73df" }} />
+                      </IconButton>
+                    }
+                  />
+                </Card>
+              </div>
+            </Grid>
+          </Grid>
+        </div>
+      )}
+      <div style={{ marginTop: "2%" }}></div>
       {graphData && (
         <ResponsiveContainer width="100%" height="50%">
           <BarChart
