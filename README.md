@@ -6,8 +6,9 @@
 - ### Admin Side:
 - Register Instructors & Students
 - Reset users passwords 
-&NewLine;
-&nbsp;![Admin Side](https://github.com/HaidarAliN/E-learning-Hub-Frontend/blob/main/assets/images/AdminSide.png?raw=true)
+<br />
+<p align="center"><img src="https://github.com/HaidarAliN/E-learning-Hub-Frontend/blob/main/assets/images/AdminSide.png?raw=true" /></p>
+
 - ### Instructore Side:
 - Create Courses
 - Uplaod Mateial
@@ -15,17 +16,18 @@
 - Manage Students
 - View Students Submissions
 - Edit Course Info
-&NewLine;
-&nbsp;![Admin Side](https://github.com/HaidarAliN/E-learning-Hub-Frontend/blob/main/assets/images/InstructorSide.png?raw=true)
-&nbsp;![Admin Side](https://github.com/HaidarAliN/E-learning-Hub-Frontend/blob/main/assets/images/InstructorCourseSide.png?raw=true)
+<br />
+<p align="center"><img src="https://github.com/HaidarAliN/E-learning-Hub-Frontend/blob/main/assets/images/InstructorSide.png?raw=true" /></p>
+<p align="center"><img src="https://github.com/HaidarAliN/E-learning-Hub-Frontend/blob/main/assets/images/InstructorCourseSide.png?raw=true" /></p>
+
 - ### Student Side:
 - Search For New Courses
 - Enroll In Course
 - View Uploaded Materials
 - Submit Quizzes
-&NewLine;
-&nbsp;![Admin Side](https://github.com/HaidarAliN/E-learning-Hub-Frontend/blob/main/assets/images/StudentSide.png?raw=true)
-&nbsp;![Admin Side](https://github.com/HaidarAliN/E-learning-Hub-Frontend/blob/main/assets/images/StudentCourseSide.png?raw=true)
+<br />
+<p align="center"><img src="https://github.com/HaidarAliN/E-learning-Hub-Frontend/blob/main/assets/images/StudentSide.png?raw=true" /></p>
+<p align="center"><img src="https://github.com/HaidarAliN/E-learning-Hub-Frontend/blob/main/assets/images/StudentCourseSide.png?raw=true" /></p>
 
 ## Tech
 
