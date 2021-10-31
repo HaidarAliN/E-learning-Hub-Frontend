@@ -5,8 +5,9 @@
 
 - ### Admin Side:
 - Register Instructors & Students
-- Reset users password
-![Admin Side](https://github.com/HaidarAliN/E-learning-Hub-Frontend/blob/main/assets/images/AdminSide.png?raw=true)
+- Reset users passwords 
+&NewLine;
+&nbsp;![Admin Side](https://github.com/HaidarAliN/E-learning-Hub-Frontend/blob/main/assets/images/AdminSide.png?raw=true)
 - ### Instructore Side:
 - Create Courses
 - Uplaod Mateial
@@ -14,11 +15,17 @@
 - Manage Students
 - View Students Submissions
 - Edit Course Info
+&NewLine;
+&nbsp;![Admin Side](https://github.com/HaidarAliN/E-learning-Hub-Frontend/blob/main/assets/images/InstructorSide.png?raw=true)
+&nbsp;![Admin Side](https://github.com/HaidarAliN/E-learning-Hub-Frontend/blob/main/assets/images/InstructorCourseSide.png?raw=true)
 - ### Student Side:
 - Search For New Courses
 - Enroll In Course
 - View Uploaded Materials
 - Submit Quizzes
+&NewLine;
+&nbsp;![Admin Side](https://github.com/HaidarAliN/E-learning-Hub-Frontend/blob/main/assets/images/StudentSide.png?raw=true)
+&nbsp;![Admin Side](https://github.com/HaidarAliN/E-learning-Hub-Frontend/blob/main/assets/images/StudentCourseSide.png?raw=true)
 
 ## Tech
 
@@ -86,15 +93,3 @@ npm run start
    [Recharts]: <https://recharts.org/en-US/>
    [node.js]: <http://nodejs.org>
    [npm Docs]: <https://docs.npmjs.com/>
-   [jQuery]: <http://jquery.com>
-   [@tjholowaychuk]: <http://twitter.com/tjholowaychuk>
-   [express]: <http://expressjs.com>
-   
-   [Gulp]: <http://gulpjs.com>
-
-   [PlDb]: <https://github.com/joemccann/dillinger/tree/master/plugins/dropbox/README.md>
-   [PlGh]: <https://github.com/joemccann/dillinger/tree/master/plugins/github/README.md>
-   [PlGd]: <https://github.com/joemccann/dillinger/tree/master/plugins/googledrive/README.md>
-   [PlOd]: <https://github.com/joemccann/dillinger/tree/master/plugins/onedrive/README.md>
-   [PlMe]: <https://github.com/joemccann/dillinger/tree/master/plugins/medium/README.md>
-   [PlGa]: <https://github.com/RahulHP/dillinger/blob/master/plugins/googleanalytics/README.md>
