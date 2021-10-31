@@ -1,5 +1,5 @@
 # E-Learning Hub webapp
-## Reactjs, Material-ui, jsx, firebase
+## React, Material Ui, Firebase
 
 ## Features
 
