@@ -161,7 +161,7 @@ export default function Home() {
     <Layout title="qwe">
       <div className={classes.page}>
         <Typography className={classes.card2} component="h2" variant="h4">
-          Register New user
+          Register New User
         </Typography>
 
         {!created ? (
