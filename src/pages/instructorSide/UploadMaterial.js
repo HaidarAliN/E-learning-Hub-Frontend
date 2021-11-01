@@ -291,7 +291,7 @@ export default function UploadMaterial() {
                     <Grid container spacing={3}>
                       <Grid item xs={12} md={5} lg={3} key={2}>
                         <InputLabel className={classes.label}>
-                          Chapter Description:
+                          Chapter description:
                         </InputLabel>
                       </Grid>
                       <Grid item xs={12} md={6} lg={4} key={3}>
@@ -327,7 +327,7 @@ export default function UploadMaterial() {
                             color="secondary"
                             endIcon={<BackupOutlinedIcon />}
                           >
-                            Upload File
+                            Upload file
                             <input
                               type="file"
                               onChange={uploadFile}

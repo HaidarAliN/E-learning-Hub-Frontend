@@ -214,7 +214,7 @@ export default function UploadMaterial() {
                       <Grid container spacing={3}>
                         <Grid item xs={12} md={5} lg={3} key={2}>
                           <InputLabel className={classes.label}>
-                            Course Description:
+                            Course description:
                           </InputLabel>
                         </Grid>
                         <Grid item xs={12} md={6} lg={4} key={3}>

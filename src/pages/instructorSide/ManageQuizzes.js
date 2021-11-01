@@ -472,7 +472,7 @@ export default function ManageQuizzes() {
                               color="primary"
                               fullWidth
                               required
-                              placeholder="Quiz 123"
+                              placeholder="Quiz 1"
                             />
                           </Grid>
                           {data && (
@@ -552,7 +552,7 @@ export default function ManageQuizzes() {
                             value={newQuestion}
                             required
                             error={quizquestionError}
-                            placeholder="Quiz 124"
+                            placeholder="..."
                           />
                         </Grid>
                         <Grid item xs={12} md={1} lg={5} key={73}></Grid>

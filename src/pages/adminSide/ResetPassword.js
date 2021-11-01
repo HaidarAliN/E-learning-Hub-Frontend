@@ -169,7 +169,7 @@ export default function ResetPassword() {
                       <Grid container spacing={3}>
                         <Grid item xs={12} md={5} lg={3} key={4}>
                           <InputLabel className={classes.label}>
-                            User Password:
+                            User password:
                           </InputLabel>
                         </Grid>
                         <Grid item xs={12} md={6} lg={4} key={5}>

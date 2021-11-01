@@ -14,7 +14,7 @@ import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
 import DoneAllIcon from "@material-ui/icons/DoneAll";
 import BASE_API_URL from "../../services/BaseUrl";
 import axios from "axios";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -118,11 +118,7 @@ export default function Dashboard() {
             </Grid>
             <Grid item xs={12} md={6} lg={4} key={3}>
               <div>
-                <Card
-                  elevation={1}
-                  className={classes.cardbody}
-                  style={{ marginTop: "2%" }}
-                >
+                <Card elevation={1} className={classes.cardbody}>
                   <CardHeader
                     title="FINISHED COURSES"
                     className={classes.cardHeader}

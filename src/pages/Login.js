@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import BASE_API_URL from "../services/BaseUrl";
-import { useHistory, Redirect, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import firebase from "../firebase";
 import { isMobile } from "react-device-detect";
 import { ThemeProvider } from "@material-ui/styles";
@@ -12,13 +12,10 @@ import {
   createTheme,
   CssBaseline,
   Button,
-  Grid,
   TextField,
   Typography,
 } from "@material-ui/core";
-import LockIcon from "@material-ui/icons/Lock";
 import Alert from "@material-ui/lab/Alert";
-import ImageResponsive from "react-image-responsive";
 
 const useStyles = makeStyles((theme) => ({
   image: {
@@ -115,14 +112,6 @@ const Login = ({ redicrett }) => {
   };
   const theme = createTheme();
 
-  const sources = [
-    { maxWidth: 100, src: "http://placehold.it/100x100" },
-    { maxWidth: 200, src: "http://placehold.it/200x100" },
-    { maxWidth: 400, src: "http://placehold.it/400x100" },
-    { maxWidth: 800, src: "http://placehold.it/800x100" },
-    { maxWidth: 1200, src: "http://placehold.it/1200x100" },
-  ];
-
   return (
     <ThemeProvider theme={theme}>
       <Container component="main">
@@ -140,7 +129,6 @@ const Login = ({ redicrett }) => {
             alt="this is my image"
             className={classes.image}
             style={{ m: 1, color: "#4e73df" }}
-            // sources={sources}
           />
           <Typography component="h1" variant="h5">
             Sign in

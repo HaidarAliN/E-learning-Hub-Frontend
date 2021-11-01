@@ -176,6 +176,7 @@ export default function ManageQuizzes() {
       setQuizQuestion("");
     } else {
       setQuizQuestion(data_fetched);
+      setQuizDone(false);
     }
   };
 
