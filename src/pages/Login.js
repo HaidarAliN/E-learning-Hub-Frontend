@@ -7,7 +7,7 @@ import { isMobile } from "react-device-detect";
 import { ThemeProvider } from "@material-ui/styles";
 import { Container } from "react-bootstrap";
 import {
-  Avatar,
+  makeStyles,
   Box,
   createTheme,
   CssBaseline,
@@ -20,6 +20,17 @@ import LockIcon from "@material-ui/icons/Lock";
 import Alert from "@material-ui/lab/Alert";
 import ImageResponsive from "react-image-responsive";
 
+const useStyles = makeStyles((theme) => ({
+  image: {
+    width: "20%",
+    height: "20%",
+    [theme.breakpoints.down("sm")]: {
+      width: "50%",
+      height: "50%",
+    },
+  },
+}));
+
 const Login = ({ redicrett }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,6 +39,7 @@ const Login = ({ redicrett }) => {
   const [error, setError] = useState(null);
   const [firebaseToken, setFirebaseToken] = useState(null);
   const history = useHistory();
+  const classes = useStyles();
 
   const componentDidMount = () => {
     const messaging = firebase.messaging();
@@ -126,8 +138,7 @@ const Login = ({ redicrett }) => {
           <img
             src="https://user-images.githubusercontent.com/89384538/139715338-bfd924d1-9449-45e3-b1df-d40d03de18df.png"
             alt="this is my image"
-            width="20%"
-            height="20%"
+            className={classes.image}
             style={{ m: 1, color: "#4e73df" }}
             // sources={sources}
           />
