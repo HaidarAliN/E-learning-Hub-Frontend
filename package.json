@@ -1,4 +1,5 @@
 {
+  "homepage":"http://github.com/HaidarAliN/E-learning-Hub-Frontend",
   "name": "e-learning-hub",
   "version": "0.1.0",
   "private": true,
@@ -14,6 +15,7 @@
     "base-64": "^1.0.0",
     "bootstrap": "^5.1.1",
     "firebase": "^4.8.0",
+    "gh-pages": "^3.2.3",
     "react": "^17.0.1",
     "react-bootstrap": "^2.0.0-rc.0",
     "react-device-detect": "^2.0.1",
@@ -30,6 +32,8 @@
     "web-vitals": "^1.1.0"
   },
   "scripts": {
+    "predeploy":"run npm build",
+    "deploy":"gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
