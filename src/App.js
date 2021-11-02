@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import Dashboard from "./pages/instructorSide/Dashboard";
@@ -49,46 +49,88 @@ function App() {
   );
 
   return (
-    <ThemeProvider theme={theme}>
-      <Router>
-        {type_id == 1 && (
+    <div className="App">
+      <ThemeProvider theme={theme}>
+        <Router>
+          {type_id == 1 && (
+            <Switch>
+              <Route path="/home" exact component={Home} />
+              <Route path="/resetPassword" exact component={ResetPassword} />
+            </Switch>
+          )}
+          {type_id == 2 && (
+            <Switch>
+              <Route path="/home" exact component={Dashboard} />
+              <Route path="/notifications" exact component={Notifications} />
+              <Route path="/onGoing" exact component={OnGoing} />
+              <Route
+                path="/finishedCourses"
+                exact
+                component={FinishedCourses}
+              />
+              <Route path="/createCourse" exact component={CreateCourse} />
+              <Route
+                path="/course/Dashboard"
+                exact
+                component={CourseDashboard}
+              />
+              <Route
+                path="/course/UploadMaterial"
+                exact
+                component={UploadMaterial}
+              />
+              <Route path="/course/EditInfo" exact component={EditCourseInfo} />
+              <Route
+                path="/course/ManageStudents"
+                exact
+                component={ManageStudents}
+              />
+              <Route
+                path="/course/ManageQuizzes"
+                exact
+                component={ManageQuizzes}
+              />
+              <Route
+                path="/course/StudentSubmissions"
+                exact
+                component={StudentSubmissions}
+              />
+            </Switch>
+          )}
+          {type_id == 3 && (
+            <Switch>
+              <Route path="/home" exact component={DashboardS} />
+              <Route path="/notifications" exact component={NotificationsS} />
+              <Route path="/onGoing" exact component={OnGoingS} />
+              <Route
+                path="/finishedCourses"
+                exact
+                component={FinishedCoursesS}
+              />
+              <Route path="/searchCourse" exact component={SearchCourse} />
+              <Route
+                path="/course/Dashboard"
+                exact
+                component={CourseDashboards}
+              />
+              <Route
+                path="/course/Materials"
+                exact
+                component={UploadMaterials}
+              />
+              <Route
+                path="/course/CourseQuizzes"
+                exact
+                component={CourseQuizzes}
+              />
+            </Switch>
+          )}
           <Switch>
-            <Route path="/home" exact component={Home} />
-            <Route path="/resetPassword" exact component={ResetPassword} />
+            <Route path="/" exact component={Login} />
           </Switch>
-        )}
-        {type_id == 2 && (
-          <Switch>
-            <Route path="/home" exact component={Dashboard} />
-            <Route path="/notifications" exact component={Notifications} />
-            <Route path="/onGoing" exact component={OnGoing} />
-            <Route path="/finishedCourses" exact component={FinishedCourses} />
-            <Route path="/createCourse" exact component={CreateCourse} />
-            <Route path="/course/Dashboard" exact component={CourseDashboard} />
-            <Route path="/course/UploadMaterial" exact component={UploadMaterial} />
-            <Route path="/course/EditInfo" exact component={EditCourseInfo} />
-            <Route path="/course/ManageStudents" exact component={ManageStudents} />
-            <Route path="/course/ManageQuizzes" exact component={ManageQuizzes} />
-            <Route path="/course/StudentSubmissions" exact component={StudentSubmissions} />
-          </Switch>
-        )}
-        {type_id == 3 && (
-          <Switch>
-            <Route path="/home" exact component={DashboardS} />
-            <Route path="/notifications" exact component={NotificationsS} />
-            <Route path="/onGoing" exact component={OnGoingS} />
-            <Route path="/finishedCourses" exact component={FinishedCoursesS} />
-            <Route path="/searchCourse" exact component={SearchCourse} />
-            <Route path="/course/Dashboard" exact component={CourseDashboards} />
-            <Route path="/course/Materials" exact component={UploadMaterials} />
-            <Route path="/course/CourseQuizzes" exact component={CourseQuizzes} />
-          </Switch>
-        )}
-        <Switch>
-          <Route path="/" exact component={Login} />
-        </Switch>
-      </Router>
-    </ThemeProvider>
+        </Router>
+      </ThemeProvider>
+    </div>
   );
 }
 
