@@ -196,7 +196,6 @@ export default function ManageQuizzes() {
       );
       const data_fetched = await response.data;
       if (data_fetched) {
-        // confirmHidRef.current.style.display = "none";
         setQuizSubmition(data_fetched.id);
         setquizloaded(quizname.type);
         getQuizquestion();

@@ -85,7 +85,6 @@ export default function CourseDashboard() {
 
   const [graphData, setGraphData] = useState(null);
   const getgraph = async () => {
-    //to be done
     const response = await axios.get(
       `${BASE_API_URL}/api/instructor/course/get-students-scoregraph/${courseId}`,
       {

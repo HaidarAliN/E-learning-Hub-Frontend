@@ -128,9 +128,7 @@ export default function UploadMaterial() {
       setChapterDescriptionError(true);
     }
     if (chapterName && chapterDescription && pdfData) {
-      // setSubmited(true);
       addchapt();
-      // setSubmited(false);
       setChapterDescription("");
       setChapterName("");
       setPdfData(null);
@@ -184,13 +182,6 @@ export default function UploadMaterial() {
   const [pdfData, setPdfData] = useState(null);
   useEffect(async () => {
     getData();
-    // if(chapterDescription && chapterName && pdfData && submited){
-    //     addchapt();
-    //     setSubmited(false);
-    //     setChapterDescription('');
-    //     setChapterName('');
-    //     setPdfData(null);
-    // }
   }, []);
 
   const handleRemove = async (id) => {
@@ -231,7 +222,7 @@ export default function UploadMaterial() {
     const file = e.target.files[0];
     const base64 = await convertBase64(file); //encrypt the file
     const base = base64.split(","); //split the encypted data
-    setPdfData(base[1]); //
+    setPdfData(base[1]);
   };
 
   const convertBase64 = (file) => {

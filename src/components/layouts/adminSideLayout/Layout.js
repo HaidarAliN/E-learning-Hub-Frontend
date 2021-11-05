@@ -180,17 +180,6 @@ export default function Layout2({ children, title }, props) {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [notification, setNotification] = useState(0);
 
-  //   useEffect(async () => {
-  //     const response = await axios.get(`${BASE_API_URL}/api/instructor/navInfo`,
-  //       {headers:{
-  //         'Authorization' : `Bearer ${access_token}`
-  //       }}
-  //     );
-  //     const data_fetched = response.data;
-  //     setData(data_fetched);
-  //     setNotification(data_fetched.notification_count);
-  //     }, []);
-
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -253,14 +242,6 @@ export default function Layout2({ children, title }, props) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      {/* <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={notification}   color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem> */}
       <MenuItem onClick={handleLogout}>
         <IconButton
           aria-label="account of current user"
@@ -332,19 +313,6 @@ export default function Layout2({ children, title }, props) {
         </ListItem>
       </List>
       <Divider variant="middle" />
-
-      {/* <List>
-        <ListItem 
-          button 
-          key="Dashboard"
-          onClick={() => history.push("/Notifications")}
-          className={location.pathname == "/Notifications" ? classes.active : null}
-        >
-          <ListItemIcon><NotificationsNoneIcon color="secondary" /></ListItemIcon>
-          <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#d1d3e2' }}>Notifications</Typography>}/>
-        </ListItem>
-      </List>
-      <Divider  variant="middle" /> */}
     </div>
   );
 
@@ -371,11 +339,6 @@ export default function Layout2({ children, title }, props) {
             <Typography variant="h6">Admin Site</Typography>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              {/* <IconButton aria-label="show 17 new notifications" onClick={handleNotification} color="inherit">
-              <Badge badgeContent={notification} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton> */}
               <IconButton
                 edge="end"
                 aria-label="account of current user"

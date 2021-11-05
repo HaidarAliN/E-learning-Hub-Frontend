@@ -199,16 +199,6 @@ export default function SearchCourse() {
                       </Grid>
                       <Grid item xs={12} md={4} lg={4} key={4}></Grid>
                     </Grid>
-                    {/* <div className={classes.btn}>
-                                    <Button
-                                        color="secondary" 
-                                        variant="contained"
-                                        style={{backgroundColor :"#bac8f2"}}
-                                        onClick={handleSearch}
-                                        endIcon={<SearchIcon/>}>
-                                        Search
-                                    </Button>
-                                </div> */}
                   </CardContent>
                 </Card>
               </div>

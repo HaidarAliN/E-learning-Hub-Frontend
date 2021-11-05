@@ -60,9 +60,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "5%",
   },
   flex: {
-    // display: "flex-row",
     width: "1000",
-    // flex: 1,
   },
   cardBody: {
     color: "#757575",

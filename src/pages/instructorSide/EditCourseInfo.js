@@ -242,11 +242,10 @@ export default function UploadMaterial() {
                         </Grid>
                         <Grid item xs={12} md={6} lg={4} key={3}>
                           <Slider
-                            key={`slider-${sliderValue}`} /* fixed issue */
+                            key={`slider-${sliderValue}`}
                             ValueLabelComponent={ValueLabelComponent}
                             aria-label="custom thumb label"
                             defaultValue={sliderValue}
-                            // onChange={handelSlider}
                             onChangeCommitted={(event, newValue) =>
                               setSliderValue(newValue)
                             }

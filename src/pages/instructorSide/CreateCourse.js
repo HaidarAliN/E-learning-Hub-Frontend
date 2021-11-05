@@ -157,8 +157,6 @@ export default function CreateCourse() {
       );
       const data_fetched = await response.data;
       if (data_fetched) {
-        // setCreated("1");
-        console.log(data_fetched.user.name);
         localStorage.setItem("course_id", data_fetched.user.id);
         localStorage.setItem("course_name", data_fetched.user.name);
         history.push("/course/Dashboard");
