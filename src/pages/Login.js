@@ -3,7 +3,7 @@ import axios from "axios";
 import BASE_API_URL from "../services/BaseUrl";
 import { useHistory } from "react-router-dom";
 import firebase from "../firebase";
-import { isMobile } from "react-device-detect";
+import { isIOS } from "react-device-detect";
 import { ThemeProvider } from "@material-ui/styles";
 import { Container } from "react-bootstrap";
 import {
@@ -40,22 +40,42 @@ const Login = ({ redicrett }) => {
 
   const componentDidMount = () => {
     const messaging = firebase.messaging();
-    messaging
-      .requestPermission()
-      .then(() => {
-        return messaging.getToken();
-      })
-      .then((token) => {
-        console.log("token : ", token);
-        setFirebaseToken(token);
-      })
-      .catch(() => {
-        console.log("token : ");
-      });
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("./firebase-messaging-sw.js")
+        .then(function (registration) {
+          console.log("Registration successful, scope is:", registration.scope);
+          Notification.requestPermission().then(() => {
+            return messaging
+              .getToken({
+                vapidKey:
+                  "BDN5zDxWa_64tkj66l2l8L836fWPFkdNmVeNuG7IGmL3oeylSuc_P_zTcqhkVjis43V6L0A6A-5MmP2P7RQLZ54",
+                serviceWorkerRegistration: registration,
+              })
+              .then((currentToken) => {
+                if (currentToken) {
+                  console.log("current token for client: ", currentToken);
+                  setFirebaseToken(currentToken);
+                  console.log("device_token", currentToken);
+                } else {
+                  console.log(
+                    "No registration token available. Request permission to generate one."
+                  );
+                }
+              })
+              .catch((err) => {
+                console.log("An error occurred while retrieving token. ", err);
+              });
+          });
+        })
+        .catch(function (err) {
+          console.log("Service worker registration failed, error:", err);
+        });
+    }
   };
 
   useEffect(() => {
-    if (!isMobile) {
+    if (!isIOS) {
       componentDidMount();
     }
   }, []);
