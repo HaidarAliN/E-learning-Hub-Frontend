@@ -19,6 +19,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import { useHistory, useLocation } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/styles";
 import React, { useState, useEffect } from "react";
 import { createTheme, responsiveFontSizes } from "@material-ui/core/styles";
@@ -58,6 +59,7 @@ export default function CourseDashboard() {
   const classes = useStyles();
   let theme = createTheme();
   theme = responsiveFontSizes(theme);
+  const history = useHistory();
   const [access_token, setAccess_token] = useState(
     JSON.parse(localStorage.getItem("access_token"))
   );
@@ -122,7 +124,9 @@ export default function CourseDashboard() {
                     title="STUDENTS"
                     className={classes.cardHeader}
                     action={
-                      <IconButton>
+                      <IconButton
+                        onClick={() => history.push("/course/ManageQuizzes")}
+                      >
                         <SupervisorAccountIcon style={{ color: "#2c9faf" }} />
                       </IconButton>
                     }
@@ -144,7 +148,9 @@ export default function CourseDashboard() {
                     title="COURSE PROGRESS"
                     className={classes.cardHeader}
                     action={
-                      <IconButton>
+                      <IconButton
+                        onClick={() => history.push("/course/EditInfo")}
+                      >
                         <DoneAllIcon style={{ color: "#2c9faf" }} />
                       </IconButton>
                     }
@@ -173,7 +179,7 @@ export default function CourseDashboard() {
                     title="TOP SCORES"
                     className={classes.cardHeader}
                     action={
-                      <IconButton>
+                      <IconButton disabled="true">
                         <EqualizerIcon style={{ color: "#2c9faf" }} />
                       </IconButton>
                     }

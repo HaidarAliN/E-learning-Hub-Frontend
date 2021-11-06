@@ -79,7 +79,7 @@ export default function Dashboard() {
                     title="COURSES"
                     className={classes.cardHeader}
                     action={
-                      <IconButton>
+                      <IconButton disabled="true">
                         <MenuBookIcon style={{ color: "#2c9faf" }} />
                       </IconButton>
                     }
@@ -101,7 +101,7 @@ export default function Dashboard() {
                     title="STUDENTS"
                     className={classes.cardHeader}
                     action={
-                      <IconButton>
+                      <IconButton disabled="true">
                         <SupervisorAccountIcon style={{ color: "#2c9faf" }} />
                       </IconButton>
                     }
@@ -123,7 +123,7 @@ export default function Dashboard() {
                     title="FINISHED COURSES"
                     className={classes.cardHeader}
                     action={
-                      <IconButton>
+                      <IconButton disabled="true">
                         <DoneAllIcon style={{ color: "#2c9faf" }} />
                       </IconButton>
                     }
