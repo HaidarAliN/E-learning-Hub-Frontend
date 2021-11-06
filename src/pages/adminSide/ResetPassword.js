@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     marginTop: "5%",
   },
-  created: {
+  updated: {
     marginTop: "2%",
   },
   page: {
@@ -76,36 +76,42 @@ export default function ResetPassword() {
   const [emailError, setEmailError] = useState(false);
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
-  const [created, setCreated] = useState(null);
+  const [updated, setupdated] = useState(null);
 
   const handleSubmit = async () => {
     setEmailError(false);
     setPasswordError(false);
 
-    if (!password) {
+    if (!password || password.length < 5) {
       setPasswordError(true);
+      alert("You have to enter at least 5 digits as for the password");
     }
 
     if (!email) {
       setEmailError(true);
     }
 
-    if (password && email) {
-      const response = await axios.post(
-        `${BASE_API_URL}/api/admin/reset-password`,
-        {
-          password: password,
-          email: email,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${access_token}`,
+    if (password.length > 4 && email) {
+      try {
+        const response = await axios.post(
+          `${BASE_API_URL}/api/admin/reset-password`,
+          {
+            password: password,
+            email: email,
           },
+          {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+            },
+          }
+        );
+        const data_fetched = await response.data;
+        if (data_fetched) {
+          console.log(data_fetched);
+          setupdated(true);
         }
-      );
-      const data_fetched = await response.data;
-      if (data_fetched) {
-        console.log(data_fetched);
+      } catch (e) {
+        alert("Enter a valid email address");
       }
     }
   };
@@ -121,7 +127,7 @@ export default function ResetPassword() {
           Reset Password
         </Typography>
 
-        {!created ? (
+        {!updated ? (
           <div className={classes.card}>
             <Grid container spacing={1}>
               <Grid item xs={12} md={12} lg={12} key={1}>
@@ -195,11 +201,11 @@ export default function ResetPassword() {
           </div>
         ) : (
           <Typography
-            className={classes.created}
+            className={classes.updated}
             component="h2"
             variant="body1"
           >
-            User Has been Registerd!
+            Password Updated!
           </Typography>
         )}
       </div>

@@ -129,26 +129,38 @@ export default function Home() {
       setEmailError(true);
     }
 
-    if (firstName && lastName && password && email && userTypeName) {
-      const response = await axios.post(
-        `${BASE_API_URL}/api/admin/register`,
-        {
-          first_name: firstName,
-          last_name: lastName,
-          user_type_id: userType.type,
-          password: password,
-          email: email,
-          password_confirmation: password,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${access_token}`,
+    if (password.length < 5) {
+      alert("You have to enter at least 5 digits as for the password");
+    }
+
+    if (!userTypeName) {
+      alert("You need to choose a user type");
+    }
+
+    if (firstName && lastName && password.length > 4 && email && userTypeName) {
+      try {
+        const response = await axios.post(
+          `${BASE_API_URL}/api/admin/register`,
+          {
+            first_name: firstName,
+            last_name: lastName,
+            user_type_id: userType.type,
+            password: password,
+            email: email,
+            password_confirmation: password,
           },
+          {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+            },
+          }
+        );
+        const data_fetched = await response.data;
+        if (data_fetched) {
+          setCreated("1");
         }
-      );
-      const data_fetched = await response.data;
-      if (data_fetched) {
-        setCreated("1");
+      } catch (e) {
+        alert("Enter a valid email address");
       }
     }
   };
