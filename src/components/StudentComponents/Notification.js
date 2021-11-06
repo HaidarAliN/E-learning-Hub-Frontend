@@ -75,6 +75,7 @@ export default function Notification({ data, handleRead, NavigateToCourse }) {
   const handleNavigate = (course_id, id) => {
     NavigateToCourse(course_id);
     markAsRead(id);
+    localStorage.setItem("location", "Notifications");
   };
   return (
     <TableContainer component={Paper}>
