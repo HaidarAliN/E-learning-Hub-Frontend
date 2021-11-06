@@ -93,7 +93,7 @@ export default function Materials({ handleEdit, data, handleRemove }) {
                     onClick={() => removeChapter(item.id)}
                     startIcon={<DeleteIcon />}
                   >
-                    Drop chpater
+                    Drop chapter
                   </Button>
                 </td>
               </tr>

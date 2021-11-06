@@ -98,7 +98,7 @@ export default function Questions({ data, handleEdit, handleRemove }) {
                     onClick={() => EditChapter(item.id)}
                     startIcon={<InfoIcon />}
                   >
-                    Edit Qestion
+                    Edit Question
                   </Button>
                 </td>
                 <td>
