@@ -92,9 +92,10 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     marginTop: "7%",
+    marginLeft: "-25%",
+    textAlign: "center",
     display: "none",
     color: "#eaecf4",
-    marginLeft: "15%",
     marginBottom: "7%",
     [theme.breakpoints.up("sm")]: {
       display: "block",
@@ -180,7 +181,7 @@ export default function Layout2({ children }, props) {
   const [courseId, setCourseID] = useState(
     JSON.parse(localStorage.getItem("course_id"))
   );
-  const [title, setTitle] = useState("");
+  const [backTo, setBackTo] = useState(localStorage.getItem("location"));
   const history = useHistory();
   const location = useLocation();
   const { window } = props;
@@ -466,7 +467,11 @@ export default function Layout2({ children }, props) {
       <Divider variant="middle" />
 
       <List className={classes.back}>
-        <ListItem button key="Dashboard" onClick={() => history.push("/home")}>
+        <ListItem
+          button
+          key="Dashboard"
+          onClick={() => history.push(`/${backTo}`)}
+        >
           <ListItemIcon>
             <ArrowBackIcon color="secondary" />
           </ListItemIcon>
@@ -474,7 +479,7 @@ export default function Layout2({ children }, props) {
             disableTypography
             primary={
               <Typography type="body2" style={{ color: "#d1d3e2" }}>
-                Back to Home
+                Back
               </Typography>
             }
           />
@@ -572,13 +577,13 @@ export default function Layout2({ children }, props) {
             open
           >
             <div>
-              <Link to="/home" style={{ textDecoration: "none" }}>
+              <Link to={`/${backTo}`} style={{ textDecoration: "none" }}>
                 <Typography
                   type="body2"
                   className={classes.title}
                   style={{ color: "#d1d3e2" }}
                 >
-                  <ArrowBackIcon color="secondary" /> Back to Home
+                  <ArrowBackIcon color="secondary" /> Back
                 </Typography>
               </Link>
             </div>
