@@ -404,6 +404,12 @@ export default function ManageQuizzes() {
       handleClearAfterAdd();
       getQuizquiestion(quizId);
       questionRef.current.scrollIntoView({ behavior: "smooth" });
+      alert("Question added successfully");
+      setNewQuestiontype(null);
+      setNewquestionTyped({
+        ...newquestionTyped,
+        ["type"]: "",
+      });
     }
     if (
       newquestionTyped.type == 0 &&
@@ -416,6 +422,12 @@ export default function ManageQuizzes() {
       handleClearAfterAdd();
       getQuizquiestion(quizId);
       questionRef.current.scrollIntoView({ behavior: "smooth" });
+      alert("Question added successfully");
+      setNewQuestiontype(null);
+      setNewquestionTyped({
+        ...newquestionTyped,
+        ["type"]: "",
+      });
     }
   };
 
