@@ -3,6 +3,7 @@ import {
   Card,
   CardContent,
   CardHeader,
+  IconButton,
   Grid,
   makeStyles,
   Typography,
@@ -117,6 +118,7 @@ export default function OnGoing() {
   const handleSubmit = (id, name) => {
     localStorage.setItem("course_id", id);
     localStorage.setItem("course_name", name);
+    localStorage.setItem("location", "onGoing");
     history.push("/course/Dashboard");
   };
 
@@ -139,7 +141,11 @@ export default function OnGoing() {
                     <Card elevation={1} className={classes.cardbody}>
                       <CardHeader
                         title={item.name}
-                        action={<MenuBookIcon style={{ color: "#bac8f2" }} />}
+                        action={
+                          <IconButton disabled="true">
+                            <MenuBookIcon style={{ color: "#4e73df" }} />
+                          </IconButton>
+                        }
                         className={classes.cardHeader}
                       />
                       <CardContent className={classes.cardBody}>

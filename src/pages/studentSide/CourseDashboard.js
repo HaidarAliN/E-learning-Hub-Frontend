@@ -19,6 +19,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import { useHistory, useLocation } from "react-router-dom";
 import EqualizerIcon from "@material-ui/icons/Equalizer";
 import React, { useState, useEffect } from "react";
 import { createTheme, responsiveFontSizes } from "@material-ui/core/styles";
@@ -61,6 +62,7 @@ export default function CourseDashboard() {
   const classes = useStyles();
   let theme = createTheme();
   theme = responsiveFontSizes(theme);
+  const history = useHistory();
   const [access_token, setAccess_token] = useState(
     JSON.parse(localStorage.getItem("access_token"))
   );
@@ -125,7 +127,9 @@ export default function CourseDashboard() {
                     title="LECTURES UPLOADED"
                     className={classes.cardHeader}
                     action={
-                      <IconButton>
+                      <IconButton
+                        onClick={() => history.push("/course/Materials")}
+                      >
                         <MenuBookIcon style={{ color: "#4e73df" }} />
                       </IconButton>
                     }
@@ -147,7 +151,9 @@ export default function CourseDashboard() {
                     title="QUIZZES"
                     className={classes.cardHeader}
                     action={
-                      <IconButton>
+                      <IconButton
+                        onClick={() => history.push("/course/CourseQuizzes")}
+                      >
                         <SupervisorAccountIcon style={{ color: "#4e73df" }} />
                       </IconButton>
                     }
@@ -169,7 +175,7 @@ export default function CourseDashboard() {
                     title="COURSE PROGRESS"
                     className={classes.cardHeader}
                     action={
-                      <IconButton>
+                      <IconButton disabled="true">
                         <DoneAllIcon style={{ color: "#4e73df" }} />
                       </IconButton>
                     }
@@ -198,7 +204,7 @@ export default function CourseDashboard() {
                     title="TOP SCORES"
                     className={classes.cardHeader}
                     action={
-                      <IconButton>
+                      <IconButton disabled="true">
                         <EqualizerIcon style={{ color: "#4e73df" }} />
                       </IconButton>
                     }

@@ -10,6 +10,7 @@ import {
 import React, { useState, useEffect } from "react";
 import Layout from "../../components/layouts/studentSideLayout/Layout";
 import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
+import MenuBookIcon from "@material-ui/icons/MenuBook";
 import DoneAllIcon from "@material-ui/icons/DoneAll";
 import BASE_API_URL from "../../services/BaseUrl";
 import axios from "axios";
@@ -79,8 +80,8 @@ export default function Dashboard() {
                     title="Courses"
                     className={classes.cardHeader}
                     action={
-                      <IconButton>
-                        <SupervisorAccountIcon style={{ color: "#4e73df" }} />
+                      <IconButton disabled="true">
+                        <MenuBookIcon style={{ color: "#4e73df" }} />
                       </IconButton>
                     }
                   />
@@ -101,7 +102,7 @@ export default function Dashboard() {
                     title="Submited Quizzes"
                     className={classes.cardHeader}
                     action={
-                      <IconButton>
+                      <IconButton disabled="true">
                         <DoneAllIcon style={{ color: "#4e73df" }} />
                       </IconButton>
                     }

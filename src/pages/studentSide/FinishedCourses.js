@@ -4,6 +4,7 @@ import {
   CardContent,
   CardHeader,
   Grid,
+  IconButton,
   makeStyles,
   Typography,
 } from "@material-ui/core";
@@ -130,6 +131,7 @@ export default function FinishedCourses() {
   const handleSubmit = (id, name) => {
     localStorage.setItem("course_id", id);
     localStorage.setItem("course_name", name);
+    localStorage.setItem("location", "finishedCourses");
     history.push("/course/Dashboard");
   };
 
@@ -152,7 +154,11 @@ export default function FinishedCourses() {
                     <Card elevation={1} className={classes.cardbody}>
                       <CardHeader
                         title={item.name}
-                        action={<MenuBookIcon style={{ color: "#bac8f2" }} />}
+                        action={
+                          <IconButton disabled="true">
+                            <MenuBookIcon style={{ color: "#4e73df" }} />
+                          </IconButton>
+                        }
                         className={classes.cardHeader}
                       />
                       <CardContent className={classes.cardBody}>
