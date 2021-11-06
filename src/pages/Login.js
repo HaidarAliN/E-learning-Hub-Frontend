@@ -38,7 +38,7 @@ const Login = ({ redicrett }) => {
   const history = useHistory();
   const classes = useStyles();
 
-  const componentDidMount = () => {
+  const getFirebaseToken = () => {
     const messaging = firebase.messaging();
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker
@@ -76,7 +76,7 @@ const Login = ({ redicrett }) => {
 
   useEffect(() => {
     if (!isIOS) {
-      componentDidMount();
+      getFirebaseToken();
     }
   }, []);
 
