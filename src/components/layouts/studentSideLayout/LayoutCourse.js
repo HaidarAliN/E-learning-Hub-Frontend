@@ -22,8 +22,7 @@ import MoreIcon from "@material-ui/icons/MoreVert";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import CloudUploadOutlinedIcon from "@material-ui/icons/CloudUploadOutlined";
 import SchoolOutlinedIcon from "@material-ui/icons/SchoolOutlined";
-import GroupOutlinedIcon from "@material-ui/icons/GroupOutlined";
-import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
+import AssignmentTurnedInIcon from "@material-ui/icons/AssignmentTurnedIn";
 import BASE_API_URL from "../../../services/BaseUrl";
 import axios from "axios";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
@@ -368,6 +367,30 @@ export default function Layout2({ children }, props) {
             primary={
               <Typography type="body2" style={{ color: "#d1d3e2" }}>
                 Course Quizzes
+              </Typography>
+            }
+          />
+        </ListItem>
+      </List>
+      <Divider variant="middle" />
+
+      <List>
+        <ListItem
+          button
+          key="Dashboard"
+          onClick={() => history.push("/course/QuizGrades")}
+          className={
+            location.pathname == "/course/QuizGrades" ? classes.active : null
+          }
+        >
+          <ListItemIcon>
+            <AssignmentTurnedInIcon color="secondary" />
+          </ListItemIcon>
+          <ListItemText
+            disableTypography
+            primary={
+              <Typography type="body2" style={{ color: "#d1d3e2" }}>
+                Quiz Grades
               </Typography>
             }
           />

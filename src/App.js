@@ -20,6 +20,7 @@ import SearchCourse from "./pages/studentSide/SearchCourse";
 import CourseDashboards from "./pages/studentSide/CourseDashboard";
 import UploadMaterials from "./pages/studentSide/UploadMaterial";
 import CourseQuizzes from "./pages/studentSide/CourseQuizzes";
+import QuizGrades from "./pages/studentSide/QuizGrades";
 import Home from "./pages/adminSide/Home";
 import ResetPassword from "./pages/adminSide/ResetPassword";
 import { createTheme, ThemeProvider } from "@material-ui/core";
@@ -123,6 +124,7 @@ function App() {
                 exact
                 component={CourseQuizzes}
               />
+              <Route path="/course/QuizGrades" exact component={QuizGrades} />
             </Switch>
           )}
           <Switch>

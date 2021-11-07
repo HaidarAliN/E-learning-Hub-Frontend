@@ -16,17 +16,21 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import { ThemeProvider } from "@material-ui/styles";
 import React, { useState, useEffect, useRef } from "react";
 import SendIcon from "@material-ui/icons/Send";
-import BackupOutlinedIcon from "@material-ui/icons/BackupOutlined";
-import EditIcon from "@material-ui/icons/Edit";
 import LayoutCourse from "../../components/layouts/studentSideLayout/LayoutCourse";
-import Question from "../../components/StudentComponents/Question";
 import BASE_API_URL from "../../services/BaseUrl";
 import axios from "axios";
+import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
+import CheckBoxOutlinedIcon from "@material-ui/icons/CheckBoxOutlined";
 
 const useStyles = makeStyles((theme) => ({
+  btn: {
+    marginTop: "5%",
+    [theme.breakpoints.down("sm")]: {
+      marginTop: "2%",
+    },
+  },
   card: {
     marginTop: "2%",
     marginBottom: "3%",
@@ -36,64 +40,35 @@ const useStyles = makeStyles((theme) => ({
     borderLeft: ".25rem solid !important",
     borderColor: "#bac8f2 !important",
   },
-  cardHeader: {
-    marginBottom: 0,
-    backgroundColor: "#e3e6f0",
-    borderBottom: "1px solid #e3e6f0",
-    color: "#757575",
-  },
-  field: {
-    marginTop: "2%",
+  card2: {
     marginBottom: "2%",
+    color: "#5a5c69",
+    [theme.breakpoints.down("sm")]: {
+      marginBottom: "10%",
+    },
+  },
+  formcontrollediv: {
+    marginTop: "2%",
+    alignItems: "center",
+    marginLeft: "2%",
   },
   formControl: {
     marginLeft: "5%",
     margin: theme.spacing(1),
     minWidth: 120,
   },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-  btn: {
-    marginTop: "5%",
-    [theme.breakpoints.down("sm")]: {
-      marginTop: "2%",
-    },
-  },
-  label: {
-    alignItems: "center",
-    marginTop: "5%",
-  },
-  or: {
-    marginTop: "20%",
-    alignItems: "center",
-    marginLeft: "25%",
-  },
-  divider: {
-    marginBottom: "2%",
-    marginTop: "2%",
-    color: "#ff4",
-    maxWidth: 360,
-    width: "100%",
-  },
-  page: {
-    background: "#f9f9f9",
-    width: "100%",
-  },
-  card2: {
-    color: "#5a5c69",
-    [theme.breakpoints.down("md")]: {
-      marginBottom: "10%",
-    },
+  cardHeader: {
+    marginBottom: 0,
+    backgroundColor: "#e3e6f0",
+    borderBottom: "1px solid #e3e6f0",
+    color: "#757575",
   },
   emptyState: {
     color: "#5a5c69",
     [theme.breakpoints.up("md")]: {
-      marginTop: `calc(${
-        window.innerHeight / 3 - 0.07 * window.innerHeight
-      }px)`,
+      marginTop: `calc(${window.innerHeight / 3 - 0.1 * window.innerHeight}px)`,
       textAlign: "center",
-      marginLeft: `calc(${window.innerWidth / 3 - 0.36 * window.innerWidth}px)`,
+      marginLeft: `calc(${window.innerWidth / 3 - 0.5 * window.innerWidth}px)`,
     },
     [theme.breakpoints.down("sm")]: {
       marginLeft: "1%",
@@ -101,30 +76,20 @@ const useStyles = makeStyles((theme) => ({
     },
     [theme.breakpoints.down("xs")]: {
       marginBottom: "5%",
-      marginLeft: "14%",
-      marginTop: `calc(${window.innerHeight / 3 - 0.1 * window.innerHeight}px)`,
-    },
-  },
-  quizdone: {
-    color: "#5a5c69",
-    [theme.breakpoints.up("md")]: {
-      marginTop: `calc(${window.innerHeight / 3 - 0.1 * window.innerHeight}px)`,
-      textAlign: "center",
-    },
-    [theme.breakpoints.down("sm")]: {
-      marginTop: `calc(${window.innerHeight / 8 + 0.2 * window.innerHeight}px)`,
-      textAlign: "center",
-    },
-    [theme.breakpoints.down("xs")]: {
-      marginBottom: "5%",
-      alignItems: "center",
-      textAlign: "center",
+      marginLeft: "6%",
       marginTop: `calc(${window.innerHeight / 3 - 0.2 * window.innerHeight}px)`,
     },
   },
+  field: {
+    marginTop: "2%",
+    marginBottom: "2%",
+  },
 }));
 
-export default function ManageQuizzes() {
+export default function StudentSubmissions() {
+  const classes = useStyles();
+  let theme = createTheme();
+  theme = responsiveFontSizes(theme);
   const [access_token, setAccess_token] = useState(
     JSON.parse(localStorage.getItem("access_token"))
   );
@@ -132,19 +97,15 @@ export default function ManageQuizzes() {
     JSON.parse(localStorage.getItem("course_id"))
   );
   const [data, setData] = useState(null);
-  const [quizQuestion, setQuizQuestion] = useState(null);
-  const [quizSubmition, setQuizSubmition] = useState(null);
   const [quizloaded, setquizloaded] = useState(null);
+  const [quizNameT, setQuizNameT] = useState("");
   const [quizId, setQuizId] = useState(0);
-  const [quizDone, setQuizDone] = useState(false);
-  const [quizname, setQuizName] = React.useState({
+  const [submissions, setSubmissions] = useState(null);
+  const [noSubmissions, setNoSubmissions] = useState(false);
+  const [quizname, setQuizName] = useState({
     type: "Choose one",
   });
-  const classes = useStyles();
-  let theme = createTheme();
-  theme = responsiveFontSizes(theme);
-  const confirmHidRef = useRef();
-  const getDAta = async () => {
+  const getData = async () => {
     const response = await axios.get(
       `${BASE_API_URL}/api/student/course/get-quizzes/${courseId}`,
       {
@@ -161,9 +122,13 @@ export default function ManageQuizzes() {
     }
   };
 
-  const getQuizquestion = async (id) => {
-    const response = await axios.get(
-      `${BASE_API_URL}/api/student/course/get-quiz-questions/${quizId}`,
+  const getSubmissions = async () => {
+    //to be done
+    const response = await axios.post(
+      `${BASE_API_URL}/api/student/course/get-student-submission/${courseId}`,
+      {
+        quiz_id: quizId,
+      },
       {
         headers: {
           Authorization: `Bearer ${access_token}`,
@@ -172,34 +137,24 @@ export default function ManageQuizzes() {
     );
     const data_fetched = response.data;
     if (data_fetched.status) {
-      setQuizDone(true);
-      setQuizQuestion("");
+      setSubmissions(null);
+      setNoSubmissions(true);
     } else {
-      setQuizQuestion(data_fetched);
-      setQuizDone(false);
+      setNoSubmissions(false);
+      setSubmissions(data_fetched);
+      console.log(data_fetched);
     }
   };
 
-  useEffect(async () => {
-    getDAta();
+  useEffect(() => {
+    getData();
   }, []);
 
   const handleConfirm = async () => {
     if (quizname.type != "Choose one") {
-      const response = await axios.get(
-        `${BASE_API_URL}/api/student/course/start-quiz/${quizId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-          },
-        }
-      );
-      const data_fetched = await response.data;
-      if (data_fetched) {
-        setQuizSubmition(data_fetched.id);
-        setquizloaded(quizname.type);
-        getQuizquestion();
-      }
+      setquizloaded(quizname.type);
+      console.log(quizname.type);
+      getSubmissions();
     }
   };
 
@@ -216,31 +171,12 @@ export default function ManageQuizzes() {
     setQuizId(e.target.value);
   };
 
-  const handleSubmit = async (answer) => {
-    const response = await axios.post(
-      `${BASE_API_URL}/api/student/course/answer-quiz-questions/${quizId}`,
-      {
-        question_id: quizQuestion.id,
-        answer: answer,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-        },
-      }
-    );
-    const data_fetched = await response.data;
-    if (data_fetched) {
-      getQuizquestion();
-    }
-  };
-
   return (
     <LayoutCourse title="qwe">
       {data ? (
-        <div className={classes.page}>
+        <div>
           <Typography className={classes.card2} component="h2" variant="h4">
-            Course Quizzes
+            Quiz Grades
           </Typography>
           <div className={classes.card}>
             <Grid container spacing={1}>
@@ -256,7 +192,7 @@ export default function ManageQuizzes() {
                         <Grid container spacing={3}>
                           {data && (
                             <div>
-                              <Grid item xs={12} md={12} lg={4} key={5}>
+                              <Grid item xs={12} md={6} lg={6} key={5}>
                                 <FormControl className={classes.formControl}>
                                   <NativeSelect
                                     style={{ marginLeft: "10%" }}
@@ -285,8 +221,9 @@ export default function ManageQuizzes() {
                       </div>
                       <div className={classes.btn}>
                         <Button
-                          ref={confirmHidRef}
-                          style={{ backgroundColor: "#bac8f2" }}
+                          style={{
+                            backgroundColor: "#bac8f2",
+                          }}
                           color="secondary"
                           variant="contained"
                           onClick={handleConfirm}
@@ -302,26 +239,87 @@ export default function ManageQuizzes() {
             </Grid>
           </div>
 
-          {/* question section */}
+          {submissions && (
+            <div className={classes.card}>
+              <Grid container spacing={1}>
+                <Grid item xs={12} md={6} lg={6} key={1}>
+                  <div>
+                    <Card elevation={1} className={classes.cardbody}>
+                      <CardHeader
+                        title="Grade"
+                        className={classes.cardHeader}
+                        action={
+                          <IconButton disabled="true">
+                            <CheckBoxOutlinedIcon
+                              style={{ color: "#4e73df" }}
+                            />
+                          </IconButton>
+                        }
+                      />
+                      <CardContent>
+                        <div>
+                          <Grid container spacing={3}>
+                            <Grid item xs={4} md={4} lg={4} key={5}>
+                              <Typography
+                                className={classes.card2}
+                                component="h2"
+                                variant="h5"
+                              >
+                                Status:
+                              </Typography>
+                            </Grid>
+                            <Grid item xs={4} md={34} lg={4} key={5}>
+                              <Typography
+                                className={classes.card2}
+                                component="h2"
+                                variant="h6"
+                              >
+                                {submissions.quiz_status}
+                              </Typography>
+                            </Grid>
+                            <Grid item xs={4} md={43} lg={4} key={5}></Grid>
 
-          {quizQuestion && (
-            <Question data={quizQuestion} handleSubmit={handleSubmit} />
+                            <Grid item xs={4} md={4} lg={4} key={5}>
+                              <Typography
+                                className={classes.card2}
+                                component="h2"
+                                variant="h5"
+                              >
+                                Grade:
+                              </Typography>
+                            </Grid>
+                            <Grid item xs={4} md={34} lg={4} key={5}>
+                              <Typography
+                                className={classes.card2}
+                                component="h2"
+                                variant="h6"
+                              >
+                                {submissions.score}
+                              </Typography>
+                            </Grid>
+                            <Grid item xs={4} md={43} lg={4} key={5}></Grid>
+                          </Grid>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </Grid>
+              </Grid>
+            </div>
           )}
-
-          {/* quiz done */}
-          {quizDone && (
+          {noSubmissions && (
             <Typography
-              className={classes.quizdone}
+              className={classes.emptyState}
               component="h2"
               variant="h4"
             >
-              Wohoo No More Questions!!!
+              The quiz is not submitted yet
             </Typography>
           )}
         </div>
       ) : (
         <Typography className={classes.emptyState} component="h2" variant="h4">
-          No quizzes for this course.
+          No Quizzes for this course <ErrorOutlineIcon />
         </Typography>
       )}
     </LayoutCourse>
