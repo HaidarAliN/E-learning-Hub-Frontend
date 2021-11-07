@@ -125,7 +125,7 @@ export default function CourseDashboard() {
                     className={classes.cardHeader}
                     action={
                       <IconButton
-                        onClick={() => history.push("/course/ManageQuizzes")}
+                        onClick={() => history.push("/course/ManageStudents")}
                       >
                         <SupervisorAccountIcon style={{ color: "#2c9faf" }} />
                       </IconButton>
