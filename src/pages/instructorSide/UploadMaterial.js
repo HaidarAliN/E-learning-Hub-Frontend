@@ -87,6 +87,7 @@ export default function UploadMaterial() {
   const [nameError, setNameError] = useState(false);
   const [chapterDescriptionError, setChapterDescriptionError] = useState(false);
   const [rows2, setrow2] = useState(null);
+  const [extention, setExtention] = useState(null);
   const [access_token, setAccess_token] = useState(
     JSON.parse(localStorage.getItem("access_token"))
   );
@@ -128,10 +129,14 @@ export default function UploadMaterial() {
       setChapterDescriptionError(true);
     }
     if (chapterName && chapterDescription && pdfData) {
-      addchapt();
-      setChapterDescription("");
-      setChapterName("");
-      setPdfData(null);
+      if (extention != "pdf") {
+        alert("You can only upload pdf files");
+      } else {
+        addchapt();
+        setChapterDescription("");
+        setChapterName("");
+        setPdfData(null);
+      }
     }
   };
 
@@ -198,7 +203,6 @@ export default function UploadMaterial() {
     );
     const data_fetched = response.data;
     if (data_fetched) {
-      console.log(data_fetched);
       getData();
     }
   };
@@ -220,6 +224,8 @@ export default function UploadMaterial() {
 
   const uploadFile = async (e) => {
     const file = e.target.files[0];
+    const nameArr = e.target.files[0].name.split(".");
+    setExtention(nameArr[1]);
     const base64 = await convertBase64(file); //encrypt the file
     const base = base64.split(","); //split the encypted data
     setPdfData(base[1]);
