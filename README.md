@@ -11,7 +11,7 @@
 
 - ### Instructore Side:
 - Create Courses
-- Uplaod Mateial
+- Upload Material
 - Manage Quizzes
 - Manage Students
 - View Students Submissions
@@ -33,8 +33,8 @@
 
 - [React] - A JavaScript library for building user interfaces!
 - [Material UI] - A design language developed by Google
-- [Firebase] - Used for push notifcations
-- [Laravel Web Server] - The web serve of the app is built using [Laravel] and running on my [Amazon EC2] server
+- [Firebase] - Used for push notifications
+- [Laravel Web Server] - The web server of the app is built using [Laravel] and running on my [Amazon EC2] server
 - [Recharts] - A composable charting library built on React components
 
 
@@ -75,7 +75,7 @@ Firebase:
       measurementId: "G-C2NDK0ST7D",
     };
     ```
-Go to BaseUrl.js file in src/services/BaseUrl.js, and change the ip adress in the base URl acording to your ip address (in my case i am using the domain of my webserver)
+Go to BaseUrl.js file in src/services/BaseUrl.js, and change the IP address in the base URL according to your IP address (in my case I am using the domain of my webserver)
 
 To run the application, run the following command:
 ```sh
