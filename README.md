@@ -1,4 +1,4 @@
-# E-Learning Hub webapp
+# E-Learning Hub Web App
 ## React, Material UI, Firebase
 
 ## Features
